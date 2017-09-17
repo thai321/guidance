@@ -15,6 +15,7 @@
     - **id**
     - **username**
     - **img_url**
+    - **project_ids:** **Array** of **projects** belong to user
     - <u>**allIds:**</u> All Ids of users
   - **`steps:`** **Object** that hold the step's
     - **id**
@@ -78,17 +79,20 @@
       2: {
         id: 2,
         username: 'Cat 2',
-        img_url: 'https://images...'
+        img_url: 'https://images...',
+        project_ids: [3]
       },
       3: {
         id: 3,
         username: 'Cat 3',
-        img_url: 'https://images...'
+        img_url: 'https://images...',
+        project_ids: [1]
       },
       4: {
         id: 4,
         username: 'Cat 4',
-        img_url: 'https://images...'
+        img_url: 'https://images...',
+        project_ids: [2]
       },
 
       allIds: [2, 3, 4]

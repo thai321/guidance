@@ -38,3 +38,5 @@
 - `/projects/:projectId/steps/new` - create a step
 - `/projects/:projectId/steps/:stepId` - step show
 - `/projects/:projectId/steps/:stepId/edit` - update step
+- `/users` - all users (user feed)
+- `/users/:userId` - user show page
