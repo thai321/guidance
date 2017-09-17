@@ -5,24 +5,27 @@
     - **id**
     - **title**
     - **description**
-    - **images_url**
+    - **img_url**
     - **published**
     - **author_id**
     - **step_ids:** **Array** of **steps** belong to project
     - **comment_ids:** **Array** of **comments** belong to project
+    - <u>**allIds:**</u> All Ids of projects
   - **`users:`** **Object** that hold user's
     - **id**
     - **username**
     - **img_url**
+    - <u>**allIds:**</u> All Ids of users
   - **`steps:`** **Object** that hold the step's
     - **id**
     - **title**
     - **body**
-    - **project_id**
+    - <u>**allIds:**</u> All Ids of steps
   - **`comments:`** **Object** that hold the comment's
     - **id**
     - **body**
     - **author_id**
+    - <u>**allIds:**</u> All Ids of comments
 - **`ui:`** **Object** that hold user interface data
   - **`loading:`** value can be **true or false**, default to false
 - **`errors:`** **Object** of errors which is sent back from the server
@@ -43,7 +46,7 @@
         description: 'description 1'
         img_url: 'https://images...',
         published: true,
-        user_id: 3,
+        author_id: 3,
         step_ids: [1, 2, 3],
         comment_ids: [1, 2]
       },
@@ -53,7 +56,7 @@
         description: 'description 2'
         img_url: 'https://images...',
         published: false,
-        user_id: 4,
+        author_id: 4,
         step_ids: [4, 5],
         comment_ids: [3, 4, 5]
       },
@@ -63,12 +66,12 @@
         description: 'description 1'
         img_url: 'https://images...',
         published: true,
-        user_id: 2,
+        author_id: 2,
         step_ids: [6,7],
         comment_ids: [6, 7, 8]
       },
 
-      allIds: [1,2,3]
+      allIds: [1, 2, 3]
     }, // end projects
 
     users: {
@@ -86,7 +89,9 @@
         id: 4,
         username: 'Cat 4',
         img_url: 'https://images...'
-      }
+      },
+
+      allIds: [2, 3, 4]
     }, // end users
 
     steps: {
@@ -124,7 +129,9 @@
         id: 7,
         title: 'Project 3 Step 2',
         body: 'Project 3 Step 2 do ...'
-      }
+      },
+
+      allIds: [1, 2, 3, 4, 5, 6, 7]
     }, // end steps
 
     comments: {
@@ -168,6 +175,8 @@
         body: 'Project 3 comment 8 by User 3',
         author_id: 3
       },
+
+      allIds: [1, 2, 3, 4, 5, 6, 7, 8]
     } // end comments
   }, // end entities
 
@@ -190,5 +199,4 @@
     }
   } // end errors
 } // end data packpage object
-
 ```
