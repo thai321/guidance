@@ -16,6 +16,7 @@ Gemfile.lock
 /yarn-error.log
 
 
-.keys.js
+key.js
+keys.js
 secrets_backup.yml
 package-lock.json
