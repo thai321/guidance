@@ -92,7 +92,7 @@
 
 
 ## Project Search
-- `ProjectSearchIndexContainer` + `ProjectSearchIndex`
+- `ProjectSearchContainer` + `ProjectSearch`
   - **Route:** '/'
   - State: `ui`
   - Components:
