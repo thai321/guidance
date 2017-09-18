@@ -85,6 +85,12 @@
     - `state.errors.stepForm`
 
 
+## Session
+- `SessionFormContainer` + `SessionForm`
+  - **Route:** `/login` and `/signup`
+  - **State:** `errors.login`
+
+
 ## Project Search
 - `ProjectSearchIndexContainer` + `ProjectSearchIndex`
   - **Route:** '/'
