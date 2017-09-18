@@ -11,20 +11,29 @@
 - `NavBar`
   - Components:
     - `SessionButtonsContainer` + `SessionButtons`
-      - **State**: `session`
+      - **State:** `session`
     - `SearchProjectsContainer` + `SearchProjects`
-      - **State**: `entities.projects`
+      - **State:** `entities.projects`
 
 **Note:** All other components are rendered inside of `MainPage`
+
+## Users
+- `UserIndexContainer` + `UserIndex`
+  - **Route:** `/users/currentUser.id`
+  - **State:** `projects:` `fetchProjectsByUser(state, currentUser.id)`
+  - Components:
+    - `UserIndexItem`
+      - **State:** `project`
+
 
 ## Projects
 - `ProjectIndexContainer` + `ProjectIndex`
   - **Route:** `/`
   - **State:** `entities.projects`
-  - **Dispatch:** `fetchAllProjects`
+  - **Dispatch:** `projects:` `fetchAllProjects`
   - Components:
     - `ProjectItem`
-      - **State:** `entities.projects[:id]`
+      - **State:** `project`
 
 - `ProjectShowContainer` + `ProjectShow`
   - **Route:** `/projects/:projectId`
@@ -34,13 +43,16 @@
     - **comments:**`entities.projects[:id].comment_ids`
     - **ui:** `state.ui`
   - Components:
-    - `Steps`
-      - **State:** `steps`
-    - `CommentFormContainer` + `CommentForm`
-      - **State:** `state.errors.commentForm`
-      - **Dispatch** `updateProject(project)`
-    - `ProjectComments`
-      - **State:** `comments` (each comment have author_id)
+    - `StepItem`
+      - **State:** `step`
+    - CommentShow:
+      - **State:** `comments`, `projectId`(from url)
+      - Components:
+        - `CommentFormContainer` + `CommentForm`
+          - **State:** `state.errors.commentForm`
+          - **Dispatch** `updateProject(project)`
+        - `CommentItem`
+          - **State:** `comment` (each comment have author_id)
 
 
 - `ProjectFormContainer` + `ProjectForm`
@@ -96,5 +108,8 @@
   - **Route:** '/'
   - State: `ui`
   - Components:
-    - `ProjectSearchIndexItem`
+    - `ProjectSearchIndex`
     - **State:** none (will be made with separate ajax)
+      - Components:
+        - `ProjectSearchIndexItem`
+          - **State:** none (will be made with separate ajax)
