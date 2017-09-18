@@ -6,6 +6,7 @@
     - **title**
     - **description**
     - **img_url**
+    - **video_url**
     - **published**
     - **author_id**
     - **step_ids:** **Array** of **steps** belong to project
@@ -46,6 +47,7 @@
         title: 'Project1',
         description: 'description 1'
         img_url: 'https://images...',
+        video_url: 'https://videos...',
         published: true,
         author_id: 3,
         step_ids: [1, 2, 3],
@@ -56,6 +58,7 @@
         title: 'Project2',
         description: 'description 2'
         img_url: 'https://images...',
+        video_url: 'https://videos...',
         published: false,
         author_id: 4,
         step_ids: [4, 5],
@@ -66,6 +69,7 @@
         title: 'Project1',
         description: 'description 1'
         img_url: 'https://images...',
+        video_url: 'https://videos...',
         published: true,
         author_id: 2,
         step_ids: [6,7],

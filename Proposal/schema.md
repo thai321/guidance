@@ -24,6 +24,7 @@
 | `title`           	| string        	| not null, indexed                                 	|
 | `description`     	| text          	| not null                                          	|
 | `image_url`       	| string        	| not null                                          	|
+| `video_url`       	| string        	| not null                                          	|
 | `published`       	| boolean       	| not null, default: false, includes: [true, false] 	|
 | `author_id`       	| integer       	| not null, indexed, foreign key                    	|
 | `created_at`      	| date time     	| not null                  	|
