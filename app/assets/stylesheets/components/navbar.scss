@@ -1,0 +1,54 @@
+// nav {
+//   display: flex;
+//
+//   /* how to vertically center elements */
+//   align-items: center;
+//
+//   /* how these elements will be distributed horizontally */
+//   justify-content: center;
+//
+//   margin: 20px;
+// }
+//
+//
+// nav #logo {
+//   justify-content:flex-start;
+// }
+
+header {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+header {
+  margin: 20px 0;
+  flex: 1 100%;
+}
+
+header ul li {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+header,
+header ul {
+  display: flex;
+}
+
+header {
+  justify-content: space-between;
+}
+
+header ul {
+  align-items: center;
+}
+
+.login li {
+  list-style: none;
+}
+
+.welcome h1 {
+  font-size: 20px;
+  display: inline-block;
+  padding-right: 20px;
+}
