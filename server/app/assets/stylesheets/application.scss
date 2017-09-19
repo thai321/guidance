@@ -13,14 +13,16 @@
  *= require_self
  */
 
-@import 'base/reset';
+@import 'bootstrap';
 
-// Components
-@import 'components/navbar';
-
-// Body
-body {
-  width: 100%;
-  // display: flex;
-  flex-wrap: wrap;
-}
+// @import 'base/reset';
+//
+// // Components
+// @import 'components/navbar';
+//
+// // Body
+// body {
+//   width: 100%;
+//   // display: flex;
+//   flex-wrap: wrap;
+// }

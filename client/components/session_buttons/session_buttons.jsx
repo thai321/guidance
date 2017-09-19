@@ -5,15 +5,21 @@ const SessionForm = ({ currentUser, logout }) =>
   currentUser ? (
     <div className="welcome">
       <h1>Welcome {currentUser.username}</h1>
-      <button onClick={logout}>Log Out</button>
+      <button className="btn btn-small btn-danger" onClick={logout}>
+        Log Out
+      </button>
     </div>
   ) : (
     <ul className="login">
       <li>
-        <Link to="/signup">Signup</Link>
+        <Link className="btn btn-small btn-primary" to="/signup">
+          Signup
+        </Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link className="btn btn-small btn-primary" to="/login">
+          Login
+        </Link>
       </li>
     </ul>
   );
