@@ -5,10 +5,18 @@ class SessionForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      username: '',
-      password: ''
-    };
+    if (this.props.formType === 'signup') {
+      this.state = {
+        username: '',
+        email: '',
+        password: ''
+      };
+    } else {
+      this.state = {
+        username: '',
+        password: ''
+      };
+    }
 
     this.handleSumbit = this.handleSumbit.bind(this);
   }
@@ -42,6 +50,24 @@ class SessionForm extends React.Component {
     );
   }
 
+  displayEmail() {
+    if (this.props.formType === 'signup') {
+      return (
+        <div>
+          <br />
+          <label>
+            Email:
+            <input
+              type="text"
+              value={this.state.email}
+              onChange={this.update('email')}
+            />
+          </label>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div>
@@ -59,6 +85,7 @@ class SessionForm extends React.Component {
               onChange={this.update('username')}
             />
           </label>
+          {this.displayEmail()}
           <br />
           <label>
             Password

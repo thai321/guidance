@@ -11,8 +11,13 @@
 #
 
 class User < ApplicationRecord
-  validates :username, :password_digest, :session_token, presence: true
+  validates :username, :email, :password_digest, :session_token, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
+
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  validates :email, presence: true, length: { maximum: 30 },
+                   format: { with: VALID_EMAIL_REGEX },
+                   uniqueness: { case_sensitive: false }
 
   after_initialize :ensure_session_token
 
