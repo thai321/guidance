@@ -18,11 +18,11 @@
 // @import 'base/reset';
 //
 // // Components
-// @import 'components/navbar';
-//
-// // Body
-// body {
-//   width: 100%;
-//   // display: flex;
-//   flex-wrap: wrap;
-// }
+@import 'components/navbar';
+@import 'components/session_form';
+
+body {
+  width: 100%;
+  // display: flex;
+  flex-wrap: wrap;
+}
