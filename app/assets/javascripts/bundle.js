@@ -12957,7 +12957,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state) {
   return {
     projectIds: Object.values(state.entities.projects.allIds),
-    projects: state.entities.projects
+    projects: state.entities.projects,
+    currentUser: state.session.currentUser
   };
 };
 
@@ -30296,11 +30297,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ProjectIndexItem = function ProjectIndexItem(_ref) {
   var project = _ref.project;
   var title = project.title,
-      description = project.description;
+      description = project.description,
+      image_url = project.image_url,
+      author_id = project.author_id,
+      currentUser = project.currentUser;
+
 
   return _react2.default.createElement(
     'div',
-    { className: 'col-md-3' },
+    { className: 'col col-md-3' },
     _react2.default.createElement(
       'li',
       null,
@@ -30308,23 +30313,17 @@ var ProjectIndexItem = function ProjectIndexItem(_ref) {
         _reactRouterDom.Link,
         { to: '/projects/' + project.id },
         _react2.default.createElement(
-          'h1',
+          'h2',
           null,
-          title
-        )
-      ),
-      _react2.default.createElement(
-        'h2',
-        null,
-        description
-      ),
-      _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: '/projects/' + project.id + '/edit' },
+          image_url
+        ),
+        _react2.default.createElement('img', { src: 'http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg' }),
         _react2.default.createElement(
-          'h1',
+          'h3',
           null,
-          'Edit'
+          title,
+          ' By ',
+          author_id
         )
       )
     )
