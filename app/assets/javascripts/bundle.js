@@ -12828,11 +12828,19 @@ var _root2 = _interopRequireDefault(_root);
 
 var _session_api_util = __webpack_require__(106);
 
-var Util = _interopRequireWildcard(_session_api_util);
+var SessionUtil = _interopRequireWildcard(_session_api_util);
+
+var _project_api_util = __webpack_require__(284);
+
+var ProjectUtil = _interopRequireWildcard(_project_api_util);
 
 var _session_actions = __webpack_require__(28);
 
-var Actions = _interopRequireWildcard(_session_actions);
+var SessionActions = _interopRequireWildcard(_session_actions);
+
+var _project_actions = __webpack_require__(285);
+
+var ProjectActions = _interopRequireWildcard(_project_actions);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -12854,8 +12862,11 @@ document.addEventListener('DOMContentLoaded', function () {
   window.getState = store.getState;
   window.dispatch = store.dispatch;
 
-  window.Actions = Actions;
-  window.Util = Util;
+  window.SessionUtil = SessionUtil;
+  window.ProjectUtil = ProjectUtil;
+
+  window.SessionActions = SessionActions;
+  window.ProjectActions = ProjectActions;
 
   var root = document.getElementById('root');
   _reactDom2.default.render(_react2.default.createElement(_root2.default, { store: store }), root);
@@ -25632,9 +25643,14 @@ var _errors_reducer = __webpack_require__(240);
 
 var _errors_reducer2 = _interopRequireDefault(_errors_reducer);
 
+var _entities_reducer = __webpack_require__(287);
+
+var _entities_reducer2 = _interopRequireDefault(_entities_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RootReducer = (0, _redux.combineReducers)({
+  entities: _entities_reducer2.default,
   session: _session_reducer2.default,
   errors: _errors_reducer2.default
 });
@@ -29397,6 +29413,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(29);
 
+var _route_util = __webpack_require__(283);
+
 var _session_buttons_container = __webpack_require__(279);
 
 var _session_buttons_container2 = _interopRequireDefault(_session_buttons_container);
@@ -29405,7 +29423,13 @@ var _session_form_container = __webpack_require__(281);
 
 var _session_form_container2 = _interopRequireDefault(_session_form_container);
 
-var _route_util = __webpack_require__(283);
+var _project_index_container = __webpack_require__(288);
+
+var _project_index_container2 = _interopRequireDefault(_project_index_container);
+
+var _project_show_container = __webpack_require__(291);
+
+var _project_show_container2 = _interopRequireDefault(_project_show_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29428,7 +29452,17 @@ var App = function App() {
       _react2.default.createElement(_session_buttons_container2.default, null)
     ),
     _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _session_form_container2.default }),
-    _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _session_form_container2.default })
+    _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _session_form_container2.default }),
+    _react2.default.createElement(
+      _reactRouterDom.Switch,
+      null,
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _project_index_container2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, {
+        exact: true,
+        path: '/projects/:projectId',
+        component: _project_show_container2.default
+      })
+    )
   );
 };
 
@@ -29559,8 +29593,6 @@ var _session_form2 = _interopRequireDefault(_session_form);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  // console.log(ownProps);
-
   var loggedIn = Boolean(state.session.currentUser);
   var errors = state.errors.session;
 
@@ -29605,6 +29637,10 @@ var _react = __webpack_require__(5);
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(29);
+
+var _project_index_container = __webpack_require__(288);
+
+var _project_index_container2 = _interopRequireDefault(_project_index_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29815,7 +29851,8 @@ var SessionForm = function (_React$Component) {
               )
             )
           )
-        )
+        ),
+        _react2.default.createElement(_project_index_container2.default, null)
       );
     }
   }]);
@@ -29885,6 +29922,512 @@ var mapStateToProps = function mapStateToProps(state) {
 var AuthRoute = exports.AuthRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Auth));
 
 var ProtectedRoute = exports.ProtectedRoute = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(Protected));
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchProjects = exports.fetchProjects = function fetchProjects() {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/projects'
+  });
+};
+
+var fetchProject = exports.fetchProject = function fetchProject(id) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/projects/' + id
+  });
+};
+
+var createProject = exports.createProject = function createProject(project) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/projects',
+    data: { project: project }
+  });
+};
+
+var updateProject = exports.updateProject = function updateProject(project) {
+  return $.ajax({
+    method: 'PATCH',
+    url: 'api/projects/' + project.id,
+    data: { project: project }
+  });
+};
+
+var deleteProject = exports.deleteProject = function deleteProject(id) {
+  return $.ajax({
+    method: 'DELETE',
+    url: 'api/projects/' + id
+  });
+};
+
+/***/ }),
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.deleteProject = exports.updateProject = exports.createProject = exports.fetchProject = exports.fetchProjects = exports.REMOVE_PROJECT = exports.RECEIVE_PROJECT = exports.RECEIVE_ALL_PROJECTS = undefined;
+
+var _project_api_util = __webpack_require__(284);
+
+var ProjectApiUtil = _interopRequireWildcard(_project_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_ALL_PROJECTS = exports.RECEIVE_ALL_PROJECTS = 'RECEIVE_ALL_PROJECTS';
+var RECEIVE_PROJECT = exports.RECEIVE_PROJECT = 'RECEIVE_PROJECT';
+var REMOVE_PROJECT = exports.REMOVE_PROJECT = 'REMOVE_PROJECT';
+
+var receiveAllProjects = function receiveAllProjects(projects) {
+  return {
+    type: RECEIVE_ALL_PROJECTS,
+    projects: projects
+  };
+};
+
+var receiveProject = function receiveProject(project) {
+  return {
+    type: RECEIVE_PROJECT,
+    project: project
+  };
+};
+
+var removeProject = function removeProject(project) {
+  return {
+    type: REMOVE_PROJECT,
+    project: project
+  };
+};
+
+var fetchProjects = exports.fetchProjects = function fetchProjects() {
+  return function (dispatch) {
+    return ProjectApiUtil.fetchProjects().then(function (projects) {
+      return dispatch(receiveAllProjects(projects));
+    });
+  };
+};
+
+var fetchProject = exports.fetchProject = function fetchProject(id) {
+  return function (dispatch) {
+    return ProjectApiUtil.fetchProject(id).then(function (project) {
+      return dispatch(receiveProject(project));
+    });
+  };
+};
+
+var createProject = exports.createProject = function createProject(project) {
+  return function (dispatch) {
+    return ProjectApiUtil.createProject(project).then(function (proj) {
+      return dispatch(receiveProject(proj));
+    });
+  };
+};
+
+var updateProject = exports.updateProject = function updateProject(project) {
+  return function (dispatch) {
+    return ProjectApiUtil.updateProject(project).then(function (proj) {
+      return dispatch(receiveProject(proj));
+    });
+  };
+};
+
+var deleteProject = exports.deleteProject = function deleteProject(id) {
+  return function (dispatch) {
+    return ProjectApiUtil.deleteProject(id).then(function (proj) {
+      return dispatch(removeProject(proj));
+    });
+  };
+};
+
+/***/ }),
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _project_actions = __webpack_require__(285);
+
+var _defaultState = {
+  allIds: []
+};
+
+var ProjectsReducer = function ProjectsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultState;
+  var action = arguments[1];
+
+  Object.freeze(state);
+  var newState = void 0;
+
+  switch (action.type) {
+    case _project_actions.RECEIVE_ALL_PROJECTS:
+      var projects = Object.values(action.projects);
+      var allIds = projects.map(function (project) {
+        return project.id;
+      });
+      newState = { allIds: allIds };
+
+      projects.map(function (project) {
+        return newState[project.id] = project;
+      });
+
+      return newState;
+
+    case _project_actions.RECEIVE_PROJECT:
+      newState = Object.assign({}, state);
+      newState[action.project.id] = action.project;
+      if (!newState.allIds.includes(action.project.id)) newState.allIds.push(action.project.id);
+
+      return newState;
+    case _project_actions.REMOVE_PROJECT:
+      newState = Object.assign({}, state);
+
+      var projectId = action.project.id;
+      // if (newState.allIds.includes(action.project.id)) {
+      var i = newState.allIds.indexOf(action.project.id);
+      newState.allIds = newState.allIds.slice(0, i).concat(newState.allIds.slice(i + 1));
+
+      delete newState[projectId];
+      // }
+
+      return newState;
+    default:
+      return state;
+  }
+};
+
+exports.default = ProjectsReducer;
+
+/***/ }),
+/* 287 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _redux = __webpack_require__(40);
+
+var _projects_reducer = __webpack_require__(286);
+
+var _projects_reducer2 = _interopRequireDefault(_projects_reducer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var RootReducer = (0, _redux.combineReducers)({
+  projects: _projects_reducer2.default
+});
+
+exports.default = RootReducer;
+
+/***/ }),
+/* 288 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(41);
+
+var _project_actions = __webpack_require__(285);
+
+var _project_index = __webpack_require__(289);
+
+var _project_index2 = _interopRequireDefault(_project_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    projectIds: Object.values(state.entities.projects.allIds),
+    projects: state.entities.projects
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchProjects: function fetchProjects() {
+      return dispatch((0, _project_actions.fetchProjects)());
+    },
+    fetchProject: function fetchProject(id) {
+      return dispatch((0, _project_actions.fetchProjects)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_project_index2.default);
+
+/***/ }),
+/* 289 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _project_index_item = __webpack_require__(290);
+
+var _project_index_item2 = _interopRequireDefault(_project_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProjectIndex = function (_React$Component) {
+  _inherits(ProjectIndex, _React$Component);
+
+  function ProjectIndex(props) {
+    _classCallCheck(this, ProjectIndex);
+
+    return _possibleConstructorReturn(this, (ProjectIndex.__proto__ || Object.getPrototypeOf(ProjectIndex)).call(this, props));
+  }
+
+  _createClass(ProjectIndex, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchProjects();
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'ul',
+          null,
+          this.props.projectIds.map(function (id) {
+            var project = _this2.props.projects[id];
+
+            return _react2.default.createElement(_project_index_item2.default, { key: project.title, project: project });
+          })
+        )
+      );
+    }
+  }]);
+
+  return ProjectIndex;
+}(_react2.default.Component);
+
+exports.default = ProjectIndex;
+
+/***/ }),
+/* 290 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(29);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ProjectIndexItem = function ProjectIndexItem(_ref) {
+  var project = _ref.project;
+  var title = project.title,
+      description = project.description;
+
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      _reactRouterDom.Link,
+      { to: '/projects/' + project.id },
+      _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          title
+        ),
+        _react2.default.createElement(
+          'h2',
+          null,
+          description
+        )
+      )
+    )
+  );
+};
+
+exports.default = ProjectIndexItem;
+
+/***/ }),
+/* 291 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(41);
+
+var _project_show = __webpack_require__(292);
+
+var _project_show2 = _interopRequireDefault(_project_show);
+
+var _project_actions = __webpack_require__(285);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  return {
+    project: state.entities.projects[ownProps.match.params.projectId]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchProject: function fetchProject(id) {
+      return dispatch((0, _project_actions.fetchProject)(id));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_project_show2.default);
+
+/***/ }),
+/* 292 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(5);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(29);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProjectShow = function (_React$Component) {
+  _inherits(ProjectShow, _React$Component);
+
+  function ProjectShow() {
+    _classCallCheck(this, ProjectShow);
+
+    return _possibleConstructorReturn(this, (ProjectShow.__proto__ || Object.getPrototypeOf(ProjectShow)).apply(this, arguments));
+  }
+
+  _createClass(ProjectShow, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchProject(this.props.match.params.projectId);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.props.fetchProject(nextProps.match.params.projectId);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var project = this.props.project;
+
+      if (!project) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          'Loading...'
+        );
+      }
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'TESETSETEST'
+        ),
+        _react2.default.createElement(
+          'h1',
+          null,
+          project.title
+        ),
+        _react2.default.createElement(
+          'h1',
+          null,
+          project.description
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: '/' },
+          'Back to Index'
+        )
+      );
+    }
+  }]);
+
+  return ProjectShow;
+}(_react2.default.Component);
+
+exports.default = ProjectShow;
 
 /***/ })
 /******/ ]);

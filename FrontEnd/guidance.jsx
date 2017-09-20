@@ -5,8 +5,11 @@ import configureStore from './store/store';
 
 import Root from './components/root';
 
-import * as Util from './util/session_api_util';
-import * as Actions from './actions/session_actions';
+import * as SessionUtil from './util/session_api_util';
+import * as ProjectUtil from './util/project_api_util';
+
+import * as SessionActions from './actions/session_actions';
+import * as ProjectActions from './actions/project_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
@@ -24,8 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
   window.getState = store.getState;
   window.dispatch = store.dispatch;
 
-  window.Actions = Actions;
-  window.Util = Util;
+  window.SessionUtil = SessionUtil;
+  window.ProjectUtil = ProjectUtil;
+
+  window.SessionActions = SessionActions;
+  window.ProjectActions = ProjectActions;
 
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);

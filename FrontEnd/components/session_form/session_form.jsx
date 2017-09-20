@@ -1,5 +1,8 @@
 import React from 'react';
+
 import { withRouter } from 'react-router-dom';
+
+import ProjectIndexContainer from '../project_index/project_index_container';
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -152,6 +155,8 @@ class SessionForm extends React.Component {
             </div>
           </div>
         </form>
+
+        <ProjectIndexContainer />
       </div>
     );
   }
