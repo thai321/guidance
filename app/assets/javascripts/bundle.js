@@ -30107,11 +30107,7 @@ var SessionForm = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'index-img' },
-            _react2.default.createElement(
-              'p',
-              null,
-              'hello'
-            )
+            _react2.default.createElement('img', { src: 'http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg' })
           ),
           _react2.default.createElement(
             'form',
