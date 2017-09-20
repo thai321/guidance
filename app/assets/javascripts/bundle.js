@@ -29558,7 +29558,9 @@ var _session_form2 = _interopRequireDefault(_session_form);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  // console.log(ownProps);
+
   var loggedIn = Boolean(state.session.currentUser);
   var errors = state.errors.session;
 
@@ -29622,12 +29624,21 @@ var SessionForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (SessionForm.__proto__ || Object.getPrototypeOf(SessionForm)).call(this, props));
 
-    _this.state = {
-      username: '',
-      password: ''
-    };
+    if (_this.props.formType === 'signup') {
+      _this.state = {
+        username: '',
+        email: '',
+        password: ''
+      };
+    } else {
+      _this.state = {
+        username: '',
+        password: ''
+      };
+    }
 
     _this.handleSumbit = _this.handleSumbit.bind(_this);
+    _this.clear = _this.clear.bind(_this);
     return _this;
   }
 
@@ -29638,7 +29649,6 @@ var SessionForm = function (_React$Component) {
 
       e.preventDefault();
       var user = Object.assign({}, this.state);
-      console.log(user);
       this.props.processForm(user).then(function () {
         return _this2.props.history.push('/');
       });
@@ -29674,50 +29684,135 @@ var SessionForm = function (_React$Component) {
       );
     }
   }, {
+    key: 'clear',
+    value: function clear() {
+      var form = this.props.formType === 'signup' ? {
+        username: '',
+        email: '',
+        password: ''
+      } : {
+        username: '',
+        password: ''
+      };
+      this.setState(form);
+    }
+  }, {
+    key: 'displayEmail',
+    value: function displayEmail() {
+      if (this.props.formType === 'signup') {
+        return _react2.default.createElement(
+          'div',
+          { className: 'form-group' },
+          _react2.default.createElement(
+            'label',
+            { className: 'col-md-6 control-label', 'for': 'email' },
+            'Email'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-12' },
+            _react2.default.createElement('input', {
+              type: 'email',
+              placeholder: 'name@example.com',
+              className: 'form-control input-md',
+              required: '',
+              value: this.state.email,
+              onChange: this.update('email')
+            })
+          )
+        );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var text = this.props.formType === 'signup' ? 'Register Yourself' : 'Please Login';
+
+      var buttonName = this.props.formType === 'signup' ? 'Register' : 'Sign In';
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'main-index' },
         this.displayErrors(),
         _react2.default.createElement(
+          'div',
+          { className: 'index-img' },
+          _react2.default.createElement(
+            'p',
+            null,
+            'hello'
+          )
+        ),
+        _react2.default.createElement(
           'form',
-          { onSubmit: this.handleSumbit },
-          'Welcome to BenchBnB!',
-          _react2.default.createElement('br', null),
-          this.props.formType,
-          ' Page',
-          _react2.default.createElement('br', null),
+          { className: 'form-horizontal session-form' },
           _react2.default.createElement(
-            'label',
-            null,
-            'Username:',
-            _react2.default.createElement('input', {
-              type: 'text',
-              value: this.state.username,
-              onChange: this.update('username')
-            })
+            'legend',
+            { className: 'text-session' },
+            text
           ),
-          _react2.default.createElement('br', null),
           _react2.default.createElement(
-            'label',
-            null,
-            'Password',
-            _react2.default.createElement('input', {
-              type: 'password',
-              value: this.state.password,
-              onChange: this.update('password')
-            }),
-            _react2.default.createElement('label', null),
-            _react2.default.createElement('br', null),
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { className: 'col-md-6 control-label', 'for': 'fname' },
+              'User Name'
+            ),
             _react2.default.createElement(
               'div',
-              { className: 'submitLogin' },
+              { className: 'col-md-12' },
               _react2.default.createElement('input', {
-                className: 'btn btn-lg btn-outline-primary',
-                type: 'submit',
-                value: 'Submit'
+                type: 'text',
+                placeholder: 'Your Name',
+                className: 'form-control input-md',
+                required: '',
+                value: this.state.username,
+                onChange: this.update('username')
               })
+            )
+          ),
+          this.displayEmail(),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { className: 'col-md-6 control-label', 'for': 'password' },
+              'Password'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-12' },
+              _react2.default.createElement('input', {
+                type: 'password',
+                placeholder: '',
+                className: 'form-control input-md',
+                required: '',
+                value: this.state.password,
+                onChange: this.update('password')
+              })
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-6' },
+              _react2.default.createElement(
+                'div',
+                { className: 'session-buttons' },
+                _react2.default.createElement(
+                  'button',
+                  { onClick: this.handleSumbit, className: 'btn btn-success' },
+                  buttonName
+                ),
+                _react2.default.createElement(
+                  'button',
+                  { onClick: this.clear, className: 'btn btn-danger' },
+                  'Reset'
+                )
+              )
             )
           )
         )
