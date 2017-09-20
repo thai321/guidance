@@ -9,7 +9,7 @@
 // }
 
 .main-index {
-  width: 95%;
+  width: 97%;
   display: flex;
   justify-content: center;
   height: 400px;
@@ -29,6 +29,18 @@
   display: block;
   background-color: red;
   width: 70%;
+  overflow: hidden;
+}
+
+.index-img img {
+  display: block;
+  min-width: 100%;
+  min-height: 100%;
+  position: relative;
+  // left: -5px;
+  // right: 20px;
+  top: -50px;
+  // background-position: right 20px bottom 10px;
 }
 
 .session-form {
