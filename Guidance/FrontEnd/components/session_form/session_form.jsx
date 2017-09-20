@@ -126,7 +126,7 @@ class SessionForm extends React.Component {
           {this.displayEmail()}
 
           <div className="form-group">
-            <label className="col-md-6 control-label" for="password">
+            <label className="col-md-6 control-label" htmlFor="password">
               Password
             </label>
             <div className="col-md-12">
