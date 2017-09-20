@@ -19,12 +19,12 @@ class SessionForm extends React.Component {
     }
 
     this.handleSumbit = this.handleSumbit.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   handleSumbit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-    console.log(user);
     this.props.processForm(user).then(() => this.props.history.push('/'));
   }
 
@@ -50,60 +50,107 @@ class SessionForm extends React.Component {
     );
   }
 
+  clear() {
+    const form =
+      this.props.formType === 'signup'
+        ? {
+            username: '',
+            email: '',
+            password: ''
+          }
+        : {
+            username: '',
+            password: ''
+          };
+    this.setState(form);
+  }
+
   displayEmail() {
     if (this.props.formType === 'signup') {
       return (
-        <div>
-          <br />
-          <label>
-            Email:
+        <div className="form-group">
+          <label className="col-md-6 control-label" for="email">
+            Email
+          </label>
+          <div className="col-md-12">
             <input
-              type="text"
+              type="email"
+              placeholder="name@example.com"
+              className="form-control input-md"
+              required=""
               value={this.state.email}
               onChange={this.update('email')}
             />
-          </label>
+          </div>
         </div>
       );
     }
   }
 
   render() {
+    const text =
+      this.props.formType === 'signup' ? 'Register Yourself' : 'Please Login';
+
+    const buttonName =
+      this.props.formType === 'signup' ? 'Register' : 'Sign In';
     return (
-      <div>
+      <div className="main-index">
         {this.displayErrors()}
-        <form onSubmit={this.handleSumbit}>
-          Welcome to BenchBnB!
-          <br />
-          {this.props.formType} Page
-          <br />
-          <label>
-            Username:
-            <input
-              type="text"
-              value={this.state.username}
-              onChange={this.update('username')}
-            />
-          </label>
-          {this.displayEmail()}
-          <br />
-          <label>
-            Password
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={this.update('password')}
-            />
-            <label />
-            <br />
-            <div className="submitLogin">
+
+        <div className="index-img">
+          <p>hello</p>
+        </div>
+
+        <form className="form-horizontal session-form">
+          <legend className="text-session">{text}</legend>
+
+          <div className="form-group">
+            <label className="col-md-6 control-label" for="fname">
+              User Name
+            </label>
+            <div className="col-md-12">
               <input
-                className="btn btn-lg btn-outline-primary"
-                type="submit"
-                value="Submit"
+                type="text"
+                placeholder="Your Name"
+                className="form-control input-md"
+                required=""
+                value={this.state.username}
+                onChange={this.update('username')}
               />
             </div>
-          </label>
+          </div>
+
+          {this.displayEmail()}
+
+          <div className="form-group">
+            <label className="col-md-6 control-label" for="password">
+              Password
+            </label>
+            <div className="col-md-12">
+              <input
+                type="password"
+                placeholder=""
+                className="form-control input-md"
+                required=""
+                value={this.state.password}
+                onChange={this.update('password')}
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <div className="col-md-6">
+              <div className="session-buttons">
+                <button onClick={this.handleSumbit} className="btn btn-success">
+                  {buttonName}
+                </button>
+
+                <button onClick={this.clear} className="btn btn-danger">
+                  Reset
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     );
