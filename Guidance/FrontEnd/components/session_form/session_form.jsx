@@ -72,7 +72,7 @@ class SessionForm extends React.Component {
     if (this.props.formType === 'signup') {
       return (
         <div className="form-group">
-          <label className="col-md-6 control-label" for="email">
+          <label className="col-md-6 control-label" htmlFor="email">
             Email
           </label>
           <div className="col-md-12">
@@ -97,66 +97,70 @@ class SessionForm extends React.Component {
     const buttonName =
       this.props.formType === 'signup' ? 'Register' : 'Sign In';
     return (
-      <div className="main-index">
-        {this.displayErrors()}
+      <div>
+        <div className="main-index">
+          {this.displayErrors()}
 
-        <div className="index-img">
-          <p>hello</p>
-        </div>
-
-        <form className="form-horizontal session-form">
-          <legend className="text-session">{text}</legend>
-
-          <div className="form-group">
-            <label className="col-md-6 control-label" for="fname">
-              User Name
-            </label>
-            <div className="col-md-12">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="form-control input-md"
-                required=""
-                value={this.state.username}
-                onChange={this.update('username')}
-              />
-            </div>
+          <div className="index-img">
+            <p>hello</p>
           </div>
 
-          {this.displayEmail()}
+          <form className="form-horizontal session-form">
+            <legend className="text-session">{text}</legend>
 
-          <div className="form-group">
-            <label className="col-md-6 control-label" htmlFor="password">
-              Password
-            </label>
-            <div className="col-md-12">
-              <input
-                type="password"
-                placeholder=""
-                className="form-control input-md"
-                required=""
-                value={this.state.password}
-                onChange={this.update('password')}
-              />
-            </div>
-          </div>
-
-          <div className="form-group">
-            <div className="col-md-6">
-              <div className="session-buttons">
-                <button onClick={this.handleSumbit} className="btn btn-success">
-                  {buttonName}
-                </button>
-
-                <button onClick={this.clear} className="btn btn-danger">
-                  Reset
-                </button>
+            <div className="form-group">
+              <label className="col-md-6 control-label">User Name</label>
+              <div className="col-md-12">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  className="form-control input-md"
+                  required=""
+                  value={this.state.username}
+                  onChange={this.update('username')}
+                />
               </div>
             </div>
-          </div>
-        </form>
 
-        <ProjectIndexContainer />
+            {this.displayEmail()}
+
+            <div className="form-group">
+              <label className="col-md-6 control-label" htmlFor="password">
+                Password
+              </label>
+              <div className="col-md-12">
+                <input
+                  type="password"
+                  placeholder=""
+                  className="form-control input-md"
+                  required=""
+                  value={this.state.password}
+                  onChange={this.update('password')}
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <div className="col-md-6">
+                <div className="session-buttons">
+                  <button
+                    onClick={this.handleSumbit}
+                    className="btn btn-success"
+                  >
+                    {buttonName}
+                  </button>
+
+                  <button onClick={this.clear} className="btn btn-danger">
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div className="project-index-session-form">
+          <ProjectIndexContainer />
+        </div>
       </div>
     );
   }

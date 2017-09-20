@@ -13,14 +13,14 @@ class ProjectIndex extends React.Component {
 
   render() {
     return (
-      <div>
-        <ul>
+      <div className="container-fluid">
+        <div className="row">
           {this.props.projectIds.map(id => {
             const project = this.props.projects[id];
 
             return <ProjectIndexItem key={project.title} project={project} />;
           })}
-        </ul>
+        </div>
       </div>
     );
   }
