@@ -30008,17 +30008,6 @@ var SessionForm = function (_React$Component) {
   }
 
   _createClass(SessionForm, [{
-    key: 'handleSumbit',
-    value: function handleSumbit(e) {
-      var _this2 = this;
-
-      e.preventDefault();
-      var user = Object.assign({}, this.state);
-      this.props.processForm(user).then(function () {
-        return _this2.props.history.push('/');
-      });
-    }
-  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       console.log(nextProps.loggedIn);
@@ -30027,10 +30016,10 @@ var SessionForm = function (_React$Component) {
   }, {
     key: 'update',
     value: function update(type) {
-      var _this3 = this;
+      var _this2 = this;
 
       return function (e) {
-        return _this3.setState(_defineProperty({}, type, e.currentTarget.value));
+        return _this2.setState(_defineProperty({}, type, e.currentTarget.value));
       };
     }
   }, {
@@ -30050,7 +30039,9 @@ var SessionForm = function (_React$Component) {
     }
   }, {
     key: 'clear',
-    value: function clear() {
+    value: function clear(e) {
+      e.preventDefault();
+
       var form = this.props.formType === 'signup' ? {
         username: '',
         email: '',
@@ -30060,6 +30051,17 @@ var SessionForm = function (_React$Component) {
         password: ''
       };
       this.setState(form);
+    }
+  }, {
+    key: 'handleSumbit',
+    value: function handleSumbit(e) {
+      var _this3 = this;
+
+      e.preventDefault();
+      var user = Object.assign({}, this.state);
+      this.props.processForm(user).then(function () {
+        return _this3.props.history.push('/');
+      });
     }
   }, {
     key: 'displayEmail',
@@ -30188,11 +30190,8 @@ var SessionForm = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(
-          'div',
-          { className: 'project-index-session-form' },
-          _react2.default.createElement(_project_index_container2.default, null)
-        )
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(_project_index_container2.default, null)
       );
     }
   }]);
@@ -30252,15 +30251,19 @@ var ProjectIndex = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'container-fluid' },
+        { className: 'project-index' },
         _react2.default.createElement(
           'div',
-          { className: 'row' },
-          this.props.projectIds.map(function (id) {
-            var project = _this2.props.projects[id];
+          { className: 'container-fluid' },
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            this.props.projectIds.map(function (id) {
+              var project = _this2.props.projects[id];
 
-            return _react2.default.createElement(_project_index_item2.default, { key: project.title, project: project });
-          })
+              return _react2.default.createElement(_project_index_item2.default, { key: project.title, project: project });
+            })
+          )
         )
       );
     }

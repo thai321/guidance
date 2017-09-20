@@ -20,6 +20,7 @@
 // // Components
 @import 'components/navbar';
 @import 'components/session_form';
+@import 'components/project_index';
 
 body {
   // width: 100%;
@@ -29,4 +30,10 @@ body {
 
 a:hover {
   text-decoration: none;
+}
+
+.col-md-3 {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }

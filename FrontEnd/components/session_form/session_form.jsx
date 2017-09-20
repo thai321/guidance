@@ -25,12 +25,6 @@ class SessionForm extends React.Component {
     this.clear = this.clear.bind(this);
   }
 
-  handleSumbit(e) {
-    e.preventDefault();
-    const user = Object.assign({}, this.state);
-    this.props.processForm(user).then(() => this.props.history.push('/'));
-  }
-
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.loggedIn);
     if (nextProps.loggedIn) return this.props.history.push('/');
@@ -53,7 +47,9 @@ class SessionForm extends React.Component {
     );
   }
 
-  clear() {
+  clear(e) {
+    e.preventDefault();
+
     const form =
       this.props.formType === 'signup'
         ? {
@@ -66,6 +62,12 @@ class SessionForm extends React.Component {
             password: ''
           };
     this.setState(form);
+  }
+
+  handleSumbit(e) {
+    e.preventDefault();
+    const user = Object.assign({}, this.state);
+    this.props.processForm(user).then(() => this.props.history.push('/'));
   }
 
   displayEmail() {
@@ -158,9 +160,9 @@ class SessionForm extends React.Component {
             </div>
           </form>
         </div>
-        <div className="project-index-session-form">
-          <ProjectIndexContainer />
-        </div>
+        <br />
+
+        <ProjectIndexContainer />
       </div>
     );
   }
