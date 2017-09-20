@@ -11,7 +11,8 @@
 .main-index {
   width: 95%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  height: 400px;
 }
 
 .session-buttons {
@@ -35,7 +36,7 @@
   display: flex;
   flex-direction: column;
   background-color: gray;
-  justify-content: flex-end;
+  justify-content: center;
   width: 30%;
   margin-left: 10px;
 
@@ -45,3 +46,7 @@
 .text-session {
   text-align: center;
 }
+//
+// .project-index-session-form {
+//   display: block;
+// }

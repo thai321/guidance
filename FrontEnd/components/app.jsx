@@ -8,6 +8,7 @@ import SessionFormContainer from './session_form/session_form_container';
 
 import ProjectIndexContainer from './project_index/project_index_container';
 import ProjectShowContainer from './project_show/project_show_container';
+import ProjectFormContainer from './project_form/project_form_container';
 
 const App = () => (
   <div>
@@ -23,10 +24,15 @@ const App = () => (
 
     <Switch>
       <Route exact path="/" component={ProjectIndexContainer} />
+      <Route path="/projects/new" component={ProjectFormContainer} />
       <Route
         exact
         path="/projects/:projectId"
         component={ProjectShowContainer}
+      />
+      <Route
+        path="/projects/:projectId/edit"
+        component={ProjectFormContainer}
       />
     </Switch>
   </div>
