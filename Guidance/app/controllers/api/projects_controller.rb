@@ -1,7 +1,7 @@
 class Api::ProjectsController < ApplicationController
   def index
-    if(params[:user_ids])
-      @projects = Project.where(id: params[:user_ids].map(&:to_i))
+    if(params[:project_ids])
+      @projects = Project.where(id: params[:project_ids].map(&:to_i))
     else
       @projects = Project.all
     end
@@ -47,6 +47,6 @@ class Api::ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:title, :description, :image_url, :video_url, :published, :author_id, user_ids: [])
+    params.require(:project).permit(:title, :description, :image_url, :video_url, :published, :author_id, project_ids: [])
   end
 end

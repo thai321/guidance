@@ -7,11 +7,13 @@ class UserIndexItem extends React.Component {
   }
 
   render() {
-    const { username } = this.props.user;
+    const { id, username } = this.props.user;
     const numProjects = this.props.user.project_ids.length;
     return (
       <div>
-        <h1>{username}</h1>
+        <Link to={`/users/${id}`}>
+          <h1>{username}</h1>
+        </Link>
         <h2>#Projects: {numProjects}</h2>
       </div>
     );

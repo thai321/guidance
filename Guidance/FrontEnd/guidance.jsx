@@ -13,6 +13,8 @@ import * as SessionActions from './actions/session_actions';
 import * as ProjectActions from './actions/project_actions';
 import * as UserActions from './actions/user_actions';
 
+import * as Selectors from './reducers/selectors';
+
 document.addEventListener('DOMContentLoaded', () => {
   let store;
   if (window.currentUser) {
@@ -36,6 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.SessionActions = SessionActions;
   window.ProjectActions = ProjectActions;
   window.UserActions = UserActions;
+
+  window.Selectors = Selectors;
 
   const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
