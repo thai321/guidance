@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 // import { projectByIds } from '../../reducers/selectors';
 
+import ProjectIndexItem from '../project_index/project_index_item';
+
 class UserShow extends React.Component {
   constructor(props) {
     super(props);
@@ -25,9 +27,16 @@ class UserShow extends React.Component {
       const { user } = this.props;
 
       return (
-        <div>
-          <h1>User Show Page</h1>
-          {this.props.projectsByUser.map(project => <h1>{project.title}</h1>)}
+        <div className="project-index">
+          <div className="container-fluid">
+            <h1>{user.username}</h1>
+            <img src={user.image_url} />
+            <div className="row">
+              {this.props.projectsByUser.map(project => (
+                <ProjectIndexItem project={project} />
+              ))}
+            </div>
+          </div>
         </div>
       );
     }

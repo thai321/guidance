@@ -95,6 +95,7 @@ class ProjectForm extends React.Component {
                         </div>
                       </div>
 
+                      {/*
                       <div className="form-group">
                         <span className="col-md-1 col-md-offset-2 text-center">
                           <i className="fa fa-file-image-o bigicon fa-lg" />
@@ -110,6 +111,7 @@ class ProjectForm extends React.Component {
                         </div>
                       </div>
 
+                      */}
                       <div className="form-group">
                         <span className="col-md-1 col-md-offset-2 text-center">
                           <i className="fa fa-video-camera bigicon fa-lg" />

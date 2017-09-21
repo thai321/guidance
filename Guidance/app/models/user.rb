@@ -20,6 +20,9 @@ class User < ApplicationRecord
                    format: { with: VALID_EMAIL_REGEX },
                    uniqueness: { case_sensitive: false }
 
+  has_attached_file :image, default_url: "my_cat.jpg"
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+
   after_initialize :ensure_session_token
 
   attr_reader :password

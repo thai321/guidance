@@ -36,6 +36,8 @@ gem 'bootstrap', '~> 4.0.0.beta'
 # gem 'rails_12factor'
 gem "font-awesome-rails"
 gem "paperclip"
+gem "figaro"
+gem 'aws-sdk', '< 3.0'
 
 
 group :development, :test do
