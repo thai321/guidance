@@ -80,7 +80,7 @@ class SessionForm extends React.Component {
           <div className="col-md-12">
             <input
               type="email"
-              placeholder="&#xf003; name@example.com"
+              placeholder="&#xf003; thainguyen@example.com"
               className="form-control input-md"
               required=""
               value={this.state.email}
@@ -116,7 +116,7 @@ class SessionForm extends React.Component {
               <div className="col-md-12">
                 <input
                   type="text"
-                  placeholder="&#xf007; Thai Nguyen"
+                  placeholder="&#xf007; thainguyen"
                   className="form-control input-md"
                   required=""
                   value={this.state.username}

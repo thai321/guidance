@@ -15,31 +15,31 @@
 //   justify-content:flex-start;
 // }
 
-header {
+nav {
   background: rgba(0, 0, 0, 0.3);
   padding: 20px;
 }
 
-header {
+nav {
   margin: 20px 0;
   flex: 1 100%;
 }
 
-header ul li {
+nav ul li {
   margin-left: 20px;
   font-size: 20px;
 }
 
-header,
-header ul {
+nav,
+nav ul {
   display: flex;
 }
 
-header {
+nav {
   justify-content: space-between;
 }
 
-header ul {
+nav ul {
   align-items: center;
 }
 
@@ -49,6 +49,23 @@ header ul {
 
 .welcome h1 {
   font-size: 20px;
-  display: inline-block;
+  display: flex;
   padding-right: 20px;
+}
+
+.new-project-button {
+  // display: flex !important;
+  // justify-content: center !important;
+  margin-right: 100px;
+}
+
+.nav-home {
+  // position: fixed;
+  // display: flex;
+  // height: px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
 }

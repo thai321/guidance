@@ -3,39 +3,49 @@ import { Route, Link, Switch } from 'react-router-dom';
 
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
-import SessionButtonsContainer from './session_buttons/session_buttons_container';
+import NavContainer from './nav/nav_container';
+
 import SessionFormContainer from './session_form/session_form_container';
 
 import ProjectIndexContainer from './project_index/project_index_container';
 import ProjectShowContainer from './project_show/project_show_container';
 import ProjectFormContainer from './project_form/project_form_container';
 
-const App = () => (
-  <div>
-    <header>
-      <Link to="/">
-        <h1>Guidance App</h1>
-      </Link>
-      <SessionButtonsContainer />
-    </header>
+// const App = () => {
+// const {state} =
+// console.log(this.props);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-    <AuthRoute path="/login" component={SessionFormContainer} />
-    <AuthRoute path="/signup" component={SessionFormContainer} />
+  render() {
+    console.log(this.props);
+    return (
+      <div className="app">
+        <NavContainer />
 
-    <Switch>
-      <Route exact path="/" component={ProjectIndexContainer} />
-      <Route path="/projects/new" component={ProjectFormContainer} />
-      <Route
-        exact
-        path="/projects/:projectId"
-        component={ProjectShowContainer}
-      />
-      <Route
-        path="/projects/:projectId/edit"
-        component={ProjectFormContainer}
-      />
-    </Switch>
-  </div>
-);
+        <div className="main-app">
+          <AuthRoute path="/login" component={SessionFormContainer} />
+          <AuthRoute path="/signup" component={SessionFormContainer} />
+
+          <Switch>
+            <Route exact path="/" component={ProjectIndexContainer} />
+            <Route path="/projects/new" component={ProjectFormContainer} />
+            <Route
+              exact
+              path="/projects/:projectId"
+              component={ProjectShowContainer}
+            />
+            <Route
+              path="/projects/:projectId/edit"
+              component={ProjectFormContainer}
+            />
+          </Switch>
+        </div>
+      </div>
+    );
+  }
+}
 
 export default App;
