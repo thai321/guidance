@@ -19,11 +19,29 @@ class ProjectShow extends React.Component {
     }
 
     return (
-      <div>
-        <h1>TESETSETEST</h1>
-        <h1>{project.title}</h1>
-        <h1>{project.description}</h1>
-        <Link to="/">Back to Index</Link>
+      <div className="project-show">
+        <Link className="project-show-back-to-index" to="/">
+          <i className="fa fa-home fa-lg" />
+        </Link>
+        <img
+          className="project-show-img"
+          src="https://frontside.io/blog/2016/12/15/building-infinite-scroll-in-react-native/react-native-header.jpg"
+        />
+
+        <h1 className="project-show-title">{project.title}</h1>
+
+        <div className="project-show-description">
+          <h2>Description</h2>
+          <p>
+            {
+              project.description
+            }sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo
+            sdjfosjdfojsodfjo sdjfosjdfojsodfjo
+            sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo
+            sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo
+            sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo
+          </p>
+        </div>
       </div>
     );
   }

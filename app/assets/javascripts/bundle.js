@@ -30003,7 +30003,7 @@ var SessionForm = function (_React$Component) {
       };
     }
 
-    _this.handleSumbit = _this.handleSumbit.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.clear = _this.clear.bind(_this);
     return _this;
   }
@@ -30054,8 +30054,8 @@ var SessionForm = function (_React$Component) {
       this.setState(form);
     }
   }, {
-    key: 'handleSumbit',
-    value: function handleSumbit(e) {
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
       var _this3 = this;
 
       e.preventDefault();
@@ -30081,7 +30081,7 @@ var SessionForm = function (_React$Component) {
             { className: 'col-md-12' },
             _react2.default.createElement('input', {
               type: 'email',
-              placeholder: 'name@example.com',
+              placeholder: '\uF003 name@example.com',
               className: 'form-control input-md',
               required: '',
               value: this.state.email,
@@ -30130,7 +30130,7 @@ var SessionForm = function (_React$Component) {
                 { className: 'col-md-12' },
                 _react2.default.createElement('input', {
                   type: 'text',
-                  placeholder: 'Your Name',
+                  placeholder: '\uF007 Thai Nguyen',
                   className: 'form-control input-md',
                   required: '',
                   value: this.state.username,
@@ -30152,7 +30152,7 @@ var SessionForm = function (_React$Component) {
                 { className: 'col-md-12' },
                 _react2.default.createElement('input', {
                   type: 'password',
-                  placeholder: '',
+                  placeholder: '\uF084',
                   className: 'form-control input-md',
                   required: '',
                   value: this.state.password,
@@ -30172,7 +30172,7 @@ var SessionForm = function (_React$Component) {
                   _react2.default.createElement(
                     'button',
                     {
-                      onClick: this.handleSumbit,
+                      onClick: this.handleSubmit,
                       className: 'btn btn-success'
                     },
                     buttonName
@@ -30303,23 +30303,34 @@ var ProjectIndexItem = function ProjectIndexItem(_ref) {
     'div',
     { className: 'col col-md-3' },
     _react2.default.createElement(
-      'li',
-      null,
+      'div',
+      { 'class': 'thumbnail' },
+      _react2.default.createElement('img', { src: 'http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg' }),
       _react2.default.createElement(
-        _reactRouterDom.Link,
-        { to: '/projects/' + project.id },
-        _react2.default.createElement(
-          'h2',
-          null,
-          image_url
-        ),
-        _react2.default.createElement('img', { src: 'http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg' }),
+        'div',
+        { 'class': 'caption' },
         _react2.default.createElement(
           'h3',
           null,
-          title,
-          ' By ',
+          title
+        ),
+        _react2.default.createElement(
+          'h5',
+          null,
+          'by ',
           author_id
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            {
+              to: '/projects/' + project.id,
+              className: 'btn btn-info btn-block'
+            },
+            'View'
+          )
         )
       )
     )
@@ -30428,26 +30439,35 @@ var ProjectShow = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'project-show' },
         _react2.default.createElement(
-          'h1',
-          null,
-          'TESETSETEST'
+          _reactRouterDom.Link,
+          { className: 'project-show-back-to-index', to: '/' },
+          _react2.default.createElement('i', { className: 'fa fa-home fa-lg' })
         ),
+        _react2.default.createElement('img', {
+          className: 'project-show-img',
+          src: 'https://frontside.io/blog/2016/12/15/building-infinite-scroll-in-react-native/react-native-header.jpg'
+        }),
         _react2.default.createElement(
           'h1',
-          null,
+          { className: 'project-show-title' },
           project.title
         ),
         _react2.default.createElement(
-          'h1',
-          null,
-          project.description
-        ),
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/' },
-          'Back to Index'
+          'div',
+          { className: 'project-show-description' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            'Description'
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            project.description,
+            'sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo sdjfosjdfojsodfjo sdjfosjdfojsodfjo sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo'
+          )
         )
       );
     }
@@ -30483,10 +30503,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   var project = {
-    title: 'New title',
-    description: 'New description',
-    image_url: 'New image_url',
-    video_url: 'New video_url',
+    title: '',
+    description: '',
+    image_url: '',
+    video_url: '',
     author_id: -1
   };
   // debugger;
@@ -30623,90 +30643,142 @@ var ProjectForm = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'project-form' },
         _react2.default.createElement(
-          'h3',
-          null,
-          text
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          title
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          description
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          image_url
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          video_url
-        ),
-        _react2.default.createElement(
-          'h1',
-          null,
-          author_id
-        ),
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit },
+          'div',
+          { className: 'project_form_container' },
           _react2.default.createElement(
-            'label',
-            null,
-            'Title',
-            _react2.default.createElement('input', {
-              type: 'text',
-              value: this.state.title,
-              onChange: this.update('title')
-            })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'Description',
-            _react2.default.createElement('textarea', {
-              value: this.state.description,
-              onChange: this.update('description')
-            })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'image_url',
-            _react2.default.createElement('input', {
-              type: 'text',
-              value: this.state.image_url,
-              onChange: this.update('image_url')
-            })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'video_url',
-            _react2.default.createElement('input', {
-              type: 'text',
-              value: this.state.video_url,
-              onChange: this.update('video_url')
-            })
-          ),
-          _react2.default.createElement(
-            'label',
-            null,
-            'author_id',
-            _react2.default.createElement('input', {
-              type: 'number',
-              value: this.state.author_id,
-              onChange: this.update('author_id')
-            })
-          ),
-          _react2.default.createElement('input', { type: 'submit', value: text })
+            'div',
+            { className: 'container' },
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement(
+                'div',
+                { className: 'col-md-12' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'well well-sm' },
+                  _react2.default.createElement(
+                    'form',
+                    { className: 'form-horizontal' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'project-form-actual' },
+                      _react2.default.createElement(
+                        'legend',
+                        { className: 'text-center header' },
+                        'New Project'
+                      ),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'col-md-1 col-md-offset-2 text-center' },
+                          _react2.default.createElement('i', { className: 'fa fa-file-text bigicon fa-lg' })
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'col-md-8' },
+                          _react2.default.createElement('input', {
+                            className: 'form-control',
+                            type: 'text',
+                            placeholder: 'Title',
+                            value: this.state.title,
+                            onChange: this.update('title')
+                          })
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'col-md-1 col-md-offset-2 text-center' },
+                          _react2.default.createElement('i', { className: 'fa fa-pencil-square-o bigicon fa-lg' })
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'col-md-8' },
+                          _react2.default.createElement('textarea', {
+                            className: 'form-control',
+                            placeholder: 'Description',
+                            value: this.state.description,
+                            onChange: this.update('description')
+                          })
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'col-md-1 col-md-offset-2 text-center' },
+                          _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-lg' })
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'col-md-8' },
+                          _react2.default.createElement('input', {
+                            className: 'form-control',
+                            type: 'text',
+                            placeholder: 'Upload Your image',
+                            value: this.state.image_url,
+                            onChange: this.update('image_url')
+                          })
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'form-group' },
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'col-md-1 col-md-offset-2 text-center' },
+                          _react2.default.createElement('i', { className: 'fa fa-video-camera bigicon fa-lg' })
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'col-md-8' },
+                          _react2.default.createElement('input', {
+                            className: 'form-control',
+                            type: 'text',
+                            placeholder: 'Upload Your Video',
+                            value: this.state.video_url,
+                            onChange: this.update('video_url')
+                          })
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'label',
+                        null,
+                        'author_id',
+                        _react2.default.createElement('input', {
+                          type: 'number',
+                          value: this.state.author_id,
+                          onChange: this.update('author_id')
+                        })
+                      ),
+                      _react2.default.createElement('br', null),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'project-form-submit-button' },
+                        _react2.default.createElement(
+                          'button',
+                          {
+                            className: 'btn btn-primary btn-block',
+                            type: 'submit',
+                            onClick: this.handleSubmit
+                          },
+                          text
+                        )
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
         )
       );
     }

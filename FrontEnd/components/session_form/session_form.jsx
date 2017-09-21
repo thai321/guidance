@@ -21,7 +21,7 @@ class SessionForm extends React.Component {
       };
     }
 
-    this.handleSumbit = this.handleSumbit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.clear = this.clear.bind(this);
   }
 
@@ -64,7 +64,7 @@ class SessionForm extends React.Component {
     this.setState(form);
   }
 
-  handleSumbit(e) {
+  handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
     this.props.processForm(user).then(() => this.props.history.push('/'));
@@ -80,7 +80,7 @@ class SessionForm extends React.Component {
           <div className="col-md-12">
             <input
               type="email"
-              placeholder="name@example.com"
+              placeholder="&#xf003; name@example.com"
               className="form-control input-md"
               required=""
               value={this.state.email}
@@ -112,10 +112,11 @@ class SessionForm extends React.Component {
 
             <div className="form-group">
               <label className="col-md-6 control-label">User Name</label>
+
               <div className="col-md-12">
                 <input
                   type="text"
-                  placeholder="Your Name"
+                  placeholder="&#xf007; Thai Nguyen"
                   className="form-control input-md"
                   required=""
                   value={this.state.username}
@@ -133,7 +134,7 @@ class SessionForm extends React.Component {
               <div className="col-md-12">
                 <input
                   type="password"
-                  placeholder=""
+                  placeholder="&#xf084;"
                   className="form-control input-md"
                   required=""
                   value={this.state.password}
@@ -146,7 +147,7 @@ class SessionForm extends React.Component {
               <div className="col-md-6">
                 <div className="session-buttons">
                   <button
-                    onClick={this.handleSumbit}
+                    onClick={this.handleSubmit}
                     className="btn btn-success"
                   >
                     {buttonName}

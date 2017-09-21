@@ -11,10 +11,10 @@ import {
 
 const mapStateToProps = (state, ownProps) => {
   let project = {
-    title: 'New title',
-    description: 'New description',
-    image_url: 'New image_url',
-    video_url: 'New video_url',
+    title: '',
+    description: '',
+    image_url: '',
+    video_url: '',
     author_id: -1
   };
   // debugger;
