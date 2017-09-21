@@ -35,6 +35,7 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'bootstrap', '~> 4.0.0.beta'
 # gem 'rails_12factor'
 gem "font-awesome-rails"
+gem "paperclip"
 
 
 group :development, :test do

@@ -17,6 +17,9 @@ class Project < ApplicationRecord
   validates :title, :description, presence: true
   validates :published, inclusion: [true, false]
 
+  has_attached_file :image, default_url: "my_cat.jpg"
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
+
   belongs_to :author,
     primary_key: :id,
     foreign_key: :author_id,

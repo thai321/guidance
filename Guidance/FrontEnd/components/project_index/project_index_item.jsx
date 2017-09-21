@@ -7,7 +7,7 @@ const ProjectIndexItem = ({ project }) => {
   return (
     <div className="col col-md-3">
       <div className="thumbnail">
-        <img src="http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg" />
+        <img src={image_url} />
         <div className="caption">
           <h3>{title}</h3>
           <h5>by {author_id}</h5>

@@ -9,13 +9,11 @@ class ProjectForm extends React.Component {
   }
 
   componentDidMount() {
-    // debugger;
     const { projectId } = this.props.match.params;
     if (projectId) this.props.fetchProject(projectId);
   }
 
   componentWillReceiveProps(nextProps) {
-    // debugger;
     this.setState(nextProps.project);
   }
 
@@ -30,13 +28,10 @@ class ProjectForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // debugger;
     this.props.action(this.state).then(() => this.props.history.push('/'));
   }
 
   render() {
-    // debugger;
-
     if (!this.props.project) {
       return (
         <div>
@@ -130,15 +125,6 @@ class ProjectForm extends React.Component {
                         </div>
                       </div>
 
-                      <label>
-                        author_id
-                        <input
-                          type="number"
-                          value={this.state.author_id}
-                          onChange={this.update('author_id')}
-                        />
-                      </label>
-                      <br />
                       <div className="project-form-submit-button">
                         <button
                           className="btn btn-primary btn-block"
