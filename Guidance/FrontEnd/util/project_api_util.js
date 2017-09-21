@@ -1,7 +1,8 @@
-export const fetchProjects = () =>
+export const fetchProjects = user_ids =>
   $.ajax({
     method: 'GET',
-    url: 'api/projects'
+    url: 'api/projects',
+    data: { user_ids }
   });
 
 export const fetchProject = id =>

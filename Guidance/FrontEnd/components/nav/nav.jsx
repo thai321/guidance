@@ -30,6 +30,10 @@ class Nav extends React.Component {
           <h1>Guidance App</h1>
         </Link>
 
+        <Link to="/users">
+          <h1>All Users</h1>
+        </Link>
+
         {this.displayNewProjectButton()}
 
         <SessionButtonsContainer />
