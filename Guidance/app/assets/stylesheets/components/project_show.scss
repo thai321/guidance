@@ -1,0 +1,48 @@
+.project-show {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border: 1px dashed blue;
+}
+
+// .project-show img {
+//   display: block;
+//   width: 100%;
+//   height: 5%;
+//   // position: relative;
+//
+//   min-width: 90%;
+//   min-height: 90%;
+//   position: relative;
+//   // left: -5px;
+//   // right: 20px;
+// }
+
+.project-show-img {
+  display: flex;
+
+  min-height: 5%;
+  width: 50%;
+  height: 50%;
+  // max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.project-show-title {
+  position: relative;
+  background-color: green;
+  margin-bottom: 20px;
+}
+
+.project-show-back-to-index {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.project-show-description {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 95%;
+}

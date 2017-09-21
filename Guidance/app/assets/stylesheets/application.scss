@@ -14,6 +14,7 @@
  */
 
 @import 'bootstrap';
+@import 'font-awesome';
 
 // @import 'base/reset';
 //
@@ -21,6 +22,8 @@
 @import 'components/navbar';
 @import 'components/session_form';
 @import 'components/project_index';
+@import 'components/project_show';
+@import 'components/project_form';
 
 body {
   // width: 100%;
@@ -35,4 +38,13 @@ a:hover {
 .row {
   display: flex;
   justify-content: center;
+}
+
+textarea,
+input {
+  padding: 10px;
+  font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
 }
