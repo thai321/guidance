@@ -10,7 +10,9 @@ import SessionFormContainer from './session_form/session_form_container';
 import ProjectIndexContainer from './project_index/project_index_container';
 import ProjectShowContainer from './project_show/project_show_container';
 import ProjectFormContainer from './project_form/project_form_container';
+
 import UserIndexContainer from './user_index/user_index_container';
+import UserShowContainer from './user_show/user_show_container';
 
 const App = () => (
   // const {state} =
@@ -45,7 +47,8 @@ const App = () => (
       </Switch>
 
       <Switch>
-        <Route path="/users" component={UserIndexContainer} />
+        <Route exact path="/users" component={UserIndexContainer} />
+        <Route exact path="/users/:userId" component={UserShowContainer} />
       </Switch>
     </div>
   </div>
