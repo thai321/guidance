@@ -5,9 +5,11 @@ const SessionForm = ({ currentUser, logout }) =>
   currentUser ? (
     <div className="welcome">
       <h1>Welcome {currentUser.username}</h1>
-      <button className="btn btn-sm btn-danger" onClick={logout}>
-        Log Out
-      </button>
+      <div className="session-form-login-button">
+        <button className="btn btn-sm btn-outline-danger" onClick={logout}>
+          Log Out
+        </button>
+      </div>
     </div>
   ) : (
     <ul className="login">
