@@ -23,10 +23,7 @@ class ProjectShow extends React.Component {
         <Link className="project-show-back-to-index" to="/">
           <i className="fa fa-home fa-lg" />
         </Link>
-        <img
-          className="project-show-img"
-          src="https://frontside.io/blog/2016/12/15/building-infinite-scroll-in-react-native/react-native-header.jpg"
-        />
+        <img className="project-show-img" src={project.image_url} />
 
         <h1 className="project-show-title">{project.title}</h1>
 
