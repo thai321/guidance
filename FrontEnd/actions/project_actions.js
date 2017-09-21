@@ -19,8 +19,8 @@ const removeProject = project => ({
   project
 });
 
-export const fetchProjects = () => dispatch =>
-  ProjectApiUtil.fetchProjects().then(projects =>
+export const fetchProjects = filter => dispatch =>
+  ProjectApiUtil.fetchProjects(filter).then(projects =>
     dispatch(receiveAllProjects(projects))
   );
 
