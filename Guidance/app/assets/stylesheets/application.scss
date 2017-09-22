@@ -37,7 +37,11 @@ a:hover {
 
 .row {
   display: flex;
+  // float: inherit;
   justify-content: center;
+}
+
+.col {
 }
 
 textarea,

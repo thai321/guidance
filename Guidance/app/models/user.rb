@@ -37,6 +37,7 @@ class User < ApplicationRecord
     inverse_of: :author
 
 
+
  # Authentication
 
 

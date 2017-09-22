@@ -21,12 +21,16 @@ class UserIndex extends React.Component {
     }
 
     return (
-      <div>
-        {this.props.userIds.map(id => {
-          const user = this.props.users[id];
+      <div className="project-index">
+        <div className="container-fluid">
+          <div className="row">
+            {this.props.userIds.map(id => {
+              const user = this.props.users[id];
 
-          return <UserIndexItem key={user.email} user={user} />;
-        })}
+              return <UserIndexItem key={user.email} user={user} />;
+            })}
+          </div>
+        </div>
       </div>
     );
   }

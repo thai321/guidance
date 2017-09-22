@@ -24,6 +24,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     user,
+    currentUser: state.session.currentUser,
     projectsByUser
   };
 };
