@@ -1,5 +1,7 @@
 import React from 'react';
 
+import ReactQuill from 'react-quill';
+
 import {
   createProjectOption,
   updateProject,
@@ -13,6 +15,12 @@ class ProjectForm extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(value) {
+    this.setState({ description: value });
   }
 
   componentDidMount() {
@@ -127,12 +135,16 @@ class ProjectForm extends React.Component {
                         </span>
 
                         <div className="col-md-8">
-                          <textarea
+                          <ReactQuill
+                            value={this.state.description}
+                            onChange={this.handleChange}
+                          />
+                          {/*<textarea
                             className="form-control"
                             placeholder="Description"
                             value={this.state.description}
                             onChange={this.update('description')}
-                          />
+                          /> */}
                         </div>
                       </div>
 

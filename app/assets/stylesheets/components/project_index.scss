@@ -10,3 +10,14 @@
   width: 99%;
   height: 99%;
 }
+
+.title-author {
+  display: flex;
+  color: green;
+  justify-content: space-between;
+}
+
+.card-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}

@@ -33,7 +33,10 @@ class UserShow extends React.Component {
             <img src={user.image_url} />
             <div className="row">
               {this.props.projectsByUser.map(project => (
-                <ProjectIndexItem project={project} />
+                <ProjectIndexItem
+                  project={project}
+                  currentUser={this.props.currentUser}
+                />
               ))}
             </div>
           </div>
