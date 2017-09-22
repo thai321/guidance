@@ -43,3 +43,16 @@ export const createProjectOption = (formData, callback) =>
       callback();
     }
   });
+
+export const updateProjectOption = (formData, id, callback) =>
+  $.ajax({
+    url: `/api/projects/${id}`,
+    method: 'PATCH',
+    dataType: 'json',
+    contentType: false,
+    processData: false,
+    data: formData,
+    success: function() {
+      callback();
+    }
+  });
