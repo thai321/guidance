@@ -17,7 +17,7 @@ class Project < ApplicationRecord
   validates :title, :description, presence: true
   validates :published, inclusion: [true, false]
 
-  has_attached_file :image, default_url: "my_cat.jpg",styles: {
+  has_attached_file :image, default_url: "default_project.png",styles: {
    thumb: '100x100>',
    square: '200x200#',
    medium: '300x300>'

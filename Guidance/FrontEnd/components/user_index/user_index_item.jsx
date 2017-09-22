@@ -7,21 +7,21 @@ class UserIndexItem extends React.Component {
   }
 
   render() {
-    const { id, username } = this.props.user;
+    const { id, username, image_url, project_ids } = this.props.user;
     const numProjects = this.props.user.project_ids.length;
     return (
-      <div className="col col-md-3">
-        <div className="thumbnail">
+      <div className="user-index-item">
+        <div className="card">
           <Link className="btn btn-info btn-sm btn-block" to={`/users/${id}`}>
             User Information
           </Link>
-          <img
-            alt="Bootstrap Thumbnail First"
-            src="http://lorempixel.com/output/people-q-c-600-200-1.jpg"
-          />
-          <div className="caption">
-            <h4>
-              {username} #Projects: {numProjects}
+          <div className="user-index-item-image">
+            <img className="card-img-top" alt="No User Photo" src={image_url} />
+          </div>
+
+          <div className="card-block card-user-title">
+            <h4 className="card-title">
+              {username} has {project_ids.length} projects
             </h4>
           </div>
         </div>

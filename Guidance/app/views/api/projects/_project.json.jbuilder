@@ -8,8 +8,8 @@ json.video_url project.video_url
 json.published project.published
 json.author_id project.author_id
 
-temp = project.image.url;
-if (project.image.url.length > 10)
+temp = project.image.url
+if(temp.include?('amazon'))
   temp = project.image.url[0..31] + project.image.url[45..-1]
 end
 
