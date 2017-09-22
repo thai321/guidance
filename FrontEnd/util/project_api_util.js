@@ -30,3 +30,16 @@ export const deleteProject = id =>
     method: 'DELETE',
     url: `api/projects/${id}`
   });
+
+export const createProjectOption = (formData, callback) =>
+  $.ajax({
+    url: '/api/projects',
+    method: 'POST',
+    dataType: 'json',
+    contentType: false,
+    processData: false,
+    data: formData,
+    success: function() {
+      callback();
+    }
+  });

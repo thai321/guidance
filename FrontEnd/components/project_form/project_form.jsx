@@ -1,11 +1,17 @@
 import React from 'react';
 
+import {
+  createProjectOption,
+  updateProject
+} from '../../util/project_api_util';
+
 class ProjectForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.project;
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateFile = this.updateFile.bind(this);
   }
 
   componentDidMount() {
@@ -28,7 +34,39 @@ class ProjectForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.action(this.state).then(() => this.props.history.push('/'));
+    debugger;
+    const formData = new FormData();
+    formData.append('project[title]', this.state.title);
+    formData.append('project[description]', this.state.description);
+    formData.append('project[video_url]', this.state.video_url);
+    formData.append('project[author_id]', this.state.author_id);
+
+    if (this.state.imageFile) {
+      formData.append('project[image]', this.state.imageFile);
+    }
+
+    const callback = () => console.log('success');
+    createProjectOption(formData, callback).then(() =>
+      this.props.history.push('/')
+    );
+    // createProjectOption(this.state).then(() => this.props.history.push('/'));
+    // this.props.action(this.state).then(() => this.props.history.push('/'));
+  }
+
+  updateFile(e) {
+    const file = e.currentTarget.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.onloadend = () => {
+      // debugger;
+      this.setState({ imageFile: file, image_url: fileReader.result });
+    };
+
+    // debugger;
+
+    if (file) {
+      fileReader.readAsDataURL(file);
+    }
   }
 
   render() {
@@ -63,7 +101,6 @@ class ProjectForm extends React.Component {
                       <legend className="text-center header">
                         New Project
                       </legend>
-
                       <div className="form-group">
                         <span className="col-md-1 col-md-offset-2 text-center">
                           <i className="fa fa-file-text bigicon fa-lg" />
@@ -79,7 +116,6 @@ class ProjectForm extends React.Component {
                           />
                         </div>
                       </div>
-
                       <div className="form-group">
                         <span className="col-md-1 col-md-offset-2 text-center">
                           <i className="fa fa-pencil-square-o bigicon fa-lg" />
@@ -102,12 +138,12 @@ class ProjectForm extends React.Component {
                         <div className="col-md-8">
                           <input
                             className="form-control"
-                            type="text"
+                            type="file"
                             placeholder="Upload Your image"
-                            value={this.state.image_url}
-                            onChange={this.update('image_url')}
+                            onChange={this.updateFile}
                           />
                         </div>
+                        <img src={this.state.image_url} />
                       </div>
 
                       <div className="form-group">
@@ -124,7 +160,6 @@ class ProjectForm extends React.Component {
                           />
                         </div>
                       </div>
-
                       <div className="project-form-submit-button">
                         <button
                           className="btn btn-primary btn-block"

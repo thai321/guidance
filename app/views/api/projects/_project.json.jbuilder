@@ -7,4 +7,10 @@ json.description project.description
 json.video_url project.video_url
 json.published project.published
 json.author_id project.author_id
-json.image_url asset_path(project.image.url)
+
+temp = project.image.url;
+if (project.image.url.length > 10)
+  temp = project.image.url[0..31] + project.image.url[45..-1]
+end
+
+json.image_url asset_path(temp)

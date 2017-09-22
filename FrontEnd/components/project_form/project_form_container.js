@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => {
   let project = {
     title: '',
     description: '',
-    image_url: '',
+    imageFile: null,
     video_url: '',
     author_id: state.session.currentUser.id
   };
