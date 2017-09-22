@@ -2,7 +2,8 @@ import React from 'react';
 
 import {
   createProjectOption,
-  updateProject
+  updateProject,
+  updateProjectOption
 } from '../../util/project_api_util';
 
 class ProjectForm extends React.Component {
@@ -34,7 +35,6 @@ class ProjectForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    debugger;
     const formData = new FormData();
     formData.append('project[title]', this.state.title);
     formData.append('project[description]', this.state.description);
@@ -45,12 +45,19 @@ class ProjectForm extends React.Component {
       formData.append('project[image]', this.state.imageFile);
     }
 
+    const { projectId } = this.props.match.params;
     const callback = () => console.log('success');
-    createProjectOption(formData, callback).then(() =>
-      this.props.history.push('/')
-    );
-    // createProjectOption(this.state).then(() => this.props.history.push('/'));
-    // this.props.action(this.state).then(() => this.props.history.push('/'));
+
+    if (this.props.formType === 'new') {
+      createProjectOption(formData, callback).then(() =>
+        this.props.history.push('/')
+      );
+    } else {
+      const id = this.props.match.params.projectId;
+      updateProjectOption(formData, id, callback).then(() =>
+        this.props.history.push('/')
+      );
+    }
   }
 
   updateFile(e) {
@@ -61,8 +68,6 @@ class ProjectForm extends React.Component {
       // debugger;
       this.setState({ imageFile: file, image_url: fileReader.result });
     };
-
-    // debugger;
 
     if (file) {
       fileReader.readAsDataURL(file);

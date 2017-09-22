@@ -7444,6 +7444,20 @@ var createProjectOption = exports.createProjectOption = function createProjectOp
   });
 };
 
+var updateProjectOption = exports.updateProjectOption = function updateProjectOption(formData, id, callback) {
+  return $.ajax({
+    url: '/api/projects/' + id,
+    method: 'PATCH',
+    dataType: 'json',
+    contentType: false,
+    processData: false,
+    data: formData,
+    success: function success() {
+      callback();
+    }
+  });
+};
+
 /***/ }),
 /* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -30955,7 +30969,6 @@ var ProjectForm = function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
-      debugger;
       var formData = new FormData();
       formData.append('project[title]', this.state.title);
       formData.append('project[description]', this.state.description);
@@ -30966,14 +30979,22 @@ var ProjectForm = function (_React$Component) {
         formData.append('project[image]', this.state.imageFile);
       }
 
+      var projectId = this.props.match.params.projectId;
+
       var callback = function callback() {
         return console.log('success');
       };
-      (0, _project_api_util.createProjectOption)(formData, callback).then(function () {
-        return _this3.props.history.push('/');
-      });
-      // createProjectOption(this.state).then(() => this.props.history.push('/'));
-      // this.props.action(this.state).then(() => this.props.history.push('/'));
+
+      if (this.props.formType === 'new') {
+        (0, _project_api_util.createProjectOption)(formData, callback).then(function () {
+          return _this3.props.history.push('/');
+        });
+      } else {
+        var id = this.props.match.params.projectId;
+        (0, _project_api_util.updateProjectOption)(formData, id, callback).then(function () {
+          return _this3.props.history.push('/');
+        });
+      }
     }
   }, {
     key: 'updateFile',
@@ -30987,8 +31008,6 @@ var ProjectForm = function (_React$Component) {
         // debugger;
         _this4.setState({ imageFile: file, image_url: fileReader.result });
       };
-
-      // debugger;
 
       if (file) {
         fileReader.readAsDataURL(file);
