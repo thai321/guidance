@@ -41,7 +41,7 @@ class ProjectShow extends React.Component {
         <Link className="project-show-back-to-index" to="/">
           <i className="fa fa-home fa-lg" />
         </Link>
-        <label>
+        <label className="project-show-user-title">
           <Link className="btn btn-info btn-lg" to={`/users/${user.id}`}>
             {user.username}
           </Link>
@@ -53,6 +53,16 @@ class ProjectShow extends React.Component {
         <div className="project-show-description">
           <h2>Description</h2>
           <div dangerouslySetInnerHTML={{ __html: project.description }} />
+        </div>
+
+        <div className="project-show-video">
+          <iframe
+            width="560"
+            height="315"
+            src={project.video_url}
+            frameBorder="0"
+            allowFullScreen
+          />
         </div>
       </div>
     );

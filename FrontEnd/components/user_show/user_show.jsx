@@ -25,15 +25,33 @@ class UserShow extends React.Component {
       );
     } else {
       const { user } = this.props;
+      const text = user.project_ids.length > 0 ? 'Projects' : '';
 
       return (
         <div className="project-index">
           <div className="container-fluid">
-            <h1>{user.username}</h1>
-            <img className="user-show-img" src={user.image_url} />
+            <div className="user-index-info">
+              <div className="card">
+                <div className="user-index-item-image">
+                  <img className="card-img-top" src={user.image_url} />
+                </div>
+                <div className="card-block card-user-title">
+                  <h4 className="card-title">
+                    {user.username} has {user.project_ids.length} projects
+                  </h4>
+                </div>
+              </div>
+            </div>
+
+            <div className="project-text-user-show">
+              <h2>{text}</h2>
+            </div>
+
             <div className="row">
+              <br />
               {this.props.projectsByUser.map(project => (
                 <ProjectIndexItem
+                  key={project.title + 'user-show'}
                   project={project}
                   currentUser={this.props.currentUser}
                 />

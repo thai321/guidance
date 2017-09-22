@@ -110,6 +110,7 @@ class ProjectForm extends React.Component {
               <div className="col-md-12">
                 <form className="form-horizontal">
                   <legend className="text-center header">New Project</legend>
+
                   <div className="form-group">
                     <span className="col-md-1 col-md-offset-2 text-center">
                       <i className="fa fa-file-text bigicon fa-lg" />
@@ -133,6 +134,8 @@ class ProjectForm extends React.Component {
                   <div className="col-md-10">
                     <ReactQuill
                       className="description-quill"
+                      placeholder="Enter The Project's Description"
+                      modules={ProjectForm.modules}
                       value={this.state.description}
                       onChange={this.handleChange}
                     />
@@ -158,18 +161,21 @@ class ProjectForm extends React.Component {
                     </div>
                   </div>
 
-                  <img src={this.state.image_url} />
+                  <div className="form-group">
+                    <span className="col-md-1 col-md-offset-2 ">
+                      <i className="fa fa-video-camera bigicon fa-lg" />
+                    </span>
 
-                  <span className="col-md-1 col-md-offset-2">
-                    <i className="fa fa-video-camera bigicon fa-lg" />
-                  </span>
-
-                  <input
-                    type="file"
-                    placeholder="Upload Your Video"
-                    value={this.state.video_url}
-                    onChange={this.update('video_url')}
-                  />
+                    <div className="col-md-10">
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Paste Your Video URL"
+                        value={this.state.video_url}
+                        onChange={this.update('video_url')}
+                      />
+                    </div>
+                  </div>
 
                   <div className="form-group">
                     <div className="project-form-submit-button">
@@ -191,5 +197,22 @@ class ProjectForm extends React.Component {
     );
   }
 }
+
+ProjectForm.modules = {
+  toolbar: [
+    [{ header: '1' }, { header: '2' }, { font: [] }],
+    [{ color: [] }, { background: [] }],
+    [{ size: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' }
+    ],
+    ['link', 'image', 'video'],
+    ['clean']
+  ]
+};
 
 export default ProjectForm;
