@@ -5,7 +5,7 @@ import {
 
 const _nullErrors = [];
 
-export default (state = [], action) => {
+export default (state = _nullErrors, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_SESSION_ERRORS:

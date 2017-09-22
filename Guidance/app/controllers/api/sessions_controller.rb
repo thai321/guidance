@@ -6,9 +6,11 @@ class Api::SessionsController < ApplicationController
       )
 
     if @user.nil?
+      # flash[:alert] = "Invalid Username or Password"
       render json: ["Invalid Username or Password"] , status: 401
     else
       login!(@user)
+      # flash[:notice] = ['login']
       render @user #'/api/users/show'
     end
 

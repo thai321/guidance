@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const SessionForm = ({ currentUser, logout }) =>
+const SessionForm = ({ currentUser, login, logout }) =>
   currentUser ? (
     <div className="welcome">
       <h1>Welcome {currentUser.username}</h1>
@@ -14,10 +14,23 @@ const SessionForm = ({ currentUser, logout }) =>
   ) : (
     <ul className="login">
       <li>
+        <button
+          className="btn btn-outline-info"
+          onClick={login.bind(this, {
+            username: 'ThaiNguyen',
+            password: '123456'
+          })}
+        >
+          Demo
+        </button>
+      </li>
+
+      <li>
         <Link className="btn btn-outline-primary" to="/signup">
           Signup
         </Link>
       </li>
+
       <li>
         <Link className="btn btn-outline-success" to="/login">
           Login

@@ -22,11 +22,11 @@ class SessionForm extends React.Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.loginDemo = this.loginDemo.bind(this);
     this.clear = this.clear.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.loggedIn);
     if (nextProps.loggedIn) return this.props.history.push('/');
   }
 
@@ -64,6 +64,11 @@ class SessionForm extends React.Component {
     this.setState(form);
   }
 
+  loginDemo() {
+    const user = Object.assign({}, this.state);
+    this.props.processForm(user).then(() => this.props.history.push('/'));
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
@@ -93,11 +98,13 @@ class SessionForm extends React.Component {
   }
 
   render() {
+    // debugger;
     const text =
       this.props.formType === 'signup' ? 'Register Yourself' : 'Please Login';
 
     const buttonName =
       this.props.formType === 'signup' ? 'Register' : 'Sign In';
+
     return (
       <div>
         <div className="main-index">

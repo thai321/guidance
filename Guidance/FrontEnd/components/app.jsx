@@ -30,23 +30,22 @@ const App = () => (
 
     <div className="main-app">
       <AuthRoute path="/login" component={SessionFormContainer} />
+      <AuthRoute path="/demo" component={SessionFormContainer} />
       <AuthRoute path="/signup" component={SessionFormContainer} />
 
       <Switch>
         <Route exact path="/" component={ProjectIndexContainer} />
-        <Route path="/projects/new" component={ProjectFormContainer} />
+        <ProtectedRoute path="/projects/new" component={ProjectFormContainer} />
         <Route
           exact
           path="/projects/:projectId"
           component={ProjectShowContainer}
         />
-        <Route
+        <ProtectedRoute
           path="/projects/:projectId/edit"
           component={ProjectFormContainer}
         />
-      </Switch>
 
-      <Switch>
         <Route exact path="/users" component={UserIndexContainer} />
         <Route exact path="/users/:userId" component={UserShowContainer} />
       </Switch>
