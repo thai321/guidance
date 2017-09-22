@@ -43383,25 +43383,22 @@ var App = function App() {
         'div',
         { className: 'main-app' },
         _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _session_form_container2.default }),
+        _react2.default.createElement(_route_util.AuthRoute, { path: '/demo', component: _session_form_container2.default }),
         _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _session_form_container2.default }),
         _react2.default.createElement(
           _reactRouterDom.Switch,
           null,
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _project_index_container2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/projects/new', component: _project_form_container2.default }),
+          _react2.default.createElement(_route_util.ProtectedRoute, { path: '/projects/new', component: _project_form_container2.default }),
           _react2.default.createElement(_reactRouterDom.Route, {
             exact: true,
             path: '/projects/:projectId',
             component: _project_show_container2.default
           }),
-          _react2.default.createElement(_reactRouterDom.Route, {
+          _react2.default.createElement(_route_util.ProtectedRoute, {
             path: '/projects/:projectId/edit',
             component: _project_form_container2.default
-          })
-        ),
-        _react2.default.createElement(
-          _reactRouterDom.Switch,
-          null,
+          }),
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users', component: _user_index_container2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users/:userId', component: _user_show_container2.default })
         )
@@ -43460,7 +43457,7 @@ var Protected = function Protected(_ref2) {
   return _react2.default.createElement(_reactRouterDom.Route, {
     path: path,
     render: function render(props) {
-      return loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/login' });
+      return loggedIn ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/signup' });
     }
   });
 };
@@ -43631,6 +43628,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     logout: function logout() {
       return dispatch((0, _session_actions.logout)());
+    },
+    login: function login(user) {
+      return dispatch((0, _session_actions.login)(user));
     }
   };
 };
@@ -43658,6 +43658,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var SessionForm = function SessionForm(_ref) {
   var currentUser = _ref.currentUser,
+      login = _ref.login,
       logout = _ref.logout;
   return currentUser ? _react2.default.createElement(
     'div',
@@ -43680,6 +43681,21 @@ var SessionForm = function SessionForm(_ref) {
   ) : _react2.default.createElement(
     'ul',
     { className: 'login' },
+    _react2.default.createElement(
+      'li',
+      null,
+      _react2.default.createElement(
+        'button',
+        {
+          className: 'btn btn-outline-info',
+          onClick: login.bind(undefined, {
+            username: 'ThaiNguyen',
+            password: '123456'
+          })
+        },
+        'Demo'
+      )
+    ),
     _react2.default.createElement(
       'li',
       null,
@@ -43718,6 +43734,8 @@ var _reactRedux = __webpack_require__(17);
 
 var _session_actions = __webpack_require__(37);
 
+var _reactRouterDom = __webpack_require__(14);
+
 var _session_form = __webpack_require__(340);
 
 var _session_form2 = _interopRequireDefault(_session_form);
@@ -43738,18 +43756,22 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
   var location = _ref.location;
 
   var formType = location.pathname.slice(1);
-  var _processForm = formType === 'login' ? _session_actions.login : _session_actions.signup;
+  var _processForm = formType === 'signup' ? _session_actions.signup : _session_actions.login;
+
+  var demo = location.pathname === '/demo' ? true : false;
+
   return {
     processForm: function processForm(user) {
       return dispatch(_processForm(user));
     },
     // login: user => dispatch(login(user)),
     // signup: user => dispatch(signup(user)),
-    formType: formType
+    formType: formType,
+    demo: demo
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_session_form2.default);
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_session_form2.default));
 
 /***/ }),
 /* 340 */
@@ -43806,6 +43828,7 @@ var SessionForm = function (_React$Component) {
     }
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.loginDemo = _this.loginDemo.bind(_this);
     _this.clear = _this.clear.bind(_this);
     return _this;
   }
@@ -43813,7 +43836,6 @@ var SessionForm = function (_React$Component) {
   _createClass(SessionForm, [{
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      console.log(nextProps.loggedIn);
       if (nextProps.loggedIn) return this.props.history.push('/');
     }
   }, {
@@ -43856,14 +43878,24 @@ var SessionForm = function (_React$Component) {
       this.setState(form);
     }
   }, {
+    key: 'loginDemo',
+    value: function loginDemo() {
+      var _this3 = this;
+
+      var user = Object.assign({}, this.state);
+      this.props.processForm(user).then(function () {
+        return _this3.props.history.push('/');
+      });
+    }
+  }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       e.preventDefault();
       var user = Object.assign({}, this.state);
       this.props.processForm(user).then(function () {
-        return _this3.props.history.push('/');
+        return _this4.props.history.push('/');
       });
     }
   }, {
@@ -43896,9 +43928,11 @@ var SessionForm = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      // debugger;
       var text = this.props.formType === 'signup' ? 'Register Yourself' : 'Please Login';
 
       var buttonName = this.props.formType === 'signup' ? 'Register' : 'Sign In';
+
       return _react2.default.createElement(
         'div',
         null,
@@ -44179,8 +44213,9 @@ var ProjectShow = function (_React$Component) {
 
       var projectId = this.props.match.params.projectId;
 
-      this.props.fetchProject(projectId).then(function (project) {
-        _this2.props.fetchUser(project.project.author_id).then(function (user) {
+
+      this.props.fetchProject(projectId).then(function (action) {
+        _this2.props.fetchUser(action.project.author_id).then(function (user) {
           _this2.setState({ user: user.user });
         });
       });
@@ -44193,14 +44228,8 @@ var ProjectShow = function (_React$Component) {
       if (currentId !== nextId) this.props.fetchProject(nextId);
     }
   }, {
-    key: 'test',
-    value: function test() {
-      document.querySelector('test').innerHTML;
-    }
-  }, {
     key: 'render',
     value: function render() {
-      // debugger;
       var project = this.props.project;
       var user = this.state.user;
 
@@ -44211,8 +44240,6 @@ var ProjectShow = function (_React$Component) {
           'Loading...'
         );
       }
-      // console.log(this.state);
-      console.log(user);
 
       return _react2.default.createElement(
         'div',
@@ -44245,12 +44272,7 @@ var ProjectShow = function (_React$Component) {
             null,
             'Description'
           ),
-          _react2.default.createElement(
-            'p',
-            { className: 'tests' },
-            project.description,
-            'sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo sdjfosjdfojsodfjo sdjfosjdfojsodfjo sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo'
-          )
+          _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: project.description } })
         )
       );
     }

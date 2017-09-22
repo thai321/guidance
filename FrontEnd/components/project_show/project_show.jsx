@@ -15,8 +15,9 @@ class ProjectShow extends React.Component {
 
   componentWillMount() {
     const { projectId } = this.props.match.params;
-    this.props.fetchProject(projectId).then(project => {
-      this.props.fetchUser(project.project.author_id).then(user => {
+
+    this.props.fetchProject(projectId).then(action => {
+      this.props.fetchUser(action.project.author_id).then(user => {
         this.setState({ user: user.user });
       });
     });
@@ -28,19 +29,12 @@ class ProjectShow extends React.Component {
     if (currentId !== nextId) this.props.fetchProject(nextId);
   }
 
-  test() {
-    document.querySelector('test').innerHTML;
-  }
-
   render() {
-    // debugger;
     const { project } = this.props;
     const { user } = this.state;
     if (!project || !user) {
       return <div>Loading...</div>;
     }
-    // console.log(this.state);
-    console.log(user);
 
     return (
       <div className="project-show">
@@ -58,15 +52,7 @@ class ProjectShow extends React.Component {
 
         <div className="project-show-description">
           <h2>Description</h2>
-          <p className="tests">
-            {
-              project.description
-            }sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo
-            sdjfosjdfojsodfjo sdjfosjdfojsodfjo
-            sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo
-            sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo
-            sdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjosdjfosjdfojsodfjo
-          </p>
+          <div dangerouslySetInnerHTML={{ __html: project.description }} />
         </div>
       </div>
     );
