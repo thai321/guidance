@@ -2,8 +2,11 @@
 User.destroy_all
 Project.destroy_all
 
-# Users
+#
+demo = User.create(username: 'ThaiNguyen', email: 'thai.nguyen@berkeley.edu', password: '123456')
 
+
+# Users
 u0 = User.create(username: 'cat0', email: 'cat0@gmail.com', password: '123456')
 u1 = User.create(username: 'cat1', email: 'cat1@gmail.com', password: '123456')
 u2 = User.create(username: 'cat2', email: 'cat2@gmail.com', password: '123456')
