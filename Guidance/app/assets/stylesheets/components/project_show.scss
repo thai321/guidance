@@ -23,8 +23,8 @@
   display: flex;
 
   min-height: 5%;
-  width: 50%;
-  height: 50%;
+  width: 30%;
+  height: 30%;
   // max-width: 100%;
   margin-bottom: 10px;
 }
@@ -40,9 +40,14 @@
   margin-bottom: 10px;
 }
 
+.project-show-user-title {
+}
+
 .project-show-description {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   width: 95%;
 }
