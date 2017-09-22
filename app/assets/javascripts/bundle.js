@@ -39505,7 +39505,7 @@ var _session_actions = __webpack_require__(37);
 var _nullErrors = [];
 
 exports.default = function () {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _nullErrors;
   var action = arguments[1];
 
   Object.freeze(state);
@@ -44599,108 +44599,91 @@ var ProjectForm = function (_React$Component) {
                 'div',
                 { className: 'col-md-12' },
                 _react2.default.createElement(
-                  'div',
-                  { className: 'well well-sm' },
+                  'form',
+                  { className: 'form-horizontal' },
                   _react2.default.createElement(
-                    'form',
-                    { className: 'form-horizontal' },
+                    'legend',
+                    { className: 'text-center header' },
+                    'New Project'
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'col-md-1 col-md-offset-2 text-center' },
+                      _react2.default.createElement('i', { className: 'fa fa-file-text bigicon fa-lg' })
+                    ),
                     _react2.default.createElement(
                       'div',
-                      { className: 'project-form-actual' },
+                      { className: 'col-md-10' },
+                      _react2.default.createElement('input', {
+                        className: 'form-control',
+                        type: 'text',
+                        placeholder: 'Title',
+                        value: this.state.title,
+                        onChange: this.update('title')
+                      })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'col-md-1 col-md-offset-2 text-center' },
+                    _react2.default.createElement('i', { className: 'fa fa-pencil-square-o bigicon fa-lg' })
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'col-md-10' },
+                    _react2.default.createElement(_reactQuill2.default, {
+                      className: 'description-quill',
+                      value: this.state.description,
+                      onChange: this.handleChange
+                    })
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'image-project-form' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'form-group' },
                       _react2.default.createElement(
-                        'legend',
-                        { className: 'text-center header' },
-                        'New Project'
+                        'span',
+                        { className: 'col-md-1 col-md-offset-2 text-center' },
+                        _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-lg' })
                       ),
+                      _react2.default.createElement('input', {
+                        type: 'file',
+                        placeholder: 'Upload Your image',
+                        onChange: this.updateFile
+                      })
+                    )
+                  ),
+                  _react2.default.createElement('img', { src: this.state.image_url }),
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'col-md-1 col-md-offset-2' },
+                    _react2.default.createElement('i', { className: 'fa fa-video-camera bigicon fa-lg' })
+                  ),
+                  _react2.default.createElement('input', {
+                    type: 'file',
+                    placeholder: 'Upload Your Video',
+                    value: this.state.video_url,
+                    onChange: this.update('video_url')
+                  }),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'project-form-submit-button' },
                       _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                          'span',
-                          { className: 'col-md-1 col-md-offset-2 text-center' },
-                          _react2.default.createElement('i', { className: 'fa fa-file-text bigicon fa-lg' })
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'col-md-8' },
-                          _react2.default.createElement('input', {
-                            className: 'form-control',
-                            type: 'text',
-                            placeholder: 'Title',
-                            value: this.state.title,
-                            onChange: this.update('title')
-                          })
-                        )
-                      ),
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                          'span',
-                          { className: 'col-md-1 col-md-offset-2 text-center' },
-                          _react2.default.createElement('i', { className: 'fa fa-pencil-square-o bigicon fa-lg' })
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'col-md-8' },
-                          _react2.default.createElement(_reactQuill2.default, {
-                            value: this.state.description,
-                            onChange: this.handleChange
-                          })
-                        )
-                      ),
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                          'span',
-                          { className: 'col-md-1 col-md-offset-2 text-center' },
-                          _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-lg' })
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'col-md-8' },
-                          _react2.default.createElement('input', {
-                            className: 'form-control',
-                            type: 'file',
-                            placeholder: 'Upload Your image',
-                            onChange: this.updateFile
-                          })
-                        ),
-                        _react2.default.createElement('img', { src: this.state.image_url })
-                      ),
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'form-group' },
-                        _react2.default.createElement(
-                          'span',
-                          { className: 'col-md-1 col-md-offset-2 text-center' },
-                          _react2.default.createElement('i', { className: 'fa fa-video-camera bigicon fa-lg' })
-                        ),
-                        _react2.default.createElement(
-                          'div',
-                          { className: 'col-md-8' },
-                          _react2.default.createElement('input', {
-                            className: 'form-control',
-                            type: 'text',
-                            placeholder: 'Upload Your Video',
-                            value: this.state.video_url,
-                            onChange: this.update('video_url')
-                          })
-                        )
-                      ),
-                      _react2.default.createElement(
-                        'div',
-                        { className: 'project-form-submit-button' },
-                        _react2.default.createElement(
-                          'button',
-                          {
-                            className: 'btn btn-primary btn-block',
-                            type: 'submit',
-                            onClick: this.handleSubmit
-                          },
-                          text
-                        )
+                        'button',
+                        {
+                          className: 'btn btn-primary btn-lg',
+                          type: 'submit',
+                          onClick: this.handleSubmit
+                        },
+                        text
                       )
                     )
                   )
@@ -50956,7 +50939,7 @@ var UserShow = function (_React$Component) {
               null,
               user.username
             ),
-            _react2.default.createElement('img', { src: user.image_url }),
+            _react2.default.createElement('img', { className: 'user-show-img', src: user.image_url }),
             _react2.default.createElement(
               'div',
               { className: 'row' },

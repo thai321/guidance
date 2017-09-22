@@ -30,7 +30,7 @@ class UserShow extends React.Component {
         <div className="project-index">
           <div className="container-fluid">
             <h1>{user.username}</h1>
-            <img src={user.image_url} />
+            <img className="user-show-img" src={user.image_url} />
             <div className="row">
               {this.props.projectsByUser.map(project => (
                 <ProjectIndexItem

@@ -32,10 +32,20 @@
   justify-content: center;
 }
 
-.project-form-actual {
-}
-
 .project-form .form-horizontal {
   border: 2px solid lightgray;
   margin: 10px;
+}
+
+.description-quill {
+  height: 200px;
+}
+
+.image-project-form {
+  padding-top: 50px;
+}
+
+.form-horizontal img {
+  height: 0;
+  width: 0;
 }

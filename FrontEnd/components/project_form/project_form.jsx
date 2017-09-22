@@ -108,87 +108,81 @@ class ProjectForm extends React.Component {
           <div className="container">
             <div className="row">
               <div className="col-md-12">
-                <div className="well well-sm">
-                  <form className="form-horizontal">
-                    <div className="project-form-actual">
-                      <legend className="text-center header">
-                        New Project
-                      </legend>
-                      <div className="form-group">
-                        <span className="col-md-1 col-md-offset-2 text-center">
-                          <i className="fa fa-file-text bigicon fa-lg" />
-                        </span>
+                <form className="form-horizontal">
+                  <legend className="text-center header">New Project</legend>
+                  <div className="form-group">
+                    <span className="col-md-1 col-md-offset-2 text-center">
+                      <i className="fa fa-file-text bigicon fa-lg" />
+                    </span>
 
-                        <div className="col-md-8">
-                          <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Title"
-                            value={this.state.title}
-                            onChange={this.update('title')}
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group">
-                        <span className="col-md-1 col-md-offset-2 text-center">
-                          <i className="fa fa-pencil-square-o bigicon fa-lg" />
-                        </span>
+                    <div className="col-md-10">
+                      <input
+                        className="form-control"
+                        type="text"
+                        placeholder="Title"
+                        value={this.state.title}
+                        onChange={this.update('title')}
+                      />
+                    </div>
+                  </div>
 
-                        <div className="col-md-8">
-                          <ReactQuill
-                            value={this.state.description}
-                            onChange={this.handleChange}
-                          />
-                          {/*<textarea
+                  <span className="col-md-1 col-md-offset-2 text-center">
+                    <i className="fa fa-pencil-square-o bigicon fa-lg" />
+                  </span>
+
+                  <div className="col-md-10">
+                    <ReactQuill
+                      className="description-quill"
+                      value={this.state.description}
+                      onChange={this.handleChange}
+                    />
+                    {/*<textarea
                             className="form-control"
                             placeholder="Description"
                             value={this.state.description}
                             onChange={this.update('description')}
                           /> */}
-                        </div>
-                      </div>
+                  </div>
 
-                      <div className="form-group">
-                        <span className="col-md-1 col-md-offset-2 text-center">
-                          <i className="fa fa-file-image-o bigicon fa-lg" />
-                        </span>
-                        <div className="col-md-8">
-                          <input
-                            className="form-control"
-                            type="file"
-                            placeholder="Upload Your image"
-                            onChange={this.updateFile}
-                          />
-                        </div>
-                        <img src={this.state.image_url} />
-                      </div>
+                  <div className="image-project-form">
+                    <div className="form-group">
+                      <span className="col-md-1 col-md-offset-2 text-center">
+                        <i className="fa fa-file-image-o bigicon fa-lg" />
+                      </span>
 
-                      <div className="form-group">
-                        <span className="col-md-1 col-md-offset-2 text-center">
-                          <i className="fa fa-video-camera bigicon fa-lg" />
-                        </span>
-                        <div className="col-md-8">
-                          <input
-                            className="form-control"
-                            type="text"
-                            placeholder="Upload Your Video"
-                            value={this.state.video_url}
-                            onChange={this.update('video_url')}
-                          />
-                        </div>
-                      </div>
-                      <div className="project-form-submit-button">
-                        <button
-                          className="btn btn-primary btn-block"
-                          type="submit"
-                          onClick={this.handleSubmit}
-                        >
-                          {text}
-                        </button>
-                      </div>
+                      <input
+                        type="file"
+                        placeholder="Upload Your image"
+                        onChange={this.updateFile}
+                      />
                     </div>
-                  </form>
-                </div>
+                  </div>
+
+                  <img src={this.state.image_url} />
+
+                  <span className="col-md-1 col-md-offset-2">
+                    <i className="fa fa-video-camera bigicon fa-lg" />
+                  </span>
+
+                  <input
+                    type="file"
+                    placeholder="Upload Your Video"
+                    value={this.state.video_url}
+                    onChange={this.update('video_url')}
+                  />
+
+                  <div className="form-group">
+                    <div className="project-form-submit-button">
+                      <button
+                        className="btn btn-primary btn-lg"
+                        type="submit"
+                        onClick={this.handleSubmit}
+                      >
+                        {text}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
