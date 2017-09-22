@@ -37,16 +37,6 @@ class SessionForm extends React.Component {
       });
   }
 
-  displayErrors() {
-    return (
-      <ul>
-        {this.props.errors.map((error, i) => (
-          <li key={`error-${i}`}>{error}</li>
-        ))}
-      </ul>
-    );
-  }
-
   clear(e) {
     e.preventDefault();
 
@@ -108,8 +98,6 @@ class SessionForm extends React.Component {
     return (
       <div>
         <div className="main-index">
-          {this.displayErrors()}
-
           <div className="index-img">
             <img src="http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg" />
           </div>

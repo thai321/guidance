@@ -14,6 +14,8 @@ import ProjectFormContainer from './project_form/project_form_container';
 import UserIndexContainer from './user_index/user_index_container';
 import UserShowContainer from './user_show/user_show_container';
 
+import NotificationContainer from './notification/notification_container';
+
 const App = () => (
   // const {state} =
   // console.log(this.props);
@@ -26,6 +28,8 @@ const App = () => (
   // console.log(this.props);
   // return (
   <div className="app">
+    <NotificationContainer />
+
     <NavContainer />
 
     <div className="main-app">
