@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 import ProjectIndexItem from '../project_index/project_index_item';
 
+import { uniqueId } from '../../util/id_generator';
+
 class UserShow extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,6 @@ class UserShow extends React.Component {
     } else {
       const { user } = this.props;
       const text = user.project_ids.length > 0 ? 'Projects' : '';
-
       return (
         <div className="project-index">
           <div className="container-fluid">
@@ -51,7 +52,7 @@ class UserShow extends React.Component {
               <br />
               {this.props.projectsByUser.map(project => (
                 <ProjectIndexItem
-                  key={project.title + 'user-show'}
+                  key={project.title + user.id + uniqueId()}
                   project={project}
                   currentUser={this.props.currentUser}
                 />

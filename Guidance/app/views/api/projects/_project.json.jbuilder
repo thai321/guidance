@@ -21,7 +21,6 @@ image = project.image
 image_url = image.url
 
 if(image_url.include?('amazon'))
-  # byebug
 
   type = image.path.include?('jpg') ? 'jpg' : 'png'
 
