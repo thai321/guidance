@@ -1,0 +1,10 @@
+class Api::StepsController < ApplicationController
+  def index
+  end
+
+  def create
+  end
+
+  def destroy
+  end
+end
