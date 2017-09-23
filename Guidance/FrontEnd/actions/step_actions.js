@@ -30,6 +30,11 @@ export const fetchSteps = project_id => dispatch =>
     .then(steps => dispatch(receiveProjectSteps(steps)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
+export const fetchStep = id => dispatch =>
+  StepApiUtil.fetchStep(id)
+    .then(step => dispatch(receiveProjectStep(step)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
+
 export const createStep = step => dispatch =>
   StepApiUtil.createStep(step)
     .then(st => dispatch(receiveProjectStep(st)))

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { fetchSteps, createStep, updateStep } from '../../actions/step_actions';
+import { fetchStep, createStep, updateStep } from '../../actions/step_actions';
 
 import { fetchProject } from '../../actions/project_actions';
 
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 
   return {
-    fetchSteps: project_id => dispatch(fetchSteps(project_id)),
+    fetchStep: id => dispatch(fetchStep(id)),
     fetchProject: project_id => dispatch(fetchProject(project_id)),
     action: step => dispatch(action(step)),
     formType

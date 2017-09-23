@@ -13,10 +13,15 @@ class StepForm extends React.Component {
 
   componentDidMount(ownProps) {
     console.log('ownProps: ', ownProps);
-    const { projectId } = this.props.match.params;
-    this.props
-      .fetchProject(projectId)
-      .then(() => this.props.fetchSteps(projectId));
+    const { projectId, stepId } = this.props.match.params;
+
+    if (stepId) {
+      this.props
+        .fetchProject(projectId)
+        .then(() => this.props.fetchStep(stepId));
+    } else {
+      this.props.fetchProject(projectId);
+    }
   }
 
   componentWillReceiveProps(ownProps) {

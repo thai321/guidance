@@ -5,6 +5,12 @@ export const fetchSteps = project_id =>
     data: { step: { project_id } }
   });
 
+export const fetchStep = id =>
+  $.ajax({
+    method: 'GET',
+    url: `api/steps/${id}`
+  });
+
 export const createStep = step =>
   $.ajax({
     method: 'POST',
