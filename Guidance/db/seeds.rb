@@ -30,3 +30,11 @@ p6 = Project.create(title: 'Project6', description: 'Project6, description', aut
 p7 = Project.create(title: 'Project7', description: 'Project7, description', author_id: u7.id)
 
 puts "Create 8 projects"
+
+
+Project.all.each do |project|
+  3.times do |i|
+    Step.create(title: "step #{i}", body: "Body...", project_id: project.id)
+  end
+  puts "Create 3 steps for project #{project.id}"
+end
