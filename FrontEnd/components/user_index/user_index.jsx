@@ -2,6 +2,8 @@ import React from 'react';
 
 import UserIndexItem from './user_index_item';
 
+import { uniqueId } from '../../util/id_generator';
+
 class UserIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +29,9 @@ class UserIndex extends React.Component {
             {this.props.userIds.map(id => {
               const user = this.props.users[id];
 
-              return <UserIndexItem key={user.email} user={user} />;
+              return (
+                <UserIndexItem key={user.id + id + uniqueId()} user={user} />
+              );
             })}
           </div>
         </div>

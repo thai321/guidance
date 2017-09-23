@@ -2,6 +2,8 @@ import React from 'react';
 
 import ProjectIndexItem from './project_index_item';
 
+import { uniqueId } from '../../util/id_generator';
+
 class ProjectIndex extends React.Component {
   constructor(props) {
     super(props);
@@ -10,7 +12,6 @@ class ProjectIndex extends React.Component {
   componentDidMount() {
     this.props.fetchProjects();
   }
-
   render() {
     return (
       <div className="project-index">
@@ -21,7 +22,7 @@ class ProjectIndex extends React.Component {
 
               return (
                 <ProjectIndexItem
-                  key={project.title}
+                  key={project.title + id + uniqueId()}
                   project={project}
                   currentUser={this.props.currentUser}
                 />

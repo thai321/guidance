@@ -44106,6 +44106,8 @@ var _project_index_item = __webpack_require__(158);
 
 var _project_index_item2 = _interopRequireDefault(_project_index_item);
 
+var _id_generator = __webpack_require__(465);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44146,7 +44148,7 @@ var ProjectIndex = function (_React$Component) {
               var project = _this2.props.projects[id];
 
               return _react2.default.createElement(_project_index_item2.default, {
-                key: project.title,
+                key: project.title + id + (0, _id_generator.uniqueId)(),
                 project: project,
                 currentUser: _this2.props.currentUser
               });
@@ -50751,6 +50753,8 @@ var _user_index_item = __webpack_require__(455);
 
 var _user_index_item2 = _interopRequireDefault(_user_index_item);
 
+var _id_generator = __webpack_require__(465);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50802,7 +50806,7 @@ var UserIndex = function (_React$Component) {
             this.props.userIds.map(function (id) {
               var user = _this2.props.users[id];
 
-              return _react2.default.createElement(_user_index_item2.default, { key: user.email, user: user });
+              return _react2.default.createElement(_user_index_item2.default, { key: user.id + id + (0, _id_generator.uniqueId)(), user: user });
             })
           )
         )
@@ -50987,6 +50991,8 @@ var _project_index_item = __webpack_require__(158);
 
 var _project_index_item2 = _interopRequireDefault(_project_index_item);
 
+var _id_generator = __webpack_require__(465);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -51030,7 +51036,6 @@ var UserShow = function (_React$Component) {
         var user = this.props.user;
 
         var text = user.project_ids.length > 0 ? 'Projects' : '';
-
         return _react2.default.createElement(
           'div',
           { className: 'project-index' },
@@ -51077,7 +51082,7 @@ var UserShow = function (_React$Component) {
               _react2.default.createElement('br', null),
               this.props.projectsByUser.map(function (project) {
                 return _react2.default.createElement(_project_index_item2.default, {
-                  key: project.title + 'user-show',
+                  key: project.title + user.id + (0, _id_generator.uniqueId)(),
                   project: project,
                   currentUser: _this2.props.currentUser
                 });
@@ -52181,6 +52186,21 @@ var STYLES = {
 
 module.exports = STYLES;
 
+
+/***/ }),
+/* 465 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.uniqueId = uniqueId;
+function uniqueId() {
+  return new Date().getTime();
+}
 
 /***/ })
 /******/ ]);
