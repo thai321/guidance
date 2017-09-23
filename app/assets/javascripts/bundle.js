@@ -51086,7 +51086,7 @@ var UserShow = function (_React$Component) {
               _react2.default.createElement('br', null),
               this.props.projectsByUser.map(function (project) {
                 return _react2.default.createElement(_project_index_item2.default, {
-                  key: project.title + user.id + (0, _id_generator.uniqueId)(),
+                  key: project.id + project.title + user.id + (0, _id_generator.uniqueId)(),
                   project: project,
                   currentUser: _this2.props.currentUser
                 });

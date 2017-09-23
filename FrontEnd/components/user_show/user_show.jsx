@@ -52,7 +52,7 @@ class UserShow extends React.Component {
               <br />
               {this.props.projectsByUser.map(project => (
                 <ProjectIndexItem
-                  key={project.title + user.id + uniqueId()}
+                  key={project.id + project.title + user.id + uniqueId()}
                   project={project}
                   currentUser={this.props.currentUser}
                 />
