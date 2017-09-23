@@ -111,7 +111,7 @@ class ProjectForm extends React.Component {
 
                   <div className="form-group">
                     <span className="col-md-1 col-md-offset-2 text-center">
-                      <i className="fa fa-file-text bigicon fa-lg" />
+                      <i className="fa fa-pencil bigicon fa-lg" />
                     </span>
 
                     <div className="col-md-10">
@@ -138,12 +138,6 @@ class ProjectForm extends React.Component {
                         value={this.state.description}
                         onChange={this.handleChange}
                       />
-                      {/*<textarea
-                            className="form-control"
-                            placeholder="Description"
-                            value={this.state.description}
-                            onChange={this.update('description')}
-                          /> */}
                     </div>
                   </div>
 
