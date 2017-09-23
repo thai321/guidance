@@ -88,7 +88,6 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    // debugger;
     const text =
       this.props.formType === 'signup' ? 'Register Yourself' : 'Please Login';
 
