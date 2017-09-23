@@ -2,6 +2,7 @@ class Api::StepsController < ApplicationController
   before_action :require_login!, only: [:create, :destroy]
 
   def index
+    # byebug
     @steps = Step.all
     render :index
   end
