@@ -6,7 +6,9 @@ import ProjectForm from './project_form';
 import {
   createProject,
   updateProject,
-  fetchProject
+  fetchProject,
+  createProjectOption,
+  updateProjectOption
 } from '../../actions/project_actions';
 
 const mapStateToProps = (state, ownProps) => {
@@ -17,7 +19,6 @@ const mapStateToProps = (state, ownProps) => {
     video_url: '',
     author_id: state.session.currentUser.id
   };
-  // debugger;
   let formType = 'new';
 
   if (ownProps.match.path === '/projects/:projectId/edit') {
@@ -25,17 +26,23 @@ const mapStateToProps = (state, ownProps) => {
     formType = 'edit';
   }
 
-  return { project, formType };
+  const errors = state.errors.session;
+
+  return { project, formType, errors };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  // debugger;
   let action =
-    ownProps.match.path === '/projects/new' ? createProject : updateProject;
+    ownProps.match.path === '/projects/new'
+      ? createProjectOption
+      : updateProject;
 
   return {
     fetchProject: id => dispatch(fetchProject(id)),
-    action: project => dispatch(action(project))
+    action: project => dispatch(action(project)),
+    createProjectOption: formData => dispatch(createProjectOption(formData)),
+    updateProjectOption: (formData, id) =>
+      dispatch(updateProjectOption(formData, id))
   };
 };
 

@@ -54,17 +54,16 @@ class ProjectForm extends React.Component {
     }
 
     const { projectId } = this.props.match.params;
-    const callback = () => console.log('success');
 
     if (this.props.formType === 'new') {
-      createProjectOption(formData, callback).then(() =>
-        this.props.history.push('/')
-      );
+      this.props
+        .createProjectOption(formData)
+        .then(() => this.props.history.push('/'));
     } else {
       const id = this.props.match.params.projectId;
-      updateProjectOption(formData, id, callback).then(() =>
-        this.props.history.push('/')
-      );
+      this.props
+        .updateProjectOption(formData, id)
+        .then(() => this.props.history.push('/'));
     }
   }
 
@@ -73,7 +72,6 @@ class ProjectForm extends React.Component {
     const fileReader = new FileReader();
 
     fileReader.onloadend = () => {
-      // debugger;
       this.setState({ imageFile: file, image_url: fileReader.result });
     };
 
@@ -199,19 +197,21 @@ class ProjectForm extends React.Component {
 }
 
 ProjectForm.modules = {
+  syntax: true,
+  formula: true,
   toolbar: [
     [{ header: '1' }, { header: '2' }, { font: [] }],
     [{ color: [] }, { background: [] }],
     [{ size: [] }],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+
     [
       { list: 'ordered' },
       { list: 'bullet' },
       { indent: '-1' },
       { indent: '+1' }
     ],
-    ['link', 'image', 'video'],
-    ['clean']
+    ['link', 'image', 'video', 'code-block', 'formula']
   ]
 };
 
