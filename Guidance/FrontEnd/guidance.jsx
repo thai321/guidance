@@ -12,6 +12,7 @@ import * as UserUtil from './util/user_api_util';
 import * as SessionActions from './actions/session_actions';
 import * as ProjectActions from './actions/project_actions';
 import * as UserActions from './actions/user_actions';
+import * as StepActions from './actions/step_actions';
 
 import * as Selectors from './reducers/selectors';
 
@@ -38,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.SessionActions = SessionActions;
   window.ProjectActions = ProjectActions;
   window.UserActions = UserActions;
+  window.StepActions = StepActions;
 
   window.Selectors = Selectors;
 
