@@ -44711,20 +44711,24 @@ var ProjectForm = function (_React$Component) {
                     )
                   ),
                   _react2.default.createElement(
-                    'span',
-                    { className: 'col-md-1 col-md-offset-2 text-center' },
-                    _react2.default.createElement('i', { className: 'fa fa-pencil-square-o bigicon fa-lg' })
-                  ),
-                  _react2.default.createElement(
                     'div',
-                    { className: 'col-md-10' },
-                    _react2.default.createElement(_reactQuill2.default, {
-                      className: 'description-quill',
-                      placeholder: 'Enter The Project\'s Description',
-                      modules: ProjectForm.modules,
-                      value: this.state.description,
-                      onChange: this.handleChange
-                    })
+                    { className: 'project-form-description' },
+                    _react2.default.createElement(
+                      'span',
+                      { className: 'col-md-1 col-md-offset-2 text-center' },
+                      _react2.default.createElement('i', { className: 'fa fa-pencil-square-o bigicon fa-lg' })
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'col-md-10' },
+                      _react2.default.createElement(_reactQuill2.default, {
+                        className: 'description-quill',
+                        placeholder: 'Enter The Project\'s Description',
+                        modules: ProjectForm.modules,
+                        value: this.state.description,
+                        onChange: this.handleChange
+                      })
+                    )
                   ),
                   _react2.default.createElement(
                     'div',

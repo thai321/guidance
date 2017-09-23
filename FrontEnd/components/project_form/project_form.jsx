@@ -125,24 +125,26 @@ class ProjectForm extends React.Component {
                     </div>
                   </div>
 
-                  <span className="col-md-1 col-md-offset-2 text-center">
-                    <i className="fa fa-pencil-square-o bigicon fa-lg" />
-                  </span>
+                  <div className="project-form-description">
+                    <span className="col-md-1 col-md-offset-2 text-center">
+                      <i className="fa fa-pencil-square-o bigicon fa-lg" />
+                    </span>
 
-                  <div className="col-md-10">
-                    <ReactQuill
-                      className="description-quill"
-                      placeholder="Enter The Project's Description"
-                      modules={ProjectForm.modules}
-                      value={this.state.description}
-                      onChange={this.handleChange}
-                    />
-                    {/*<textarea
+                    <div className="col-md-10">
+                      <ReactQuill
+                        className="description-quill"
+                        placeholder="Enter The Project's Description"
+                        modules={ProjectForm.modules}
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                      />
+                      {/*<textarea
                             className="form-control"
                             placeholder="Description"
                             value={this.state.description}
                             onChange={this.update('description')}
                           /> */}
+                    </div>
                   </div>
 
                   <div className="image-project-form">
