@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: steps
+#
+#  id         :integer          not null, primary key
+#  title      :string           not null
+#  body       :text             not null
+#  project_id :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'test_helper'
 
 class StepTest < ActiveSupport::TestCase

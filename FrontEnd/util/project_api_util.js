@@ -31,28 +31,22 @@ export const deleteProject = id =>
     url: `api/projects/${id}`
   });
 
-export const createProjectOption = (formData, callback) =>
+export const createProjectForm = formData =>
   $.ajax({
     url: '/api/projects',
     method: 'POST',
     dataType: 'json',
     contentType: false,
     processData: false,
-    data: formData,
-    success: function() {
-      callback();
-    }
+    data: formData
   });
 
-export const updateProjectOption = (formData, id, callback) =>
+export const updateProjectForm = (formData, id) =>
   $.ajax({
     url: `/api/projects/${id}`,
     method: 'PATCH',
     dataType: 'json',
     contentType: false,
     processData: false,
-    data: formData,
-    success: function() {
-      callback();
-    }
+    data: formData
   });

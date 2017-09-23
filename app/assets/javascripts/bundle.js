@@ -3090,7 +3090,7 @@ module.exports = ReactReconciler;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deleteProject = exports.updateProject = exports.createProject = exports.fetchProject = exports.fetchProjects = exports.REMOVE_PROJECT = exports.RECEIVE_PROJECT = exports.RECEIVE_ALL_PROJECTS = undefined;
+exports.updateProjectOption = exports.createProjectOption = exports.deleteProject = exports.updateProject = exports.createProject = exports.fetchProject = exports.fetchProjects = exports.receiveErrors = exports.RECEIVE_SESSION_ERRORS = exports.REMOVE_PROJECT = exports.RECEIVE_PROJECT = exports.RECEIVE_ALL_PROJECTS = undefined;
 
 var _project_api_util = __webpack_require__(52);
 
@@ -3101,6 +3101,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var RECEIVE_ALL_PROJECTS = exports.RECEIVE_ALL_PROJECTS = 'RECEIVE_ALL_PROJECTS';
 var RECEIVE_PROJECT = exports.RECEIVE_PROJECT = 'RECEIVE_PROJECT';
 var REMOVE_PROJECT = exports.REMOVE_PROJECT = 'REMOVE_PROJECT';
+var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 
 var receiveAllProjects = function receiveAllProjects(projects) {
   return {
@@ -3120,6 +3121,13 @@ var removeProject = function removeProject(project) {
   return {
     type: REMOVE_PROJECT,
     project: project
+  };
+};
+
+var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_SESSION_ERRORS,
+    errors: errors
   };
 };
 
@@ -3159,6 +3167,26 @@ var deleteProject = exports.deleteProject = function deleteProject(id) {
   return function (dispatch) {
     return ProjectApiUtil.deleteProject(id).then(function (proj) {
       return dispatch(removeProject(proj));
+    });
+  };
+};
+
+var createProjectOption = exports.createProjectOption = function createProjectOption(formData, callback) {
+  return function (dispatch) {
+    return ProjectApiUtil.createProjectForm(formData, callback).then(function (proj) {
+      return dispatch(receiveProject(proj));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+var updateProjectOption = exports.updateProjectOption = function updateProjectOption(formData, id, callback) {
+  return function (dispatch) {
+    return ProjectApiUtil.updateProjectForm(formData, id, callback).then(function (proj) {
+      return dispatch(receiveProject(proj));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -5592,31 +5620,25 @@ var deleteProject = exports.deleteProject = function deleteProject(id) {
   });
 };
 
-var createProjectOption = exports.createProjectOption = function createProjectOption(formData, callback) {
+var createProjectForm = exports.createProjectForm = function createProjectForm(formData) {
   return $.ajax({
     url: '/api/projects',
     method: 'POST',
     dataType: 'json',
     contentType: false,
     processData: false,
-    data: formData,
-    success: function success() {
-      callback();
-    }
+    data: formData
   });
 };
 
-var updateProjectOption = exports.updateProjectOption = function updateProjectOption(formData, id, callback) {
+var updateProjectForm = exports.updateProjectForm = function updateProjectForm(formData, id) {
   return $.ajax({
     url: '/api/projects/' + id,
     method: 'PATCH',
     dataType: 'json',
     contentType: false,
     processData: false,
-    data: formData,
-    success: function success() {
-      callback();
-    }
+    data: formData
   });
 };
 
@@ -44116,23 +44138,19 @@ var ProjectIndex = function (_React$Component) {
         { className: 'project-index' },
         _react2.default.createElement(
           'div',
-          { className: 'card-wrap' },
+          { className: 'container-fluid' },
           _react2.default.createElement(
             'div',
-            { className: 'container-fluid' },
-            _react2.default.createElement(
-              'div',
-              { className: 'row' },
-              this.props.projectIds.map(function (id) {
-                var project = _this2.props.projects[id];
+            { className: 'row' },
+            this.props.projectIds.map(function (id) {
+              var project = _this2.props.projects[id];
 
-                return _react2.default.createElement(_project_index_item2.default, {
-                  key: project.title,
-                  project: project,
-                  currentUser: _this2.props.currentUser
-                });
-              })
-            )
+              return _react2.default.createElement(_project_index_item2.default, {
+                key: project.title,
+                project: project,
+                currentUser: _this2.props.currentUser
+              });
+            })
           )
         )
       );
@@ -44464,7 +44482,6 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     video_url: '',
     author_id: state.session.currentUser.id
   };
-  // debugger;
   var formType = 'new';
 
   if (ownProps.match.path === '/projects/:projectId/edit') {
@@ -44472,12 +44489,13 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     formType = 'edit';
   }
 
-  return { project: project, formType: formType };
+  var errors = state.errors.session;
+
+  return { project: project, formType: formType, errors: errors };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-  // debugger;
-  var _action = ownProps.match.path === '/projects/new' ? _project_actions.createProject : _project_actions.updateProject;
+  var _action = ownProps.match.path === '/projects/new' ? _project_actions.createProjectOption : _project_actions.updateProject;
 
   return {
     fetchProject: function fetchProject(id) {
@@ -44485,6 +44503,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
     },
     action: function action(project) {
       return dispatch(_action(project));
+    },
+    createProjectOption: function createProjectOption(formData) {
+      return dispatch((0, _project_actions.createProjectOption)(formData));
+    },
+    updateProjectOption: function updateProjectOption(formData, id) {
+      return dispatch((0, _project_actions.updateProjectOption)(formData, id));
     }
   };
 };
@@ -44588,17 +44612,14 @@ var ProjectForm = function (_React$Component) {
 
       var projectId = this.props.match.params.projectId;
 
-      var callback = function callback() {
-        return console.log('success');
-      };
 
       if (this.props.formType === 'new') {
-        (0, _project_api_util.createProjectOption)(formData, callback).then(function () {
+        this.props.createProjectOption(formData).then(function () {
           return _this3.props.history.push('/');
         });
       } else {
         var id = this.props.match.params.projectId;
-        (0, _project_api_util.updateProjectOption)(formData, id, callback).then(function () {
+        this.props.updateProjectOption(formData, id).then(function () {
           return _this3.props.history.push('/');
         });
       }
@@ -44612,7 +44633,6 @@ var ProjectForm = function (_React$Component) {
       var fileReader = new FileReader();
 
       fileReader.onloadend = function () {
-        // debugger;
         _this4.setState({ imageFile: file, image_url: fileReader.result });
       };
 
@@ -44772,7 +44792,9 @@ var ProjectForm = function (_React$Component) {
 }(_react2.default.Component);
 
 ProjectForm.modules = {
-  toolbar: [[{ header: '1' }, { header: '2' }, { font: [] }], [{ color: [] }, { background: [] }], [{ size: [] }], ['bold', 'italic', 'underline', 'strike', 'blockquote'], [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }], ['link', 'image', 'video'], ['clean']]
+  syntax: true,
+  formula: true,
+  toolbar: [[{ header: '1' }, { header: '2' }, { font: [] }], [{ color: [] }, { background: [] }], [{ size: [] }], ['bold', 'italic', 'underline', 'strike', 'blockquote'], [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }], ['link', 'image', 'video', 'code-block', 'formula']]
 };
 
 exports.default = ProjectForm;
