@@ -1,4 +1,6 @@
 class Api::StepsController < ApplicationController
+  before_action :require_login!, only: [:create, :destroy]
+
   def index
     @steps = Step.all
     render :index

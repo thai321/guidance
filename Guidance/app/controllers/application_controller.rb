@@ -22,6 +22,9 @@ class ApplicationController < ActionController::Base
   end
 
   def require_login!
-    redirect_to new_session_url if !login?
+    # redirect_to new_session_url if !login?
+    if !login?
+      render json: ["You are not authorized to perform this action"], status: 401
+    end
   end
 end

@@ -1,4 +1,6 @@
 class Api::UsersController < ApplicationController
+  before_action :require_user!, only: [:update]
+
 
   def index
     @users = User.all
@@ -34,5 +36,11 @@ class Api::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:username, :password, :email)
+  end
+
+  def require_user!
+    if !params[:user][:id] || current_user.id != params[:user][:id]
+      render json: ["You are not authorized to perform this action"],  status: 401
+    end
   end
 end

@@ -1,6 +1,8 @@
 class Api::ProjectsController < ApplicationController
+  before_action :require_login!, only: [:create, :update, :destroy]
+
   def index
-    if(params[:project_ids])
+    if params[:project_ids]
       @projects = Project.where(id: params[:project_ids].map(&:to_i))
     else
       @projects = Project.all
