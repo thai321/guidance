@@ -75,7 +75,7 @@ class SessionForm extends React.Component {
           <div className="col-md-12">
             <input
               type="email"
-              placeholder="&#xf003; thainguyen@example.com"
+              placeholder="&#xf003; thainguyen@berkeley.edu"
               className="form-control input-md"
               required=""
               value={this.state.email}
