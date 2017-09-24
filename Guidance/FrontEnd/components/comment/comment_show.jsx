@@ -26,10 +26,10 @@ class CommentShow extends React.Component {
     const { comments } = this.props;
 
     return (
-      <div className="comment-showt">
+      <div className="comment-show">
         {comments.map((comment, i) => (
           <CommentDetail
-            key={comment.id + i + uniqueId()}
+            key={comment.id + comment.author + i + uniqueId()}
             comment={comment}
             currentUser={this.props.currentUser}
           />
