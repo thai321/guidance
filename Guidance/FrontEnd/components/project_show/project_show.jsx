@@ -38,9 +38,9 @@ class ProjectShow extends React.Component {
   }
 
   displayButton(type, authorId) {
-    const currentUser = this.props.currentUser;
+    const { currentUser } = this.props;
 
-    if (currentUser) {
+    if ({ currentUser }) {
       if (authorId === currentUser.id) {
         const { projectId } = this.props.match.params;
 
@@ -73,6 +73,17 @@ class ProjectShow extends React.Component {
     // this.setState({ project: { published: !this.state.project.published } });
   }
 
+  displayPublish(authorId, publishedText) {
+    const { currentUser } = this.props;
+    if (currentUser.id === authorId) {
+      return (
+        <button className="btn btn-info" onClick={this.publishedToggle}>
+          {publishedText}
+        </button>
+      );
+    }
+  }
+
   render() {
     const { project } = this.props;
     const { user } = this.state;
@@ -98,9 +109,7 @@ class ProjectShow extends React.Component {
           </Link>
 
           <div>{this.displayButton('edit', user.id)}</div>
-          <button className="btn btn-info" onClick={this.publishedToggle}>
-            {publishedText}
-          </button>
+          <div>{this.displayPublish(user.id, publishedText)}</div>
         </div>
 
         <div className="project-show">
