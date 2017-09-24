@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { uniqueId } from '../../util/id_generator';
 
 import StepItem from './step_item';
+import CommentShowContainer from '../comment/comment_show_container';
 
 class ProjectShow extends React.Component {
   constructor(props) {
@@ -70,8 +71,6 @@ class ProjectShow extends React.Component {
     const project = this.props.project;
     project.published = !project.published;
     this.props.updateProject(project);
-
-    // this.setState({ project: { published: !this.state.project.published } });
   }
 
   displayPublish(authorId, publishedText) {
@@ -148,6 +147,8 @@ class ProjectShow extends React.Component {
         </div>
 
         <div>{this.displayButton('new', user.id)}</div>
+
+        <CommentShowContainer />
       </div>
     );
   }
