@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import ProjectShow from './project_show';
 
-import { fetchProject } from '../../actions/project_actions';
+import { fetchProject, updateProject } from '../../actions/project_actions';
 import { fetchUser } from '../../actions/user_actions';
 import { fetchSteps, removeStep } from '../../actions/step_actions';
 
@@ -28,7 +28,8 @@ const mapDispatchToProps = dispatch => ({
   fetchProject: id => dispatch(fetchProject(id)),
   fetchUser: id => dispatch(fetchUser(id)),
   fetchSteps: projectId => dispatch(fetchSteps(projectId)),
-  removeStep: stepId => dispatch(removeStep(stepId))
+  removeStep: stepId => dispatch(removeStep(stepId)),
+  updateProject: project => dispatch(updateProject(project))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectShow);
