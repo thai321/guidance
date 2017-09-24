@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import ReactQuill from 'react-quill';
 
@@ -53,17 +54,17 @@ class ProjectForm extends React.Component {
       formData.append('project[image]', this.state.imageFile);
     }
 
-    const { projectId } = this.props.match.params;
-
     if (this.props.formType === 'new') {
       this.props
         .createProjectOption(formData)
-        .then(() => this.props.history.push('/'));
+        .then(action =>
+          this.props.history.push(`/projects/${action.project.id}`)
+        );
     } else {
-      const id = this.props.match.params.projectId;
+      const { projectId } = this.props.match.params;
       this.props
-        .updateProjectOption(formData, id)
-        .then(() => this.props.history.push('/'));
+        .updateProjectOption(formData, projectId)
+        .then(() => this.props.history.push(`/projects/${projectId}`));
     }
   }
 
@@ -92,7 +93,11 @@ class ProjectForm extends React.Component {
     const text =
       this.props.formType === 'new' ? 'Create Project' : 'Update Project';
 
+    const header =
+      this.props.formType === 'new' ? 'New Project' : 'Edit Project';
+
     const {
+      id,
       title,
       description,
       image_url,
@@ -107,11 +112,15 @@ class ProjectForm extends React.Component {
             <div className="row">
               <div className="col-md-12">
                 <form className="form-horizontal">
-                  <legend className="text-center header">New Project</legend>
+                  <Link to={`/projects/${id}`}>
+                    <i className="fa fa-arrow-circle-o-left fa-4x" />
+                  </Link>
+
+                  <legend className="text-center header">{header}</legend>
 
                   <div className="form-group">
                     <span className="col-md-1 col-md-offset-2 text-center">
-                      <i className="fa fa-file-text bigicon fa-lg" />
+                      <i className="fa fa-pencil bigicon fa-lg" />
                     </span>
 
                     <div className="col-md-10">
@@ -138,12 +147,6 @@ class ProjectForm extends React.Component {
                         value={this.state.description}
                         onChange={this.handleChange}
                       />
-                      {/*<textarea
-                            className="form-control"
-                            placeholder="Description"
-                            value={this.state.description}
-                            onChange={this.update('description')}
-                          /> */}
                     </div>
                   </div>
 

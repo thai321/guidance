@@ -11,7 +11,7 @@
 #
 
 class Step < ApplicationRecord
-  validates :title, :body, presence: true
+  validates :title, presence: true
 
   belongs_to :project,
     primary_key: :id,
