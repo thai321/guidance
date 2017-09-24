@@ -54,17 +54,17 @@ class ProjectForm extends React.Component {
       formData.append('project[image]', this.state.imageFile);
     }
 
-    const { projectId } = this.props.match.params;
-
     if (this.props.formType === 'new') {
       this.props
         .createProjectOption(formData)
-        .then(() => this.props.history.push('/'));
+        .then(action =>
+          this.props.history.push(`/projects/${action.project.id}`)
+        );
     } else {
-      const id = this.props.match.params.projectId;
+      const { projectId } = this.props.match.params;
       this.props
-        .updateProjectOption(formData, id)
-        .then(() => this.props.history.push('/'));
+        .updateProjectOption(formData, projectId)
+        .then(() => this.props.history.push(`/projects/${projectId}`));
     }
   }
 

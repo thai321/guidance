@@ -33,28 +33,30 @@ class ProjectShow extends React.Component {
     if (currentId !== nextId) this.props.fetchProject(nextId);
   }
 
-  displayNew(authorId, currentUserId) {
-    if (authorId === currentUserId) {
-      const { projectId } = this.props.match.params;
-      return (
-        <Link
-          className="btn btn-lg btn-primary"
-          to={`/projects/${projectId}/steps/new`}
-        >
-          Add Step
-        </Link>
-      );
-    }
-  }
+  displayButton(type, authorId) {
+    const currentUser = this.props.currentUser;
 
-  displayEdit(authorId, currentUserId) {
-    if (authorId === currentUserId) {
-      const { projectId } = this.props.match.params;
-      return (
-        <Link className="btn" to={`/projects/${projectId}/edit`}>
-          <i className="fa fa-cog fa-3x" />
-        </Link>
-      );
+    if (currentUser) {
+      if (authorId === currentUser.id) {
+        const { projectId } = this.props.match.params;
+
+        if (type === 'new') {
+          return (
+            <Link
+              className="btn btn-lg btn-primary"
+              to={`/projects/${projectId}/steps/new`}
+            >
+              Add Step
+            </Link>
+          );
+        } else {
+          return (
+            <Link className="btn" to={`/projects/${projectId}/edit`}>
+              <i className="fa fa-cog fa-3x" />
+            </Link>
+          );
+        }
+      }
     }
   }
 
@@ -78,7 +80,7 @@ class ProjectShow extends React.Component {
             <i className="fa fa-user fa-2x" />
           </Link>
 
-          <div>{this.displayEdit(user.id, this.props.currentUser.id)}</div>
+          <div>{this.displayButton('edit', user.id)}</div>
         </div>
 
         <div className="project-show">
@@ -106,6 +108,7 @@ class ProjectShow extends React.Component {
             <StepItem
               key={step.id + uniqueId()}
               step={step}
+              projectId={project.id}
               count={parseInt(i + 1)}
               author={user}
               currentUser={this.props.currentUser}
@@ -113,7 +116,7 @@ class ProjectShow extends React.Component {
           ))}
         </div>
 
-        <div>{this.displayNew(user.id, this.props.currentUser.id)}</div>
+        <div>{this.displayButton('new', user.id)}</div>
       </div>
     );
   }

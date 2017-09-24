@@ -7,13 +7,19 @@ import { fetchUser } from '../../actions/user_actions';
 import { fetchSteps } from '../../actions/step_actions';
 
 const mapStateToProps = (state, ownProps) => {
-  const project = state.entities.projects[ownProps.match.params.projectId];
+  const { projectId } = ownProps.match.params;
+  const project = state.entities.projects[projectId];
 
-  const steps = Object.values(state.entities.steps);
+  const stepObj = {};
+  const steps = Object.values(state.entities.steps).forEach(step => {
+    if (step.project_id === parseInt(projectId)) {
+      stepObj[step.id] = step;
+    }
+  });
 
   return {
     project,
-    steps,
+    steps: Object.values(stepObj),
     currentUser: state.session.currentUser
   };
 };
