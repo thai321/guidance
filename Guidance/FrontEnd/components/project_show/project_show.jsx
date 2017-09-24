@@ -1,23 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Renderers from 'quilljs-renderer';
+import { uniqueId } from '../../util/id_generator';
+
+import StepItem from './step_item';
 
 class ProjectShow extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = { user: null };
-
-    const Document = Renderers.Document;
-    Renderers.loadFormat('html');
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { projectId } = this.props.match.params;
 
     this.props.fetchProject(projectId).then(action => {
-      this.props.fetchUser(action.project.author_id).then(user => {
+      const { project } = action;
+      if (project.step_ids.length > 0) {
+        this.props.fetchSteps(project.id);
+      }
+
+      this.props.fetchUser(project.author_id).then(user => {
         this.setState({ user: user.user });
       });
     });
@@ -29,6 +33,31 @@ class ProjectShow extends React.Component {
     if (currentId !== nextId) this.props.fetchProject(nextId);
   }
 
+  displayNew(authorId, currentUserId) {
+    if (authorId === currentUserId) {
+      const { projectId } = this.props.match.params;
+      return (
+        <Link
+          className="btn btn-lg btn-primary"
+          to={`/projects/${projectId}/steps/new`}
+        >
+          Add Step
+        </Link>
+      );
+    }
+  }
+
+  displayEdit(authorId, currentUserId) {
+    if (authorId === currentUserId) {
+      const { projectId } = this.props.match.params;
+      return (
+        <Link className="btn" to={`/projects/${projectId}/edit`}>
+          <i className="fa fa-cog fa-3x" />
+        </Link>
+      );
+    }
+  }
+
   render() {
     const { project } = this.props;
     const { user } = this.state;
@@ -36,19 +65,26 @@ class ProjectShow extends React.Component {
       return <div>Loading...</div>;
     }
 
-    return (
-      <div className="project-show">
-        <Link className="project-show-back-to-index" to="/">
-          <i className="fa fa-home fa-lg" />
-        </Link>
-        <label className="project-show-user-title">
-          <Link className="btn btn-info btn-lg" to={`/users/${user.id}`}>
-            {user.username}
-          </Link>
-        </label>
-        <img className="project-show-img" src={project.image_url} />
+    const steps = this.props.steps;
 
-        <h1 className="project-show-title">{project.title}</h1>
+    return (
+      <div className="project-show-page">
+        <div className="project-show-buttons">
+          <Link className="project-show-back-to-index" to="/">
+            <i className="fa fa-home fa-2x" />
+          </Link>
+
+          <Link className="project-show-back-to-index" to={`/users/${user.id}`}>
+            <i className="fa fa-user fa-2x" />
+          </Link>
+
+          <div>{this.displayEdit(user.id, this.props.currentUser.id)}</div>
+        </div>
+
+        <div className="project-show">
+          <h1 className="project-show-title">{project.title}</h1>
+          <img className="project-show-img" src={project.image_url} />
+        </div>
 
         <div className="project-show-description">
           <h2>Description</h2>
@@ -64,6 +100,20 @@ class ProjectShow extends React.Component {
             allowFullScreen
           />
         </div>
+
+        <div>
+          {steps.map((step, i) => (
+            <StepItem
+              key={step.id + uniqueId()}
+              step={step}
+              count={parseInt(i + 1)}
+              author={user}
+              currentUser={this.props.currentUser}
+            />
+          ))}
+        </div>
+
+        <div>{this.displayNew(user.id, this.props.currentUser.id)}</div>
       </div>
     );
   }

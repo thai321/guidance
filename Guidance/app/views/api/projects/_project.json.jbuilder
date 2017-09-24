@@ -7,6 +7,7 @@ json.description project.description
 json.video_url project.video_url
 json.published project.published
 json.author_id project.author_id
+json.step_ids project.step_ids
 
 # image = project.image.url
 # if(image.include?('amazon'))

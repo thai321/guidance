@@ -18,6 +18,14 @@ class UserShow extends React.Component {
       .then(this.props.fetchProjects());
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.match.params.userId !== nextProps.match.params.userId) {
+      this.props
+        .fetchUser(nextProps.match.params.userId)
+        .then(this.props.fetchProjects());
+    }
+  }
+
   render() {
     if (!this.props.user) {
       return (
@@ -50,13 +58,15 @@ class UserShow extends React.Component {
 
             <div className="row">
               <br />
-              {this.props.projectsByUser.map(project => (
-                <ProjectIndexItem
-                  key={project.id + project.title + user.id + uniqueId()}
-                  project={project}
-                  currentUser={this.props.currentUser}
-                />
-              ))}
+              {this.props.projectsByUser.map(project => {
+                return (
+                  <ProjectIndexItem
+                    key={project.id + project.title + user.id + uniqueId()}
+                    project={project}
+                    currentUser={this.props.currentUser}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

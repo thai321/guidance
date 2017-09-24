@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import ReactQuill from 'react-quill';
 
@@ -92,7 +93,11 @@ class ProjectForm extends React.Component {
     const text =
       this.props.formType === 'new' ? 'Create Project' : 'Update Project';
 
+    const header =
+      this.props.formType === 'new' ? 'New Project' : 'Edit Project';
+
     const {
+      id,
       title,
       description,
       image_url,
@@ -107,7 +112,11 @@ class ProjectForm extends React.Component {
             <div className="row">
               <div className="col-md-12">
                 <form className="form-horizontal">
-                  <legend className="text-center header">New Project</legend>
+                  <Link to={`/projects/${id}`}>
+                    <i className="fa fa-arrow-circle-o-left fa-4x" />
+                  </Link>
+
+                  <legend className="text-center header">{header}</legend>
 
                   <div className="form-group">
                     <span className="col-md-1 col-md-offset-2 text-center">

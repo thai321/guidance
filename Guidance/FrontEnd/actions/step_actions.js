@@ -25,8 +25,8 @@ export const receiveErrors = errors => ({
   errors
 });
 
-export const fetchSteps = project_id => dispatch =>
-  StepApiUtil.fetchSteps(project_id)
+export const fetchSteps = projectId => dispatch =>
+  StepApiUtil.fetchSteps(projectId)
     .then(steps => dispatch(receiveProjectSteps(steps)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
