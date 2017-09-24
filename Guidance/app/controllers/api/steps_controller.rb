@@ -1,5 +1,6 @@
 class Api::StepsController < ApplicationController
   before_action :require_login!, only: [:create, :update, :destroy]
+  before_action :require_user!, only: [:update, :destroy]
 
   def index
     @steps = Step.where(project_id: step_params[:project_id])
@@ -44,5 +45,11 @@ class Api::StepsController < ApplicationController
   private
   def step_params
     params.require(:step).permit(:id, :title, :body, :project_id, step_ids: [])
+  end
+
+  def require_user!
+    if !params[:step] || current_user.id != Step.find(params[:id]).author.id
+      render json: ["You are not authorized to perform this action"],  status: 401
+    end
   end
 end
