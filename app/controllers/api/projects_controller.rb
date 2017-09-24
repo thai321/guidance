@@ -2,12 +2,13 @@ class Api::ProjectsController < ApplicationController
   before_action :require_login!, only: [:create, :update, :destroy]
 
   def index
-    if params[:project_ids]
-      @projects = Project.where(id: params[:project_ids].map(&:to_i))
-    else
+    if params[:project].nil?
       @projects = Project.all
+    else
+      @projects = Project.where(author_id: project_params[:author_id].to_i)
     end
     render :index
+    # render json: ['test errors'], status: 422
   end
 
   def show
@@ -49,6 +50,6 @@ class Api::ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:title, :description, :image_url, :video_url, :published, :author_id, :image, project_ids: [])
+    params.require(:project).permit(:title, :description, :image_url, :video_url, :published, :author_id, :image)
   end
 end

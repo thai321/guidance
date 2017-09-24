@@ -2360,6 +2360,8 @@ var fetchProjects = exports.fetchProjects = function fetchProjects(filter) {
   return function (dispatch) {
     return ProjectApiUtil.fetchProjects(filter).then(function (projects) {
       return dispatch(receiveAllProjects(projects));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -2368,6 +2370,8 @@ var fetchProject = exports.fetchProject = function fetchProject(id) {
   return function (dispatch) {
     return ProjectApiUtil.fetchProject(id).then(function (project) {
       return dispatch(receiveProject(project));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -2376,6 +2380,8 @@ var createProject = exports.createProject = function createProject(project) {
   return function (dispatch) {
     return ProjectApiUtil.createProject(project).then(function (proj) {
       return dispatch(receiveProject(proj));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -2384,6 +2390,8 @@ var updateProject = exports.updateProject = function updateProject(project) {
   return function (dispatch) {
     return ProjectApiUtil.updateProject(project).then(function (proj) {
       return dispatch(receiveProject(proj));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -2392,6 +2400,8 @@ var deleteProject = exports.deleteProject = function deleteProject(id) {
   return function (dispatch) {
     return ProjectApiUtil.deleteProject(id).then(function (proj) {
       return dispatch(removeProject(proj));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -5582,12 +5592,19 @@ module.exports = ReactBrowserEventEmitter;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var fetchProjects = exports.fetchProjects = function fetchProjects(project_ids) {
-  return $.ajax({
-    method: 'GET',
-    url: 'api/projects',
-    data: { project_ids: project_ids }
-  });
+var fetchProjects = exports.fetchProjects = function fetchProjects(userId) {
+  if (userId === undefined) {
+    return $.ajax({
+      method: 'GET',
+      url: 'api/projects'
+    });
+  } else {
+    return $.ajax({
+      method: 'GET',
+      url: 'api/projects',
+      data: { project: { author_id: userId } }
+    });
+  }
 };
 
 var fetchProject = exports.fetchProject = function fetchProject(id) {
@@ -51099,8 +51116,6 @@ var _user_actions = __webpack_require__(38);
 
 var _project_actions = __webpack_require__(22);
 
-var _selectors = __webpack_require__(181);
-
 var _user_show = __webpack_require__(458);
 
 var _user_show2 = _interopRequireDefault(_user_show);
@@ -51131,18 +51146,14 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   };
 };
 
-// import { projecstByUserIds } from '../../reducers/selectors';
-
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchUser: function fetchUser(id) {
       return dispatch((0, _user_actions.fetchUser)(id));
     },
-    fetchProjects: function fetchProjects() {
-      return dispatch((0, _project_actions.fetchProjects)());
+    fetchProjects: function fetchProjects(userId) {
+      return dispatch((0, _project_actions.fetchProjects)(userId));
     }
-    // fetchProjects: userIds => dispatch(fetchProjects(userIds))
-    // projectByIds: ids => projectByIds(ids)
   };
 };
 
@@ -51195,19 +51206,27 @@ var UserShow = function (_React$Component) {
   _createClass(UserShow, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.fetchUser(this.props.match.params.userId).then(this.props.fetchProjects());
+      var _this2 = this;
+
+      this.props.fetchUser(this.props.match.params.userId).then(function (action) {
+        _this2.props.fetchProjects(action.user.id);
+      });
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
+      var _this3 = this;
+
       if (this.props.match.params.userId !== nextProps.match.params.userId) {
-        this.props.fetchUser(nextProps.match.params.userId).then(this.props.fetchProjects());
+        this.props.fetchUser(nextProps.match.params.userId).then(function (action) {
+          _this3.props.fetchProjects(action.user.id);
+        });
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this4 = this;
 
       if (!this.props.user) {
         return _react2.default.createElement(
@@ -51271,7 +51290,7 @@ var UserShow = function (_React$Component) {
                 return _react2.default.createElement(_project_index_item2.default, {
                   key: project.id + project.title + user.id + (0, _id_generator.uniqueId)(),
                   project: project,
-                  currentUser: _this2.props.currentUser
+                  currentUser: _this4.props.currentUser
                 });
               })
             )

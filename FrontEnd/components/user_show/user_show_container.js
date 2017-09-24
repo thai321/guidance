@@ -4,10 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { fetchUser } from '../../actions/user_actions';
 import { fetchProjects } from '../../actions/project_actions';
 
-import { projectByIds } from '../../reducers/selectors';
-
-// import { projecstByUserIds } from '../../reducers/selectors';
-
 import UserShow from './user_show';
 
 const mapStateToProps = (state, ownProps) => {
@@ -37,9 +33,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: id => dispatch(fetchUser(id)),
-    fetchProjects: () => dispatch(fetchProjects())
-    // fetchProjects: userIds => dispatch(fetchProjects(userIds))
-    // projectByIds: ids => projectByIds(ids)
+    fetchProjects: userId => dispatch(fetchProjects(userId))
   };
 };
 
