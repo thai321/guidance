@@ -23,7 +23,6 @@ class Api::CommentsController < ApplicationController
   end
 
   def update
-    byebug
     @comment = Comment.find(params[:id])
 
     if @comment.update(comment_params)
@@ -39,7 +38,7 @@ class Api::CommentsController < ApplicationController
   end
 
   def require_user!
-    if !params[:comment][:id] || current_user.id != params[:comment][:author_id].to_i
+    if !params[:comment] || current_user.id != params[:comment][:author_id].to_i
       render json: ["You are not authorized to perform this action"],  status: 401
     end
   end
