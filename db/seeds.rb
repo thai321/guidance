@@ -38,3 +38,12 @@ Project.all.each do |project|
   end
   puts "Create 3 steps for project #{project.id}"
 end
+
+
+Project.all.each do |project|
+  User.all.each do |user|
+    Comment.create(body: "#{user.username} Comment on project #{project.title}", project_id: project.id, author_id: user.id)
+  end
+
+  puts "Created #{User.all.length} for #{project.title}"
+end

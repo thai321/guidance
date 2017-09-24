@@ -78,7 +78,6 @@ class UserShow extends React.Component {
             <div className="row">
               <br />
               {this.props.projectsByUser.map(project => {
-                debugger;
                 return (
                   <ProjectIndexItem
                     key={project.id + project.title + user.id + uniqueId()}

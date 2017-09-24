@@ -18,4 +18,8 @@ class Step < ApplicationRecord
     foreign_key: :project_id,
     class_name: :Project,
     inverse_of: :steps
+
+  has_one :author,
+    through: :project,
+    source: :author
 end

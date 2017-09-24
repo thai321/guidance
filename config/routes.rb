@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :projects, only: [:create, :index, :show, :destroy, :update]
 
     resources :steps, only: [:index, :create, :update, :show, :destroy]
+
+    resources :comments, only: [:index, :create, :update, :show]
   end
 
   root to: 'static_pages#root'

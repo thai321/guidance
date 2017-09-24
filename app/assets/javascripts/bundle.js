@@ -27718,6 +27718,10 @@ var _step_api_util = __webpack_require__(147);
 
 var StepUtil = _interopRequireWildcard(_step_api_util);
 
+var _comment_api_util = __webpack_require__(466);
+
+var CommentUtil = _interopRequireWildcard(_comment_api_util);
+
 var _session_actions = __webpack_require__(37);
 
 var SessionActions = _interopRequireWildcard(_session_actions);
@@ -27733,6 +27737,10 @@ var UserActions = _interopRequireWildcard(_user_actions);
 var _step_actions = __webpack_require__(53);
 
 var StepActions = _interopRequireWildcard(_step_actions);
+
+var _comment_actions = __webpack_require__(467);
+
+var CommentActions = _interopRequireWildcard(_comment_actions);
 
 var _selectors = __webpack_require__(465);
 
@@ -27762,11 +27770,13 @@ document.addEventListener('DOMContentLoaded', function () {
   window.ProjectUtil = ProjectUtil;
   window.UserUtil = UserUtil;
   window.StepUtil = StepUtil;
+  window.CommentUtil = CommentUtil;
 
   window.SessionActions = SessionActions;
   window.ProjectActions = ProjectActions;
   window.UserActions = UserActions;
   window.StepActions = StepActions;
+  window.CommentActions = CommentActions;
 
   window.Selectors = Selectors;
 
@@ -39381,12 +39391,17 @@ var _steps_reducer = __webpack_require__(298);
 
 var _steps_reducer2 = _interopRequireDefault(_steps_reducer);
 
+var _comments_reducer = __webpack_require__(468);
+
+var _comments_reducer2 = _interopRequireDefault(_comments_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RootReducer = (0, _redux.combineReducers)({
   users: _users_reducer2.default,
   projects: _projects_reducer2.default,
-  steps: _steps_reducer2.default
+  steps: _steps_reducer2.default,
+  comments: _comments_reducer2.default
 });
 
 exports.default = RootReducer;
@@ -44086,6 +44101,10 @@ var _step_item = __webpack_require__(346);
 
 var _step_item2 = _interopRequireDefault(_step_item);
 
+var _comment_show_container = __webpack_require__(469);
+
+var _comment_show_container2 = _interopRequireDefault(_comment_show_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -44175,8 +44194,6 @@ var ProjectShow = function (_React$Component) {
       var project = this.props.project;
       project.published = !project.published;
       this.props.updateProject(project);
-
-      // this.setState({ project: { published: !this.state.project.published } });
     }
   }, {
     key: 'displayPublish',
@@ -44288,7 +44305,8 @@ var ProjectShow = function (_React$Component) {
           'div',
           null,
           this.displayButton('new', user.id)
-        )
+        ),
+        _react2.default.createElement(_comment_show_container2.default, { user: user })
       );
     }
   }]);
@@ -44596,6 +44614,17 @@ var ProjectForm = function (_React$Component) {
       }
     }
   }, {
+    key: 'displayBack',
+    value: function displayBack() {
+      var path = this.props.formType === 'new' ? '/' : '/projects/' + this.props.project.id;
+
+      return _react2.default.createElement(
+        _reactRouterDom.Link,
+        { to: path },
+        _react2.default.createElement('i', { className: 'fa fa-arrow-circle-o-left fa-4x' })
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
       if (!this.props.project) {
@@ -44641,11 +44670,7 @@ var ProjectForm = function (_React$Component) {
                 _react2.default.createElement(
                   'form',
                   { className: 'form-horizontal' },
-                  _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/projects/' + id },
-                    _react2.default.createElement('i', { className: 'fa fa-arrow-circle-o-left fa-4x' })
-                  ),
+                  this.displayBack(),
                   _react2.default.createElement(
                     'legend',
                     { className: 'text-center header' },
@@ -51335,7 +51360,6 @@ var UserShow = function (_React$Component) {
               { className: 'row' },
               _react2.default.createElement('br', null),
               this.props.projectsByUser.map(function (project) {
-                debugger;
                 return _react2.default.createElement(_project_index_item2.default, {
                   key: project.id + project.title + user.id + (0, _id_generator.uniqueId)(),
                   project: project,
@@ -52467,6 +52491,359 @@ var projectByIds = exports.projectByIds = function projectByIds(ids) {
 
   return projects;
 };
+
+/***/ }),
+/* 466 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchComments = exports.fetchComments = function fetchComments(projectId) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/comments',
+    data: { comment: { project_id: projectId } }
+  });
+};
+
+var fetchComment = exports.fetchComment = function fetchComment(id) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/comments/' + id
+  });
+};
+
+var createComment = exports.createComment = function createComment(comment) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/comments',
+    data: { comment: comment }
+  });
+};
+
+var updateComment = exports.updateComment = function updateComment(comment) {
+  return $.ajax({
+    method: 'PATCH',
+    url: 'api/comments/' + comment.id,
+    data: { comment: comment }
+  });
+};
+
+/***/ }),
+/* 467 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateComment = exports.createComment = exports.fetchComment = exports.fetchComments = exports.receiveErrors = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_PROJECT_COMMENT = exports.RECEIVE_PROJECT_COMMENTS = undefined;
+
+var _comment_api_util = __webpack_require__(466);
+
+var CommentApiUtil = _interopRequireWildcard(_comment_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_PROJECT_COMMENTS = exports.RECEIVE_PROJECT_COMMENTS = 'RECEIVE_PROJECT_COMMENTS';
+var RECEIVE_PROJECT_COMMENT = exports.RECEIVE_PROJECT_COMMENT = 'RECEIVE_PROJECT_COMMENT';
+var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
+
+var receiveProjectComments = function receiveProjectComments(comments) {
+  return {
+    type: RECEIVE_PROJECT_COMMENTS,
+    comments: comments
+  };
+};
+
+var receiveProjectComment = function receiveProjectComment(comment) {
+  return {
+    type: RECEIVE_PROJECT_COMMENT,
+    comment: comment
+  };
+};
+
+var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_SESSION_ERRORS,
+    errors: errors
+  };
+};
+
+var fetchComments = exports.fetchComments = function fetchComments(projectId) {
+  return function (dispatch) {
+    return CommentApiUtil.fetchComments(projectId).then(function (comments) {
+      return dispatch(receiveProjectComments(comments));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+var fetchComment = exports.fetchComment = function fetchComment(projectId) {
+  return function (dispatch) {
+    return CommentApiUtil.fetchComment(projectId).then(function (comment) {
+      return dispatch(receiveProjectComment(comment));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+var createComment = exports.createComment = function createComment(comment) {
+  return function (dispatch) {
+    return CommentApiUtil.createComment(comment).then(function (com) {
+      return dispatch(receiveProjectComment(com));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+var updateComment = exports.updateComment = function updateComment(comment) {
+  return function (dispatch) {
+    return CommentApiUtil.updateComment(comment).then(function (com) {
+      return dispatch(receiveProjectComment(com));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+/* 468 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _comment_actions = __webpack_require__(467);
+
+var CommentsReducer = function CommentsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  Object.freeze(state);
+  var newState = void 0;
+
+  switch (action.type) {
+    case _comment_actions.RECEIVE_PROJECT_COMMENTS:
+      return Object.assign({}, action.comments);
+    case _comment_actions.RECEIVE_PROJECT_COMMENT:
+      newState = Object.assign({}, state);
+      newState[action.comment.id] = action.comment;
+      return newState;
+    default:
+      return state;
+  }
+};
+
+exports.default = CommentsReducer;
+
+/***/ }),
+/* 469 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(14);
+
+var _comment_show = __webpack_require__(470);
+
+var _comment_show2 = _interopRequireDefault(_comment_show);
+
+var _comment_actions = __webpack_require__(467);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  var comments = Object.values(state.entities.comments).reverse();
+
+  return {
+    comments: comments,
+    currentUser: ownProps.user
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchComments: function fetchComments(projectId) {
+      return dispatch((0, _comment_actions.fetchComments)(projectId));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_comment_show2.default);
+
+/***/ }),
+/* 470 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(9);
+
+var _id_generator = __webpack_require__(55);
+
+var _comment_detail = __webpack_require__(471);
+
+var _comment_detail2 = _interopRequireDefault(_comment_detail);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CommentShow = function (_React$Component) {
+  _inherits(CommentShow, _React$Component);
+
+  function CommentShow(props) {
+    _classCallCheck(this, CommentShow);
+
+    return _possibleConstructorReturn(this, (CommentShow.__proto__ || Object.getPrototypeOf(CommentShow)).call(this, props));
+  }
+
+  _createClass(CommentShow, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchComments(this.props.match.params.projectId);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var projectId = this.props.match.params.projectId;
+
+      var nextId = nextProps.match.params.projectId;
+      if (nextId !== projectId) {
+        this.props.fetchComments(nextProps.match.params.projectId);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var comments = this.props.comments;
+
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'comment-show' },
+        comments.map(function (comment, i) {
+          return _react2.default.createElement(_comment_detail2.default, {
+            key: comment.id + comment.author + i + (0, _id_generator.uniqueId)(),
+            comment: comment,
+            currentUser: _this2.props.currentUser
+          });
+        })
+      );
+    }
+  }]);
+
+  return CommentShow;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRouterDom.withRouter)(CommentShow);
+
+/***/ }),
+/* 471 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(9);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CommentDetail = function CommentDetail(_ref) {
+  var comment = _ref.comment,
+      currentUser = _ref.currentUser;
+  var id = comment.id,
+      body = comment.body,
+      author = comment.author,
+      author_id = comment.author_id,
+      time = comment.time;
+
+
+  var displayEdit = function displayEdit() {
+    if (currentUser && author_id === currentUser.id) {
+      return _react2.default.createElement(
+        'button',
+        { className: 'btn btn-outline-warning btn-small' },
+        'Edit'
+      );
+    }
+  };
+
+  return _react2.default.createElement(
+    'div',
+    { className: 'comment-detail' },
+    _react2.default.createElement(
+      'div',
+      { className: 'row' },
+      _react2.default.createElement(
+        'div',
+        { className: 'col-md-12' },
+        _react2.default.createElement(
+          'p',
+          null,
+          body
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'h6',
+          null,
+          'by ',
+          author,
+          ', ',
+          time,
+          ' ago'
+        ),
+        displayEdit()
+      )
+    )
+  );
+};
+
+exports.default = CommentDetail;
 
 /***/ })
 /******/ ]);

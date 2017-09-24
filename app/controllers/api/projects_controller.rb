@@ -1,8 +1,8 @@
 class Api::ProjectsController < ApplicationController
   before_action :require_login!, only: [:create, :update, :destroy]
+  before_action :require_user!, only: [:create, :update, :destroy]
 
   def index
-    # byebug
     if params[:project].nil?
       @projects = Project.where(published: true)
     elsif project_params[:filter] == 'true'
@@ -54,5 +54,11 @@ class Api::ProjectsController < ApplicationController
   private
   def project_params
     params.require(:project).permit(:id, :title, :description, :video_url, :published, :author_id, :image, :filter)
+  end
+
+  def require_user!
+    if !params[:project] || current_user.id != params[:project][:author_id].to_i
+      render json: ["You are not authorized to perform this action"],  status: 401
+    end
   end
 end
