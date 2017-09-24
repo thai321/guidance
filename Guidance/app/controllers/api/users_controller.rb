@@ -39,7 +39,7 @@ class Api::UsersController < ApplicationController
   end
 
   def require_user!
-    if !params[:user][:id] || current_user.id != params[:user][:id]
+    if !params[:user][:id] || current_user.id != params[:user][:id].to_i
       render json: ["You are not authorized to perform this action"],  status: 401
     end
   end

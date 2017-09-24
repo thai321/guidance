@@ -16,13 +16,13 @@ ActiveRecord::Schema.define(version: 20170924085133) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.string "body", null: false
+    t.text "body", null: false
     t.integer "project_id", null: false
     t.integer "author_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["project_id", "author_id"], name: "index_comments_on_project_id_and_author_id", unique: true
+    t.index ["project_id", "author_id"], name: "index_comments_on_project_id_and_author_id"
     t.index ["project_id"], name: "index_comments_on_project_id"
   end
 
