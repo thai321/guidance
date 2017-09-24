@@ -2356,9 +2356,9 @@ var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
   };
 };
 
-var fetchProjects = exports.fetchProjects = function fetchProjects(filter) {
+var fetchProjects = exports.fetchProjects = function fetchProjects(userId, filter) {
   return function (dispatch) {
-    return ProjectApiUtil.fetchProjects(filter).then(function (projects) {
+    return ProjectApiUtil.fetchProjects(userId, filter).then(function (projects) {
       return dispatch(receiveAllProjects(projects));
     }).fail(function (errors) {
       return dispatch(receiveErrors(errors.responseJSON));
@@ -5593,6 +5593,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var fetchProjects = exports.fetchProjects = function fetchProjects(userId) {
+  var filter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
   if (userId === undefined) {
     return $.ajax({
       method: 'GET',
@@ -5602,7 +5604,7 @@ var fetchProjects = exports.fetchProjects = function fetchProjects(userId) {
     return $.ajax({
       method: 'GET',
       url: 'api/projects',
-      data: { project: { author_id: userId } }
+      data: { project: { author_id: userId, filter: filter } }
     });
   }
 };
@@ -44076,6 +44078,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     removeStep: function removeStep(stepId) {
       return dispatch((0, _step_actions.removeStep)(stepId));
+    },
+    updateProject: function updateProject(project) {
+      return dispatch((0, _project_actions.updateProject)(project));
     }
   };
 };
@@ -44123,7 +44128,10 @@ var ProjectShow = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ProjectShow.__proto__ || Object.getPrototypeOf(ProjectShow)).call(this, props));
 
-    _this.state = { user: null };
+    _this.state = { user: null, published: null };
+
+    _this.publishedToggle = _this.publishedToggle.bind(_this);
+    _this.displayButton = _this.displayButton.bind(_this);
     return _this;
   }
 
@@ -44137,6 +44145,8 @@ var ProjectShow = function (_React$Component) {
 
       this.props.fetchProject(projectId).then(function (action) {
         var project = action.project;
+
+        _this2.setState({ published: project.published });
 
         if (project.step_ids.length > 0) {
           _this2.props.fetchSteps(project.id);
@@ -44158,6 +44168,7 @@ var ProjectShow = function (_React$Component) {
     key: 'displayButton',
     value: function displayButton(type, authorId) {
       var currentUser = this.props.currentUser;
+
 
       if (currentUser) {
         if (authorId === currentUser.id) {
@@ -44184,6 +44195,29 @@ var ProjectShow = function (_React$Component) {
       }
     }
   }, {
+    key: 'publishedToggle',
+    value: function publishedToggle(e) {
+      e.preventDefault();
+      var project = this.props.project;
+      project.published = !project.published;
+      this.props.updateProject(project);
+
+      // this.setState({ project: { published: !this.state.project.published } });
+    }
+  }, {
+    key: 'displayPublish',
+    value: function displayPublish(authorId, publishedText) {
+      var currentUser = this.props.currentUser;
+
+      if (currentUser && currentUser.id === authorId) {
+        return _react2.default.createElement(
+          'button',
+          { className: 'btn btn-info', onClick: this.publishedToggle },
+          publishedText
+        );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
@@ -44198,6 +44232,8 @@ var ProjectShow = function (_React$Component) {
           'Loading...'
         );
       }
+
+      var publishedText = project.published ? 'Unpublish This Project' : 'Publish This Project';
 
       var steps = this.props.steps;
 
@@ -44221,6 +44257,11 @@ var ProjectShow = function (_React$Component) {
             'div',
             null,
             this.displayButton('edit', user.id)
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            this.displayPublish(user.id, publishedText)
           )
         ),
         _react2.default.createElement(
@@ -51066,26 +51107,30 @@ var UserIndexItem = function (_React$Component) {
           'div',
           { className: 'card' },
           _react2.default.createElement(
-            _reactRouterDom.Link,
-            { className: 'btn btn-info btn-sm btn-block', to: '/users/' + id },
-            'User Information'
-          ),
-          _react2.default.createElement(
             'div',
             { className: 'user-index-item-image' },
             _react2.default.createElement('img', { className: 'card-img-top', alt: 'No User Photo', src: image_url })
           ),
           _react2.default.createElement(
             'div',
-            { className: 'card-block card-user-title' },
+            { className: 'user-index-info' },
             _react2.default.createElement(
-              'h4',
-              { className: 'card-title' },
-              username,
-              ' has ',
-              project_ids.length,
-              ' projects'
+              'div',
+              { className: 'card-block card-user-title' },
+              _react2.default.createElement(
+                'h7',
+                { className: 'card-title' },
+                username,
+                ' has',
+                project_ids.length,
+                ' published projects'
+              )
             )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { className: 'btn btn-info btn-sm btn-block', to: '/users/' + id },
+            'User Information'
           )
         )
       );
@@ -51124,24 +51169,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   var userId = ownProps.match.params.userId;
-  var user = state.entities.users[userId];
-  var projects = state.entities.projects;
 
+  var user = state.entities.users[userId];
+  var currentUser = state.session.currentUser;
+
+
+  var projects = state.entities.projects;
+  // debugger;
   var projectIds = [];
   var projectsByUser = [];
-
   if (user && Object.keys(projects).length > 1) {
-    projectIds = user.project_ids;
+    if (currentUser && currentUser.id == userId) {
+      projectsByUser = Object.values(projects);
+    } else {
+      projectIds = user.project_ids;
 
-    projectIds.forEach(function (id) {
-      var project = projects[id];
-      if (project) projectsByUser.push(project);
-    });
+      projectIds.forEach(function (id) {
+        var project = projects[id];
+        if (project) projectsByUser.push(project);
+      });
+    }
   }
 
   return {
     user: user,
-    currentUser: state.session.currentUser,
+    currentUser: currentUser,
     projectsByUser: projectsByUser
   };
 };
@@ -51151,8 +51203,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     fetchUser: function fetchUser(id) {
       return dispatch((0, _user_actions.fetchUser)(id));
     },
-    fetchProjects: function fetchProjects(userId) {
-      return dispatch((0, _project_actions.fetchProjects)(userId));
+    fetchProjects: function fetchProjects(userId, filter) {
+      return dispatch((0, _project_actions.fetchProjects)(userId, filter));
     }
   };
 };
@@ -51208,8 +51260,18 @@ var UserShow = function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      var currentUser = this.props.currentUser;
+      var userId = this.props.match.params.userId;
+
+
+      var filter = true;
+      if (currentUser && currentUser.id == userId) {
+        filter = false;
+      }
+
       this.props.fetchUser(this.props.match.params.userId).then(function (action) {
-        _this2.props.fetchProjects(action.user.id);
+        var hash = { userId: action.user.id, filter: filter };
+        _this2.props.fetchProjects(action.user.id, filter);
       });
     }
   }, {
@@ -51217,9 +51279,19 @@ var UserShow = function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
+      var currentUser = this.props.currentUser;
+      var userId = nextProps.match.params.userId;
+
+
+      var filter = true;
+      if (currentUser && currentUser.id == userId) {
+        filter = false;
+      }
+
       if (this.props.match.params.userId !== nextProps.match.params.userId) {
         this.props.fetchUser(nextProps.match.params.userId).then(function (action) {
-          _this3.props.fetchProjects(action.user.id);
+          var hash = { userId: action.user.id, filter: filter };
+          _this3.props.fetchProjects(action.user.id, filter);
         });
       }
     }
@@ -51268,7 +51340,7 @@ var UserShow = function (_React$Component) {
                     user.username,
                     ' has ',
                     user.project_ids.length,
-                    ' projects'
+                    ' published projects'
                   )
                 )
               )
@@ -51287,6 +51359,7 @@ var UserShow = function (_React$Component) {
               { className: 'row' },
               _react2.default.createElement('br', null),
               this.props.projectsByUser.map(function (project) {
+                debugger;
                 return _react2.default.createElement(_project_index_item2.default, {
                   key: project.id + project.title + user.id + (0, _id_generator.uniqueId)(),
                   project: project,

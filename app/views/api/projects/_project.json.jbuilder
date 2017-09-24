@@ -1,6 +1,5 @@
 # json.extract! project, :id, :title, :description, :image_url, :video_url, :published, :author_id
 
-
 json.id project.id
 json.title project.title
 json.description project.description

@@ -12,18 +12,22 @@ class UserIndexItem extends React.Component {
     return (
       <div className="user-index-item">
         <div className="card">
-          <Link className="btn btn-info btn-sm btn-block" to={`/users/${id}`}>
-            User Information
-          </Link>
           <div className="user-index-item-image">
             <img className="card-img-top" alt="No User Photo" src={image_url} />
           </div>
 
-          <div className="card-block card-user-title">
-            <h4 className="card-title">
-              {username} has {project_ids.length} projects
-            </h4>
+          <div className="user-index-info">
+            <div className="card-block card-user-title">
+              <h7 className="card-title">
+                {username} has
+                {project_ids.length} published projects
+              </h7>
+            </div>
           </div>
+
+          <Link className="btn btn-info btn-sm btn-block" to={`/users/${id}`}>
+            User Information
+          </Link>
         </div>
       </div>
     );

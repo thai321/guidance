@@ -9,7 +9,10 @@ class ProjectShow extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { user: null };
+    this.state = { user: null, published: null };
+
+    this.publishedToggle = this.publishedToggle.bind(this);
+    this.displayButton = this.displayButton.bind(this);
   }
 
   componentDidMount() {
@@ -17,6 +20,8 @@ class ProjectShow extends React.Component {
 
     this.props.fetchProject(projectId).then(action => {
       const { project } = action;
+      this.setState({ published: project.published });
+
       if (project.step_ids.length > 0) {
         this.props.fetchSteps(project.id);
       }
@@ -34,7 +39,7 @@ class ProjectShow extends React.Component {
   }
 
   displayButton(type, authorId) {
-    const currentUser = this.props.currentUser;
+    const { currentUser } = this.props;
 
     if (currentUser) {
       if (authorId === currentUser.id) {
@@ -60,12 +65,36 @@ class ProjectShow extends React.Component {
     }
   }
 
+  publishedToggle(e) {
+    e.preventDefault();
+    const project = this.props.project;
+    project.published = !project.published;
+    this.props.updateProject(project);
+
+    // this.setState({ project: { published: !this.state.project.published } });
+  }
+
+  displayPublish(authorId, publishedText) {
+    const { currentUser } = this.props;
+    if (currentUser && currentUser.id === authorId) {
+      return (
+        <button className="btn btn-info" onClick={this.publishedToggle}>
+          {publishedText}
+        </button>
+      );
+    }
+  }
+
   render() {
     const { project } = this.props;
     const { user } = this.state;
     if (!project || !user) {
       return <div>Loading...</div>;
     }
+
+    const publishedText = project.published
+      ? 'Unpublish This Project'
+      : 'Publish This Project';
 
     const steps = this.props.steps;
 
@@ -81,6 +110,7 @@ class ProjectShow extends React.Component {
           </Link>
 
           <div>{this.displayButton('edit', user.id)}</div>
+          <div>{this.displayPublish(user.id, publishedText)}</div>
         </div>
 
         <div className="project-show">

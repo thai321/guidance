@@ -1,4 +1,4 @@
-export const fetchProjects = userId => {
+export const fetchProjects = (userId, filter = true) => {
   if (userId === undefined) {
     return $.ajax({
       method: 'GET',
@@ -8,7 +8,7 @@ export const fetchProjects = userId => {
     return $.ajax({
       method: 'GET',
       url: 'api/projects',
-      data: { project: { author_id: userId } }
+      data: { project: { author_id: userId, filter } }
     });
   }
 };

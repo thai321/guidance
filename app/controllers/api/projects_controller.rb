@@ -2,8 +2,11 @@ class Api::ProjectsController < ApplicationController
   before_action :require_login!, only: [:create, :update, :destroy]
 
   def index
+    # byebug
     if params[:project].nil?
-      @projects = Project.all
+      @projects = Project.where(published: true)
+    elsif project_params[:filter] == 'true'
+      @projects = Project.where(author_id: project_params[:author_id].to_i).where(published: true)
     else
       @projects = Project.where(author_id: project_params[:author_id].to_i)
     end
@@ -50,6 +53,6 @@ class Api::ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:title, :description, :image_url, :video_url, :published, :author_id, :image)
+    params.require(:project).permit(:id, :title, :description, :video_url, :published, :author_id, :image, :filter)
   end
 end

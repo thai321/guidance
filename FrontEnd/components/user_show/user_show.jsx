@@ -13,15 +13,33 @@ class UserShow extends React.Component {
   }
 
   componentDidMount() {
+    const { currentUser } = this.props;
+    const { userId } = this.props.match.params;
+
+    let filter = true;
+    if (currentUser && currentUser.id == userId) {
+      filter = false;
+    }
+
     this.props.fetchUser(this.props.match.params.userId).then(action => {
-      this.props.fetchProjects(action.user.id);
+      const hash = { userId: action.user.id, filter };
+      this.props.fetchProjects(action.user.id, filter);
     });
   }
 
   componentWillReceiveProps(nextProps) {
+    const { currentUser } = this.props;
+    const { userId } = nextProps.match.params;
+
+    let filter = true;
+    if (currentUser && currentUser.id == userId) {
+      filter = false;
+    }
+
     if (this.props.match.params.userId !== nextProps.match.params.userId) {
       this.props.fetchUser(nextProps.match.params.userId).then(action => {
-        this.props.fetchProjects(action.user.id);
+        const hash = { userId: action.user.id, filter };
+        this.props.fetchProjects(action.user.id, filter);
       });
     }
   }
@@ -46,7 +64,8 @@ class UserShow extends React.Component {
                 </div>
                 <div className="card-block card-user-title">
                   <h4 className="card-title">
-                    {user.username} has {user.project_ids.length} projects
+                    {user.username} has {user.project_ids.length} published
+                    projects
                   </h4>
                 </div>
               </div>
@@ -59,6 +78,7 @@ class UserShow extends React.Component {
             <div className="row">
               <br />
               {this.props.projectsByUser.map(project => {
+                debugger;
                 return (
                   <ProjectIndexItem
                     key={project.id + project.title + user.id + uniqueId()}
