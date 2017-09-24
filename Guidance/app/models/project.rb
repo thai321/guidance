@@ -29,6 +29,9 @@ class Project < ApplicationRecord
 
   after_initialize :ensure_video_url
 
+
+  # Associations
+
   belongs_to :author,
     primary_key: :id,
     foreign_key: :author_id,
@@ -39,6 +42,12 @@ class Project < ApplicationRecord
     primary_key: :id,
     foreign_key: :project_id,
     class_name: :Step,
+    inverse_of: :project
+
+  has_many :comments,
+    primary_key: :id,
+    foreign_key: :project_id,
+    class_name: :Comment,
     inverse_of: :project
 
 

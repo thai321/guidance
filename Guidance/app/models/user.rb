@@ -4,6 +4,7 @@
 #
 #  id                 :integer          not null, primary key
 #  username           :string           not null
+#  description        :text
 #  email              :string           not null
 #  password_digest    :string           not null
 #  session_token      :string           not null
@@ -43,6 +44,12 @@ class User < ApplicationRecord
     primary_key: :id,
     foreign_key: :author_id,
     class_name: :Project,
+    inverse_of: :author
+
+  has_many :comments,
+    primary_key: :id,
+    foreign_key: :author_id,
+    class_name: :Comment,
     inverse_of: :author
 
 
