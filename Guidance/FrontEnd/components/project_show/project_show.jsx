@@ -112,6 +112,7 @@ class ProjectShow extends React.Component {
               count={parseInt(i + 1)}
               author={user}
               currentUser={this.props.currentUser}
+              removeStep={this.props.removeStep}
             />
           ))}
         </div>

@@ -17,9 +17,14 @@ const mapStateToProps = (state, ownProps) => {
 
   let projectIds = [];
   let projectsByUser = [];
+
   if (user && Object.keys(projects).length > 1) {
     projectIds = user.project_ids;
-    projectsByUser = projectIds.map(id => projects[id]);
+
+    projectIds.forEach(id => {
+      const project = projects[id];
+      if (project) projectsByUser.push(project);
+    });
   }
 
   return {

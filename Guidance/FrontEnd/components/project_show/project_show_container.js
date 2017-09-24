@@ -4,7 +4,7 @@ import ProjectShow from './project_show';
 
 import { fetchProject } from '../../actions/project_actions';
 import { fetchUser } from '../../actions/user_actions';
-import { fetchSteps } from '../../actions/step_actions';
+import { fetchSteps, removeStep } from '../../actions/step_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const { projectId } = ownProps.match.params;
@@ -27,7 +27,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => ({
   fetchProject: id => dispatch(fetchProject(id)),
   fetchUser: id => dispatch(fetchUser(id)),
-  fetchSteps: projectId => dispatch(fetchSteps(projectId))
+  fetchSteps: projectId => dispatch(fetchSteps(projectId)),
+  removeStep: stepId => dispatch(removeStep(stepId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectShow);

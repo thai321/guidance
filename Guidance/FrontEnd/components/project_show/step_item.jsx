@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 class StepItem extends React.Component {
   render() {
     const { id, title, body } = this.props.step;
-    const { projectId, count, author, currentUser } = this.props;
+    const { projectId, count, author, currentUser, removeStep } = this.props;
 
-    const displayEdit = authorId => {
+    const displayButtons = authorId => {
       if (currentUser && authorId === currentUser.id) {
         return (
           <div className="step-item-buttons">
@@ -17,7 +17,7 @@ class StepItem extends React.Component {
               <i className="fa fa-wrench fa-2x" />
             </Link>
             <a>
-              <button className="btn btn-danger">
+              <button className="btn btn-danger" onClick={() => removeStep(id)}>
                 <i className="fa fa-trash-o fa-2x" />
               </button>
             </a>
@@ -29,7 +29,7 @@ class StepItem extends React.Component {
     return (
       <div>
         <div className="step-item">
-          {displayEdit(author.id)}
+          {displayButtons(author.id)}
           <h1>Step {count}</h1>
           <h1>{title}</h1>
           <div dangerouslySetInnerHTML={{ __html: body }} />
