@@ -12,12 +12,14 @@ const mapStateToProps = (state, ownProps) => {
   const { currentUser } = state.session;
 
   const projects = state.entities.projects;
-  // debugger;
   let projectIds = [];
   let projectsByUser = [];
+
   if (user && Object.keys(projects).length > 1) {
     if (currentUser && currentUser.id == userId) {
-      projectsByUser = Object.values(projects);
+      Object.values(projects).forEach(project => {
+        if (project.id) projectsByUser.push(project);
+      });
     } else {
       projectIds = user.project_ids;
 
