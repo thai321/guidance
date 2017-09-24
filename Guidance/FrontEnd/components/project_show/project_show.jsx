@@ -12,6 +12,7 @@ class ProjectShow extends React.Component {
     this.state = { user: null, published: null };
 
     this.publishedToggle = this.publishedToggle.bind(this);
+    this.displayButton = this.displayButton.bind(this);
   }
 
   componentDidMount() {
@@ -40,7 +41,7 @@ class ProjectShow extends React.Component {
   displayButton(type, authorId) {
     const { currentUser } = this.props;
 
-    if ({ currentUser }) {
+    if (currentUser) {
       if (authorId === currentUser.id) {
         const { projectId } = this.props.match.params;
 
@@ -75,7 +76,7 @@ class ProjectShow extends React.Component {
 
   displayPublish(authorId, publishedText) {
     const { currentUser } = this.props;
-    if (currentUser.id === authorId) {
+    if (currentUser && currentUser.id === authorId) {
       return (
         <button className="btn btn-info" onClick={this.publishedToggle}>
           {publishedText}
