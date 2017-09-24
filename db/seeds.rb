@@ -29,6 +29,15 @@ p5 = Project.create(title: 'Project5', description: 'Project5, description', aut
 p6 = Project.create(title: 'Project6', description: 'Project6, description', author_id: u6.id)
 p7 = Project.create(title: 'Project7', description: 'Project7, description', author_id: u7.id)
 
+p0 = Project.create(title: 'Project0.1', description: 'Project0.1, description', author_id: u0.id, published: true)
+p1 = Project.create(title: 'Project1.1', description: 'Project1.1, description', author_id: u1.id, published: true)
+p2 = Project.create(title: 'Project2.1', description: 'Project2.1, description', author_id: u2.id, published: true)
+p3 = Project.create(title: 'Project3.1', description: 'Project3.1, description', author_id: u3.id, published: true)
+p4 = Project.create(title: 'Project4.1', description: 'Project4.1, description', author_id: u4.id, published: true)
+p5 = Project.create(title: 'Project5.1', description: 'Project5.1, description', author_id: u5.id, published: true)
+p6 = Project.create(title: 'Project6.1', description: 'Project6.1, description', author_id: u6.id, published: true)
+p7 = Project.create(title: 'Project7.1', description: 'Project7.1, description', author_id: u7.id, published: true)
+
 puts "Create 8 projects"
 
 

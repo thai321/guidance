@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     comments,
-    currentUser: ownProps.user
+    currentUser: ownProps.currentUser
   };
 };
 
