@@ -1,0 +1,12 @@
+.comment-show {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-detail {
+  margin: 15px;
+  padding: 20px;
+  border: 2px solid black;
+}

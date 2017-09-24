@@ -7,16 +7,24 @@ const CommentDetail = ({ comment, currentUser }) => {
 
   const displayEdit = () => {
     if (currentUser && author_id === currentUser.id) {
-      return <button>Edit</button>;
+      return (
+        <button className="btn btn-outline-warning btn-small">Edit</button>
+      );
     }
   };
 
   return (
-    <div>
-      <h4>{body}</h4>
-      <h6>{author}</h6>
-      <h6>{time} ago</h6>
-      {displayEdit()}
+    <div className="comment-detail">
+      <div className="row">
+        <div className="col-md-12">
+          <p>{body}</p>
+          <br />
+          <h6>
+            by {author}, {time} ago
+          </h6>
+          {displayEdit()}
+        </div>
+      </div>
     </div>
   );
 };

@@ -6,11 +6,10 @@ import { fetchComments } from '../../actions/comment_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const comments = Object.values(state.entities.comments).reverse();
-  const { currentUser } = state.session.currentUser;
 
   return {
     comments,
-    currentUser
+    currentUser: ownProps.user
   };
 };
 

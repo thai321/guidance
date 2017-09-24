@@ -148,7 +148,7 @@ class ProjectShow extends React.Component {
 
         <div>{this.displayButton('new', user.id)}</div>
 
-        <CommentShowContainer />
+        <CommentShowContainer user={user} />
       </div>
     );
   }
