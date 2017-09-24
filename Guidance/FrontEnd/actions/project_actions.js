@@ -26,27 +26,29 @@ export const receiveErrors = errors => ({
 });
 
 export const fetchProjects = filter => dispatch =>
-  ProjectApiUtil.fetchProjects(filter).then(projects =>
-    dispatch(receiveAllProjects(projects))
-  );
+  ProjectApiUtil.fetchProjects(filter)
+    .then(projects => dispatch(receiveAllProjects(projects)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
 export const fetchProject = id => dispatch =>
-  ProjectApiUtil.fetchProject(id).then(project =>
-    dispatch(receiveProject(project))
-  );
+  ProjectApiUtil.fetchProject(id)
+    .then(project => dispatch(receiveProject(project)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
 export const createProject = project => dispatch =>
-  ProjectApiUtil.createProject(project).then(proj =>
-    dispatch(receiveProject(proj))
-  );
+  ProjectApiUtil.createProject(project)
+    .then(proj => dispatch(receiveProject(proj)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
 export const updateProject = project => dispatch =>
-  ProjectApiUtil.updateProject(project).then(proj =>
-    dispatch(receiveProject(proj))
-  );
+  ProjectApiUtil.updateProject(project)
+    .then(proj => dispatch(receiveProject(proj)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
 export const deleteProject = id => dispatch =>
-  ProjectApiUtil.deleteProject(id).then(proj => dispatch(removeProject(proj)));
+  ProjectApiUtil.deleteProject(id)
+    .then(proj => dispatch(removeProject(proj)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
 export const createProjectOption = (formData, callback) => dispatch =>
   ProjectApiUtil.createProjectForm(formData, callback)

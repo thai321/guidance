@@ -1,9 +1,17 @@
-export const fetchProjects = project_ids =>
-  $.ajax({
-    method: 'GET',
-    url: 'api/projects',
-    data: { project_ids }
-  });
+export const fetchProjects = userId => {
+  if (userId === undefined) {
+    return $.ajax({
+      method: 'GET',
+      url: 'api/projects'
+    });
+  } else {
+    return $.ajax({
+      method: 'GET',
+      url: 'api/projects',
+      data: { project: { author_id: userId } }
+    });
+  }
+};
 
 export const fetchProject = id =>
   $.ajax({

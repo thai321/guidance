@@ -13,16 +13,16 @@ class UserShow extends React.Component {
   }
 
   componentDidMount() {
-    this.props
-      .fetchUser(this.props.match.params.userId)
-      .then(this.props.fetchProjects());
+    this.props.fetchUser(this.props.match.params.userId).then(action => {
+      this.props.fetchProjects(action.user.id);
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params.userId !== nextProps.match.params.userId) {
-      this.props
-        .fetchUser(nextProps.match.params.userId)
-        .then(this.props.fetchProjects());
+      this.props.fetchUser(nextProps.match.params.userId).then(action => {
+        this.props.fetchProjects(action.user.id);
+      });
     }
   }
 
