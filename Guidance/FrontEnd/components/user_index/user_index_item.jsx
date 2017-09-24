@@ -19,10 +19,13 @@ class UserIndexItem extends React.Component {
             <img className="card-img-top" alt="No User Photo" src={image_url} />
           </div>
 
-          <div className="card-block card-user-title">
-            <h4 className="card-title">
-              {username} has {project_ids.length} projects
-            </h4>
+          <div className="user-index-info">
+            <div className="card-block card-user-title">
+              <h7 className="card-title">
+                {username} has
+                {project_ids.length} published projects
+              </h7>
+            </div>
           </div>
         </div>
       </div>

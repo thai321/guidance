@@ -25,8 +25,8 @@ export const receiveErrors = errors => ({
   errors
 });
 
-export const fetchProjects = filter => dispatch =>
-  ProjectApiUtil.fetchProjects(filter)
+export const fetchProjects = (userId, filter) => dispatch =>
+  ProjectApiUtil.fetchProjects(userId, filter)
     .then(projects => dispatch(receiveAllProjects(projects)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
