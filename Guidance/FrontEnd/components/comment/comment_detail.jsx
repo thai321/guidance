@@ -17,7 +17,7 @@ const CommentDetail = ({ comment, currentUser }) => {
     <div className="comment-detail">
       <div className="row">
         <div className="col-md-12">
-          <p>{body}</p>
+          <div dangerouslySetInnerHTML={{ __html: body }} />
           <br />
           <h6>
             by {author}, {time} ago

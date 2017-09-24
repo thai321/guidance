@@ -1,0 +1,19 @@
+.comment-form {
+  margin: 50px;
+}
+
+.comment-quill {
+  padding: 10px;
+  height: 170px;
+}
+
+.comment-btn {
+  display: flex;
+  justify-content: center;
+  margin: 40px;
+  padding-top: 50px;
+}
+
+.comment-btn input:hover {
+  cursor: pointer;
+}
