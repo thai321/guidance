@@ -81,6 +81,19 @@ class ProjectForm extends React.Component {
     }
   }
 
+  displayBack() {
+    const path =
+      this.props.formType === 'new'
+        ? '/'
+        : `/projects/${this.props.project.id}`;
+
+    return (
+      <Link to={path}>
+        <i className="fa fa-arrow-circle-o-left fa-4x" />
+      </Link>
+    );
+  }
+
   render() {
     if (!this.props.project) {
       return (
@@ -112,9 +125,7 @@ class ProjectForm extends React.Component {
             <div className="row">
               <div className="col-md-12">
                 <form className="form-horizontal">
-                  <Link to={`/projects/${id}`}>
-                    <i className="fa fa-arrow-circle-o-left fa-4x" />
-                  </Link>
+                  {this.displayBack()}
 
                   <legend className="text-center header">{header}</legend>
 
