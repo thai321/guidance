@@ -46,11 +46,7 @@ class UserShow extends React.Component {
 
   render() {
     if (!this.props.user) {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      );
+      return <div className="loader" />;
     } else {
       const { user } = this.props;
       const text = user.project_ids.length > 0 ? 'Projects' : '';
