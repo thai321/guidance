@@ -1,4 +1,6 @@
 class Api::FavoritesController < ApplicationController
+  before_action :require_user_login!
+
   def create
     favorite = Favorite.new(
       user_id: current_user.id,
@@ -34,5 +36,11 @@ class Api::FavoritesController < ApplicationController
   private
   def favorites_params
     params.require(:favorite).permit(:project_id)
+  end
+
+  def require_user_login!
+    if !current_user
+      render json: ['Please Register or Login'], status: 422
+    end
   end
 end
