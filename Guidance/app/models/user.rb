@@ -52,6 +52,11 @@ class User < ApplicationRecord
     class_name: :Comment,
     inverse_of: :author
 
+  has_many :favorites
+  has_many :favorite_projects,
+    through: :favorites,
+    source: :project
+
 
 
  # Authentication
