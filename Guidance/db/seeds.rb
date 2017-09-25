@@ -1,10 +1,16 @@
 
 User.destroy_all
 Project.destroy_all
+Step.destroy_all
+Comment.destroy_all
 
-#
+
+# Demo
 demo = User.create(username: 'ThaiNguyen', email: 'thai.nguyen@berkeley.edu', password: '123456')
+Project.create(title: 'Demo Project1', description: 'Project1, description', author_id: demo.id)
+Project.create(title: 'Demo Project1.1', description: 'Project1.1, description', author_id: demo.id)
 
+puts "Create a demo account and 2 demo projects"
 
 # Users
 u0 = User.create(username: 'cat0', email: 'cat0@gmail.com', password: '123456')
@@ -38,7 +44,7 @@ p5 = Project.create(title: 'Project5.1', description: 'Project5.1, description',
 p6 = Project.create(title: 'Project6.1', description: 'Project6.1, description', author_id: u6.id, published: true)
 p7 = Project.create(title: 'Project7.1', description: 'Project7.1, description', author_id: u7.id, published: true)
 
-puts "Create 8 projects"
+puts "Create 16 projects"
 
 
 Project.all.each do |project|
@@ -51,7 +57,7 @@ end
 
 Project.all.each do |project|
   User.all.each do |user|
-    Comment.create(body: "#{user.username} Comment on project #{project.title}", project_id: project.id, author_id: user.id)
+    Comment.create(description: "#{user.username} Comment on project #{project.title}", project_id: project.id, author_id: user.id)
   end
 
   puts "Created #{User.all.length} for #{project.title}"

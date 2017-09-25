@@ -30,6 +30,8 @@ class ProjectShow extends React.Component {
       this.props.fetchUser(project.author_id).then(user => {
         this.setState({ user: user.user });
       });
+
+      this.props.fetchComments(projectId);
     });
   }
 
@@ -148,7 +150,7 @@ class ProjectShow extends React.Component {
 
         <div>{this.displayButton('new', user.id)}</div>
 
-        <CommentShowContainer currentUser={this.props.currentUser} />
+        <CommentShowContainer />
       </div>
     );
   }

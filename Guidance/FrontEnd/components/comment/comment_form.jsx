@@ -2,27 +2,27 @@ import React from 'react';
 
 import ReactQuill from 'react-quill';
 
+import Delta from 'quill-delta';
+
 class CommentForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = this.props.comment;
+    // this.loading = false;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(value) {
-    this.setState({ body: value });
+    this.setState({ description: value });
   }
-
-  // componentDidMount() {
-  //   const {}
-  // }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.createComment(this.state);
-    this.setState({ body: '' });
+
+    this.setState({ description: '' });
   }
 
   render() {
@@ -35,7 +35,7 @@ class CommentForm extends React.Component {
                 <ReactQuill
                   className="comment-quill"
                   modules={CommentForm.modules}
-                  value={this.state.body}
+                  value={this.state.description || ''}
                   onChange={this.handleChange}
                 />
                 <div className="comment-btn">
