@@ -44,6 +44,17 @@ class UserShow extends React.Component {
     }
   }
 
+  displayFavorite() {
+    const { currentUser, user } = this.props;
+    if (currentUser && user.id == currentUser.id) {
+      return (
+        <div>
+          <h4>{currentUser.favorite_projects.length} favorite projects</h4>
+        </div>
+      );
+    }
+  }
+
   render() {
     if (!this.props.user) {
       return <div className="loader" />;
@@ -63,6 +74,7 @@ class UserShow extends React.Component {
                     {user.username} has {user.project_ids.length} published
                     projects
                   </h4>
+                  {this.displayFavorite()}
                 </div>
               </div>
             </div>

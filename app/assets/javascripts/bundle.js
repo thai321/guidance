@@ -39604,6 +39604,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _session_actions = __webpack_require__(37);
 
+var _favorite_actions = __webpack_require__(481);
+
 var _nullSession = {
   currentUser: null
 };
@@ -39613,10 +39615,25 @@ var SessionReducer = function SessionReducer() {
   var action = arguments[1];
 
   Object.freeze(state);
+  var newState = void 0;
   switch (action.type) {
     case _session_actions.RECEIVE_CURRENT_USER:
       var currentUser = action.user;
       return Object.assign({}, state, { currentUser: currentUser });
+
+    case _favorite_actions.RECEIVE_FAVORITE:
+      newState = Object.assign({}, state);
+      var projectId = action.favorite.projectId;
+
+      newState.currentUser.favorite_projects.push(parseInt(projectId));
+      return newState;
+
+    case _favorite_actions.REMOVE_FAVORITE:
+      newState = Object.assign({}, state);
+      var projId = parseInt(action.favorite.projectId);
+      var idx = newState.currentUser.favorite_projects.indexOf(projId);
+      newState.currentUser.favorite_projects.splice(idx, 1);
+      return newState;
     default:
       return state;
   }
@@ -39732,6 +39749,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _project_actions = __webpack_require__(22);
 
+var _favorite_actions = __webpack_require__(481);
+
 var _defaultState = {
   allIds: []
 };
@@ -39773,8 +39792,26 @@ var ProjectsReducer = function ProjectsReducer() {
 
       delete newState[projectId];
       // }
-
       return newState;
+
+    case _favorite_actions.RECEIVE_FAVORITE:
+      newState = Object.assign({}, state);
+      var projId = action.favorite.projectId;
+      var userId = action.favorite.userId;
+
+
+      newState[projId].favorite_users.push(parseInt(userId));
+      return newState;
+
+    case _favorite_actions.REMOVE_FAVORITE:
+      newState = Object.assign({}, state);
+      var proId = action.favorite.projectId;
+      var usrId = action.favorite.userId;
+
+      var idx = newState[proId].favorite_users.indexOf(usrId);
+      newState[proId].favorite_users.splice(idx, 1);
+      return newState;
+
     default:
       return state;
   }
@@ -44380,6 +44417,8 @@ var _user_actions = __webpack_require__(38);
 
 var _step_actions = __webpack_require__(55);
 
+var _favorite_actions = __webpack_require__(481);
+
 var _comment_actions = __webpack_require__(39);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -44422,6 +44461,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchComments: function fetchComments(projectId) {
       return dispatch((0, _comment_actions.fetchComments)(projectId));
+    },
+    createFavorite: function createFavorite(favorite) {
+      return dispatch((0, _favorite_actions.createFavorite)(favorite));
+    },
+    deleteFavorite: function deleteFavorite(favorite) {
+      return dispatch((0, _favorite_actions.deleteFavorite)(favorite));
     }
   };
 };
@@ -44477,6 +44522,7 @@ var ProjectShow = function (_React$Component) {
 
     _this.publishedToggle = _this.publishedToggle.bind(_this);
     _this.displayButton = _this.displayButton.bind(_this);
+    _this.toggleLike = _this.toggleLike.bind(_this);
     return _this;
   }
 
@@ -44563,6 +44609,34 @@ var ProjectShow = function (_React$Component) {
       }
     }
   }, {
+    key: 'isLiked',
+    value: function isLiked() {
+      var likeText = 'Like';
+      var currentUser = this.props.currentUser;
+
+
+      if (currentUser) {
+        var currentUserFavorites = currentUser.favorite_projects;
+
+        if (currentUserFavorites.indexOf(this.props.project.id) !== -1) {
+          likeText = 'Unlike';
+        }
+      }
+
+      return likeText;
+    }
+  }, {
+    key: 'toggleLike',
+    value: function toggleLike() {
+      var favorite = { project_id: this.props.project.id };
+
+      if (this.isLiked() === 'Like') {
+        this.props.createFavorite(favorite);
+      } else {
+        this.props.deleteFavorite(favorite);
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
@@ -44582,8 +44656,19 @@ var ProjectShow = function (_React$Component) {
         'div',
         { className: 'project-show-page' },
         _react2.default.createElement(
+          'h3',
+          null,
+          'Number of Likes: ',
+          project.favorite_users.length
+        ),
+        _react2.default.createElement(
           'div',
           { className: 'project-show-buttons' },
+          _react2.default.createElement(
+            'button',
+            { onClick: this.toggleLike },
+            this.isLiked()
+          ),
           _react2.default.createElement(
             _reactRouterDom.Link,
             { className: 'project-show-back-to-index', to: '/' },
@@ -53249,6 +53334,26 @@ var UserShow = function (_React$Component) {
       }
     }
   }, {
+    key: 'displayFavorite',
+    value: function displayFavorite() {
+      var _props = this.props,
+          currentUser = _props.currentUser,
+          user = _props.user;
+
+      if (currentUser && user.id == currentUser.id) {
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h4',
+            null,
+            currentUser.favorite_projects.length,
+            ' favorite projects'
+          )
+        );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this4 = this;
@@ -53286,7 +53391,8 @@ var UserShow = function (_React$Component) {
                     ' has ',
                     user.project_ids.length,
                     ' published projects'
-                  )
+                  ),
+                  this.displayFavorite()
                 )
               )
             ),
@@ -54434,6 +54540,83 @@ var projectByIds = exports.projectByIds = function projectByIds(ids) {
   });
 
   return projects;
+};
+
+/***/ }),
+/* 481 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.deleteFavorite = exports.createFavorite = exports.REMOVE_FAVORITE = exports.RECEIVE_FAVORITE = undefined;
+
+var _favorite_api_util = __webpack_require__(482);
+
+var FavoriteApiUtil = _interopRequireWildcard(_favorite_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_FAVORITE = exports.RECEIVE_FAVORITE = 'RECEIVE_FAVORITE';
+var REMOVE_FAVORITE = exports.REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+
+var receiveFavorite = function receiveFavorite(favorite) {
+  return {
+    type: RECEIVE_FAVORITE,
+    favorite: favorite
+  };
+};
+
+var removeFavorite = function removeFavorite(favorite) {
+  return {
+    type: REMOVE_FAVORITE,
+    favorite: favorite
+  };
+};
+
+var createFavorite = exports.createFavorite = function createFavorite(favorite) {
+  return function (dispatch) {
+    return FavoriteApiUtil.createFavorite(favorite).then(function (fav) {
+      return dispatch(receiveFavorite(fav));
+    });
+  };
+};
+
+var deleteFavorite = exports.deleteFavorite = function deleteFavorite(favorite) {
+  return function (dispatch) {
+    return FavoriteApiUtil.deleteFavorite(favorite).then(function (fav) {
+      return dispatch(removeFavorite(fav));
+    });
+  };
+};
+
+/***/ }),
+/* 482 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var createFavorite = exports.createFavorite = function createFavorite(favorite) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/favorites',
+    data: { favorite: favorite }
+  });
+};
+
+var deleteFavorite = exports.deleteFavorite = function deleteFavorite(favorite) {
+  return $.ajax({
+    method: 'DELETE',
+    url: 'api/favorites/' + favorite.id,
+    data: { favorite: favorite }
+  });
 };
 
 /***/ })

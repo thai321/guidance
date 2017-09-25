@@ -4,6 +4,8 @@ import {
   REMOVE_PROJECT
 } from '../actions/project_actions';
 
+import { RECEIVE_FAVORITE, REMOVE_FAVORITE } from '../actions/favorite_actions';
+
 const _defaultState = {
   allIds: []
 };
@@ -41,8 +43,25 @@ const ProjectsReducer = (state = _defaultState, action) => {
 
       delete newState[projectId];
       // }
-
       return newState;
+
+    case RECEIVE_FAVORITE:
+      newState = Object.assign({}, state);
+      const projId = action.favorite.projectId;
+      const { userId } = action.favorite;
+
+      newState[projId].favorite_users.push(parseInt(userId));
+      return newState;
+
+    case REMOVE_FAVORITE:
+      newState = Object.assign({}, state);
+      const proId = action.favorite.projectId;
+      const usrId = action.favorite.userId;
+
+      const idx = newState[proId].favorite_users.indexOf(usrId);
+      newState[proId].favorite_users.splice(idx, 1);
+      return newState;
+
     default:
       return state;
   }
