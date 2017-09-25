@@ -1,7 +1,8 @@
 import {
   RECEIVE_ALL_PROJECTS,
   RECEIVE_PROJECT,
-  REMOVE_PROJECT
+  REMOVE_PROJECT,
+  RECEIVE_FAVORITE_PROJECTS
 } from '../actions/project_actions';
 
 import { RECEIVE_FAVORITE, REMOVE_FAVORITE } from '../actions/favorite_actions';
@@ -31,6 +32,10 @@ const ProjectsReducer = (state = _defaultState, action) => {
         newState.allIds.push(action.project.id);
 
       return newState;
+
+    case RECEIVE_FAVORITE_PROJECTS:
+      newState = Object.assign({}, state);
+      return Object.assign(newState, action.projects);
     case REMOVE_PROJECT:
       newState = Object.assign({}, state);
 

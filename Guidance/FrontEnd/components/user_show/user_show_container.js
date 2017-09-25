@@ -2,7 +2,10 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { fetchUser } from '../../actions/user_actions';
-import { fetchProjects } from '../../actions/project_actions';
+import {
+  fetchProjects,
+  fetchFavoriteProjects
+} from '../../actions/project_actions';
 
 import UserShow from './user_show';
 
@@ -18,7 +21,8 @@ const mapStateToProps = (state, ownProps) => {
   if (user && Object.keys(projects).length > 1) {
     if (currentUser && currentUser.id == userId) {
       Object.values(projects).forEach(project => {
-        if (project.id) projectsByUser.push(project);
+        if (project.id && project.author_id === currentUser.id)
+          projectsByUser.push(project);
       });
     } else {
       projectIds = user.project_ids;
@@ -40,7 +44,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: id => dispatch(fetchUser(id)),
-    fetchProjects: (userId, filter) => dispatch(fetchProjects(userId, filter))
+    fetchProjects: (userId, filter) => dispatch(fetchProjects(userId, filter)),
+    fetchFavoriteProjects: projectIds =>
+      dispatch(fetchFavoriteProjects(projectIds))
   };
 };
 

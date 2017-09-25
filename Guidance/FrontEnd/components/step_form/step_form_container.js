@@ -20,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
     step = state.entities.steps[stepId];
   }
 
-  return { step };
+  return { step, currentUser: state.session.currentUser };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

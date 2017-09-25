@@ -16,6 +16,11 @@ class StepForm extends React.Component {
 
   componentDidMount(ownProps) {
     const { projectId, stepId } = this.props.match.params;
+    const { currentUser } = this.props;
+    const idx = currentUser.project_ids.indexOf(parseInt(projectId));
+    if (!currentUser || idx === -1) {
+      this.props.history.push('/');
+    }
 
     if (stepId) {
       this.props
