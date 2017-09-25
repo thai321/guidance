@@ -6,6 +6,12 @@ import { fetchProject, updateProject } from '../../actions/project_actions';
 import { fetchUser } from '../../actions/user_actions';
 import { fetchSteps, removeStep } from '../../actions/step_actions';
 
+import {
+  createComment,
+  updateComment,
+  fetchComments
+} from '../../actions/comment_actions';
+
 const mapStateToProps = (state, ownProps) => {
   const { projectId } = ownProps.match.params;
   const project = state.entities.projects[projectId];
@@ -29,7 +35,8 @@ const mapDispatchToProps = dispatch => ({
   fetchUser: id => dispatch(fetchUser(id)),
   fetchSteps: projectId => dispatch(fetchSteps(projectId)),
   removeStep: stepId => dispatch(removeStep(stepId)),
-  updateProject: project => dispatch(updateProject(project))
+  updateProject: project => dispatch(updateProject(project)),
+  fetchComments: projectId => dispatch(fetchComments(projectId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectShow);

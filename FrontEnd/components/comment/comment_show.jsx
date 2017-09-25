@@ -7,29 +7,39 @@ import CommentDetail from './comment_detail';
 import CommentFormContainer from './comment_form_container';
 
 class CommentShow extends React.Component {
-  componentDidMount() {
-    this.props.fetchComments(this.props.match.params.projectId);
+  constructor(props) {
+    super(props);
+
+    this.displayCommentForm = this.displayCommentForm.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { projectId } = this.props.match.params;
-    const nextId = nextProps.match.params.projectId;
-    if (nextId !== projectId) {
-      this.props.fetchComments(nextProps.match.params.projectId);
+  displayCommentForm() {
+    if (this.props.project.published && this.props.currentUser) {
+      return (
+        <div className="comment-show-form">
+          <h2>Leave a Comment</h2>
+          <CommentFormContainer currentUser={this.props.currentUser} />
+        </div>
+      );
     }
   }
 
   render() {
-    const { comments } = this.props;
+    const { comments, project, currentUser } = this.props;
+
+    const text = comments.length > 0 ? 'Comments' : '';
+
     return (
       <div className="comment-show">
-        <CommentFormContainer currentUser={this.props.currentUser} />
+        {this.displayCommentForm()}
 
+        <h2>{text}</h2>
         {comments.map((comment, i) => (
           <CommentDetail
             key={comment.id + comment.author + i + uniqueId()}
             comment={comment}
-            currentUser={this.props.currentUser}
+            project={project}
+            currentUser={currentUser}
           />
         ))}
       </div>

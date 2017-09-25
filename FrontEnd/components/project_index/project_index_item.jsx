@@ -39,7 +39,7 @@ class ProjectIndexItem extends React.Component {
       description,
       image_url,
       author_id,
-      currentUser
+      author
     } = this.props.project;
 
     return (
@@ -49,7 +49,7 @@ class ProjectIndexItem extends React.Component {
           <div className="caption">
             <div className="title-author">
               <h4>{title}</h4>
-              <h4>by {author_id}</h4>
+              <h4>by {author}</h4>
             </div>
             <p>
               <Link to={`/projects/${id}`} className="btn btn-info btn-block">
