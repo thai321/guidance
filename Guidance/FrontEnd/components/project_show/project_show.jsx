@@ -127,6 +127,7 @@ class ProjectShow extends React.Component {
 
     return (
       <div className="project-show-page">
+        <h3>Number of Likes: {project.favorite_users.length}</h3>
         <div className="project-show-buttons">
           <button onClick={this.toggleLike}>{this.isLiked()}</button>
 
