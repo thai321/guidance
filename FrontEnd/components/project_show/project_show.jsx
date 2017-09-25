@@ -90,7 +90,7 @@ class ProjectShow extends React.Component {
     const { project } = this.props;
     const { user } = this.state;
     if (!project || !user) {
-      return <div>Loading...</div>;
+      return <div className="loader" />;
     }
 
     const publishedText = project.published
