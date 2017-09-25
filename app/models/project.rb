@@ -50,6 +50,11 @@ class Project < ApplicationRecord
     class_name: :Comment,
     inverse_of: :project
 
+  has_many :favorites
+  has_many :favorite_users,
+    through: :favorites,
+    source: :user
+
 
 
   private

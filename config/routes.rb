@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :steps, only: [:index, :create, :update, :show, :destroy]
 
     resources :comments, only: [:index, :create, :update, :show]
+
+    resources :favorites, only: [:create, :destroy]
   end
 
   root to: 'static_pages#root'

@@ -30,3 +30,5 @@ if(image_url.include?('amazon'))
 end
 
 json.image_url asset_path(image_url)
+
+json.favorite_users project.favorite_users.map { |user| user.id }
