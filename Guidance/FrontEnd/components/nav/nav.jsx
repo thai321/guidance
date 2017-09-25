@@ -14,7 +14,7 @@ class Nav extends React.Component {
       return (
         <div className="new-project-button">
           <Link to="/projects/new" className="btn btn-outline-success btn-lg">
-            New Project
+            Write a Guidance
           </Link>
         </div>
       );
@@ -25,19 +25,33 @@ class Nav extends React.Component {
     const { currentUser } = this.props;
 
     return (
-      <nav className="nav-home">
-        <Link to="/">
-          <h1>Guidance App</h1>
-        </Link>
+      <div>
+        <nav className="navbar navbar-expand-lg fixed-top" id="mainNav">
+          <div className="container">
+            <Link to="/" className="navbar-brand">
+              Guidance App
+            </Link>
+            <Link to="/users" className="all-teachers">
+              Teachers
+            </Link>
 
-        <Link to="/users">
-          <h1>All Users</h1>
-        </Link>
+            <div className="col-md-6">
+              <form className="navbar-form" role="search">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Let's Make ..."
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
 
-        {this.displayNewProjectButton()}
-
-        <SessionButtonsContainer />
-      </nav>
+          {this.displayNewProjectButton()}
+          <SessionButtonsContainer />
+        </nav>
+      </div>
     );
   }
 }

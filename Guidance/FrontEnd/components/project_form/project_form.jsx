@@ -26,9 +26,11 @@ class ProjectForm extends React.Component {
 
   componentDidMount() {
     const { projectId } = this.props.match.params;
-    const { currentUser } = this.props;
+    const { currentUser, formType } = this.props;
+
     const idx = currentUser.project_ids.indexOf(parseInt(projectId));
-    if (!currentUser || idx === -1) {
+
+    if (!currentUser || (idx === -1 && formType === 'edit')) {
       this.props.history.push('/');
     }
     if (projectId) this.props.fetchProject(projectId);

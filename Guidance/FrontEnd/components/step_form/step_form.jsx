@@ -21,14 +21,16 @@ class StepForm extends React.Component {
     if (!currentUser || idx === -1) {
       this.props.history.push('/');
     }
-
-    if (stepId) {
-      this.props
-        .fetchProject(projectId)
-        .then(() => this.props.fetchStep(stepId));
-    } else {
-      this.props.fetchProject(projectId);
-    }
+    // debugger;
+    //
+    // if (stepId) {
+    //   this.props
+    //     .fetchProject(projectId)
+    //     .then(() => this.props.fetchStep(stepId));
+    // } else {
+    //   // this.props.fetchProject(projectId);
+    // }
+    this.props.fetchStep(stepId);
   }
 
   componentWillReceiveProps(ownProps) {
@@ -56,11 +58,7 @@ class StepForm extends React.Component {
 
   render() {
     if (!this.props.step) {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      );
+      return <div className="loader" />;
     }
 
     const { title, body, project_id } = this.props.step;

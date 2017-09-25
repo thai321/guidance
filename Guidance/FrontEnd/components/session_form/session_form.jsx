@@ -69,7 +69,10 @@ class SessionForm extends React.Component {
     if (this.props.formType === 'signup') {
       return (
         <div className="form-group">
-          <label className="col-md-6 control-label" htmlFor="email">
+          <label
+            className="col-md-6 control-label session-font-input"
+            htmlFor="email"
+          >
             Email
           </label>
           <div className="col-md-12">
@@ -102,10 +105,12 @@ class SessionForm extends React.Component {
           </div>
 
           <form className="form-horizontal session-form">
-            <legend className="text-session">{text}</legend>
+            <label className="text-session session-text-header">{text}</label>
 
             <div className="form-group">
-              <label className="col-md-6 control-label">User Name</label>
+              <label className="col-md-6 control-label session-font-input">
+                User Name
+              </label>
 
               <div className="col-md-12">
                 <input
@@ -122,7 +127,10 @@ class SessionForm extends React.Component {
             {this.displayEmail()}
 
             <div className="form-group">
-              <label className="col-md-6 control-label" htmlFor="password">
+              <label
+                className="col-md-6 control-label session-font-input"
+                htmlFor="password"
+              >
                 Password
               </label>
               <div className="col-md-12">

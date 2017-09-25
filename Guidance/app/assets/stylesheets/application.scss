@@ -17,6 +17,7 @@
 @import 'font-awesome';
 
 @import 'base/loading';
+// @import 'base/reset';
 //
 // // Components
 @import 'components/navbar';
@@ -32,9 +33,10 @@
 @import 'components/comment_form';
 
 body {
-  // width: 100%;
-  // display: flex;
-  // flex-wrap: wrap;
+  background-color: white;
+  font-size: 12px;
+  min-width: 970px;
+  line-height: normal;
 }
 
 a:hover {
@@ -45,9 +47,6 @@ a:hover {
   display: flex;
   // float: inherit;
   justify-content: center;
-}
-
-.col {
 }
 
 textarea,
@@ -66,3 +65,6 @@ input {
 button:hover {
   cursor: pointer;
 }
+
+@import url('https://fonts.googleapis.com/css?family=Lora');
+@import url('https://fonts.googleapis.com/css?family=Hind');

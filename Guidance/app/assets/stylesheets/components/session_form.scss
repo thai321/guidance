@@ -9,7 +9,8 @@
 // }
 
 .main-index {
-  width: 97%;
+  width: 99%;
+  margin-left: 10px;
   display: flex;
   justify-content: center;
   height: 400px;
@@ -72,3 +73,13 @@
 //   position: fixed;
 //   overflow: hidden;
 // }
+
+.session-font-input {
+  font-size: 20px;
+  font-family: 'Lora', serif;
+}
+
+.session-text-header {
+  font-family: 'Hind', sans-serif;
+  font-size: 40px;
+}
