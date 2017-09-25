@@ -14,6 +14,7 @@ class ProjectShow extends React.Component {
 
     this.publishedToggle = this.publishedToggle.bind(this);
     this.displayButton = this.displayButton.bind(this);
+    this.toggleLike = this.toggleLike.bind(this);
   }
 
   componentDidMount() {
@@ -86,6 +87,31 @@ class ProjectShow extends React.Component {
     }
   }
 
+  isLiked() {
+    let likeText = 'Like';
+    const { currentUser } = this.props;
+
+    if (currentUser) {
+      const currentUserFavorites = currentUser.favorite_projects;
+
+      if (currentUserFavorites.indexOf(this.props.project.id) !== -1) {
+        likeText = 'Unlike';
+      }
+    }
+
+    return likeText;
+  }
+
+  toggleLike() {
+    const favorite = { project_id: this.props.project.id };
+
+    if (this.isLiked() === 'Like') {
+      this.props.createFavorite(favorite);
+    } else {
+      this.props.deleteFavorite(favorite);
+    }
+  }
+
   render() {
     const { project } = this.props;
     const { user } = this.state;
@@ -102,6 +128,8 @@ class ProjectShow extends React.Component {
     return (
       <div className="project-show-page">
         <div className="project-show-buttons">
+          <button onClick={this.toggleLike}>{this.isLiked()}</button>
+
           <Link className="project-show-back-to-index" to="/">
             <i className="fa fa-home fa-2x" />
           </Link>
