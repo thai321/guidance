@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // import { projectByIds } from '../../reducers/selectors';
+import { uniqueId } from '../../util/id_generator';
 
 import ProjectIndexItem from '../project_index/project_index_item';
-
-import { uniqueId } from '../../util/id_generator';
+import FavoriteShowContainer from '../favorite_show/favorite_show_container';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -23,7 +23,9 @@ class UserShow extends React.Component {
 
     this.props.fetchUser(this.props.match.params.userId).then(action => {
       const hash = { userId: action.user.id, filter };
-      this.props.fetchProjects(action.user.id, filter);
+      this.props.fetchProjects(action.user.id, filter).then(() => {
+        this.props.fetchFavoriteProjects(action.user.favorite_projects);
+      });
     });
   }
 
@@ -96,6 +98,8 @@ class UserShow extends React.Component {
               })}
             </div>
           </div>
+
+          <FavoriteShowContainer user={user} />
         </div>
       );
     }

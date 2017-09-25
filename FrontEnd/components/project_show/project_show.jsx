@@ -125,11 +125,17 @@ class ProjectShow extends React.Component {
 
     const steps = this.props.steps;
 
+    const displayLike = () => {
+      if (project.published) {
+        return <button onClick={this.toggleLike}>{this.isLiked()}</button>;
+      }
+    };
+
     return (
       <div className="project-show-page">
         <h3>Number of Likes: {project.favorite_users.length}</h3>
         <div className="project-show-buttons">
-          <button onClick={this.toggleLike}>{this.isLiked()}</button>
+          {displayLike()}
 
           <Link className="project-show-back-to-index" to="/">
             <i className="fa fa-home fa-2x" />

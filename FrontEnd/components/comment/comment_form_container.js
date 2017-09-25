@@ -12,7 +12,7 @@ import {
 const mapStateToProps = (state, ownProps) => {
   const { currentUser } = state.session;
   let comment = {
-    body: '',
+    description: '',
     project_id: parseInt(ownProps.match.params.projectId),
     author_id: currentUser ? currentUser.id : -1
   };

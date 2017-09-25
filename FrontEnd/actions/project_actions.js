@@ -3,6 +3,8 @@ import * as ProjectApiUtil from '../util/project_api_util';
 export const RECEIVE_ALL_PROJECTS = 'RECEIVE_ALL_PROJECTS';
 export const RECEIVE_PROJECT = 'RECEIVE_PROJECT';
 export const REMOVE_PROJECT = 'REMOVE_PROJECT';
+export const RECEIVE_FAVORITE_PROJECTS = 'RECEIVE_FAVORITE_PROJECTS';
+
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 
 const receiveAllProjects = projects => ({
@@ -13,6 +15,11 @@ const receiveAllProjects = projects => ({
 const receiveProject = project => ({
   type: RECEIVE_PROJECT,
   project
+});
+
+const receiveFavoriteProjects = projects => ({
+  type: RECEIVE_FAVORITE_PROJECTS,
+  projects
 });
 
 const removeProject = project => ({
@@ -58,4 +65,9 @@ export const createProjectOption = (formData, callback) => dispatch =>
 export const updateProjectOption = (formData, id, callback) => dispatch =>
   ProjectApiUtil.updateProjectForm(formData, id, callback)
     .then(proj => dispatch(receiveProject(proj)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
+
+export const fetchFavoriteProjects = projectIds => dispatch =>
+  ProjectApiUtil.fetchProjects(projectIds)
+    .then(projects => dispatch(receiveFavoriteProjects(projects)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));

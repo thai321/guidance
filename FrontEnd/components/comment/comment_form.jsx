@@ -8,8 +8,8 @@ class CommentForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.comment;
-    // this.loading = false;
+    this.state = {};
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -18,11 +18,18 @@ class CommentForm extends React.Component {
     this.setState({ description: value });
   }
 
+  componentWillMount() {
+    this.setState(this.props.comment);
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createComment(this.state);
-
-    this.setState({ description: '' });
+    // debugger;
+    if (this.state.description && this.state.description !== '<p><br></p>') {
+      this.props
+        .createComment(this.state)
+        .then(() => this.setState({ description: '' }));
+    }
   }
 
   render() {

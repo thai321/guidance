@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const errors = state.errors.session;
 
-  return { project, formType, errors };
+  return { project, formType, errors, currentUser: state.session.currentUser };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

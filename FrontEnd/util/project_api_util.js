@@ -1,14 +1,20 @@
-export const fetchProjects = (userId, filter = true) => {
-  if (userId === undefined) {
+export const fetchProjects = (arg, filter = true) => {
+  if (arg === undefined) {
     return $.ajax({
       method: 'GET',
       url: 'api/projects'
+    });
+  } else if (arg instanceof Array) {
+    return $.ajax({
+      method: 'GET',
+      url: 'api/projects',
+      data: { project: { project_ids: arg } }
     });
   } else {
     return $.ajax({
       method: 'GET',
       url: 'api/projects',
-      data: { project: { author_id: userId, filter } }
+      data: { project: { author_id: arg, filter } }
     });
   }
 };

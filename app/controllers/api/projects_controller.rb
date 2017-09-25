@@ -3,12 +3,15 @@ class Api::ProjectsController < ApplicationController
   before_action :require_user!, only: [:create, :update, :destroy]
 
   def index
+    # byebug
     if params[:project].nil?
       @projects = Project.where(published: true)
     elsif project_params[:filter] == 'true'
       @projects = Project.where(author_id: project_params[:author_id].to_i).where(published: true)
-    else
+    elsif project_params[:filter] == 'false'
       @projects = Project.where(author_id: project_params[:author_id].to_i)
+    else
+      @projects = Project.find(project_params[:project_ids])
     end
     render :index
     # render json: ['test errors'], status: 422
@@ -53,7 +56,7 @@ class Api::ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:id, :title, :description, :video_url, :published, :author_id, :image, :filter)
+    params.require(:project).permit(:id, :title, :description, :video_url, :published, :author_id, :image, :filter, project_ids: [])
   end
 
   def require_user!
