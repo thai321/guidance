@@ -20,14 +20,14 @@ export const receiveErrors = errors => ({
 });
 
 export const fetchComments = projectId => dispatch =>
-  CommentApiUtil.fetchComments(projectId)
-    .then(comments => dispatch(receiveProjectComments(comments)))
-    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
+  CommentApiUtil.fetchComments(projectId).then(comments =>
+    dispatch(receiveProjectComments(comments))
+  );
 
 export const fetchComment = projectId => dispatch =>
-  CommentApiUtil.fetchComment(projectId)
-    .then(comment => dispatch(receiveProjectComment(comment)))
-    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
+  CommentApiUtil.fetchComment(projectId).then(comment =>
+    dispatch(receiveProjectComment(comment))
+  );
 
 export const createComment = comment => dispatch =>
   CommentApiUtil.createComment(comment)
