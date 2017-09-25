@@ -12,8 +12,7 @@
 
 class Comment < ApplicationRecord
   validates :description, presence: true, length: { minimum: 6 }
-  # byebug
-  # after_initialize :ensure_description
+  after_initialize :ensure_description
 
   belongs_to :author,
     primary_key: :id,
@@ -30,13 +29,12 @@ class Comment < ApplicationRecord
 
   private
 
-  # def ensure_description
-  #   dumbmyText = "<p><br></p>"
-  #   # byebug
-  #   if self.description == dumbmyText
-  #     self.description = ''
-  #   else
-  #     self.description = (self.description.length - '<p></p>'.length < 6 ) ? '12345' : self.description
-  #   end
-  # end
+  def ensure_description
+    dumbmyText = "<p><br></p>"
+    if self.description == dumbmyText
+      self.description = ''
+    else
+      self.description = (self.description.length - '<p></p>'.length < 6 ) ? '12345' : self.description
+    end
+  end
 end

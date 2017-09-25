@@ -5824,8 +5824,6 @@ var fetchComments = exports.fetchComments = function fetchComments(projectId) {
   return function (dispatch) {
     return CommentApiUtil.fetchComments(projectId).then(function (comments) {
       return dispatch(receiveProjectComments(comments));
-    }).fail(function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -5834,8 +5832,6 @@ var fetchComment = exports.fetchComment = function fetchComment(projectId) {
   return function (dispatch) {
     return CommentApiUtil.fetchComment(projectId).then(function (comment) {
       return dispatch(receiveProjectComment(comment));
-    }).fail(function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
