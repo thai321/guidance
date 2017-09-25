@@ -43966,7 +43966,7 @@ var Nav = function (_React$Component) {
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/projects/new', className: 'btn btn-outline-success btn-lg' },
-            'New Project'
+            'Write a Guidance'
           )
         );
       }
@@ -43978,28 +43978,45 @@ var Nav = function (_React$Component) {
 
 
       return _react2.default.createElement(
-        'nav',
-        { className: 'nav-home' },
+        'div',
+        null,
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/' },
+          'nav',
+          { className: 'navbar navbar-expand-lg fixed-top', id: 'mainNav' },
           _react2.default.createElement(
-            'h1',
-            null,
-            'Guidance App'
-          )
-        ),
-        _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: '/users' },
-          _react2.default.createElement(
-            'h1',
-            null,
-            'All Users'
-          )
-        ),
-        this.displayNewProjectButton(),
-        _react2.default.createElement(_session_buttons_container2.default, null)
+            'div',
+            { className: 'container' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/', className: 'navbar-brand' },
+              'Guidance App'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/users', className: 'all-teachers' },
+              'Teachers'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'col-md-6' },
+              _react2.default.createElement(
+                'form',
+                { className: 'navbar-form', role: 'search' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'input-group' },
+                  _react2.default.createElement('input', {
+                    type: 'text',
+                    className: 'form-control',
+                    placeholder: 'Let\'s Make ...'
+                  })
+                )
+              )
+            )
+          ),
+          this.displayNewProjectButton(),
+          _react2.default.createElement(_session_buttons_container2.default, null)
+        )
       );
     }
   }]);
@@ -44095,45 +44112,73 @@ var SessionForm = function SessionForm(_ref) {
       )
     )
   ) : _react2.default.createElement(
-    'ul',
-    { className: 'login' },
+    'div',
+    null,
     _react2.default.createElement(
-      'li',
-      null,
+      'ul',
+      { className: 'navbar-nav ml-auto' },
       _react2.default.createElement(
-        'button',
-        {
-          className: 'btn btn-outline-info',
-          onClick: login.bind(undefined, {
-            username: 'ThaiNguyen',
-            password: '123456'
-          })
-        },
-        'Demo'
-      )
-    ),
-    _react2.default.createElement(
-      'li',
-      null,
+        'li',
+        { className: 'nav-item' },
+        _react2.default.createElement(
+          'button',
+          {
+            className: 'btn btn-outline-info',
+            onClick: login.bind(undefined, {
+              username: 'ThaiNguyen',
+              password: '123456'
+            })
+          },
+          'DEMO'
+        )
+      ),
       _react2.default.createElement(
-        _reactRouterDom.Link,
-        { className: 'btn btn-outline-primary', to: '/signup' },
-        'Signup'
-      )
-    ),
-    _react2.default.createElement(
-      'li',
-      null,
+        'li',
+        { className: 'nav-item' },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { className: 'btn btn-outline-primary', to: '/signup' },
+          'Signup'
+        )
+      ),
       _react2.default.createElement(
-        _reactRouterDom.Link,
-        { className: 'btn btn-outline-success', to: '/login' },
-        'Login'
+        'li',
+        { className: 'nav-item' },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { className: 'btn btn-outline-success', to: '/login' },
+          'Login'
+        )
       )
     )
   );
 };
 
 exports.default = SessionForm;
+
+// <li className="nav-item">
+//   <button
+//     className="btn btn-outline-info"
+//     onClick={login.bind(this, {
+//       username: 'ThaiNguyen',
+//       password: '123456'
+//     })}
+//   >
+//     Demo
+//   </button>
+// </li>
+//
+// <li className="nav-item">
+//   <Link className="btn btn-outline-primary" to="/signup">
+//     Signup
+//   </Link>
+// </li>
+//
+// <li className="nav-item">
+//   <Link className="btn btn-outline-success" to="/login">
+//     Login
+//   </Link>
+// </li>
 
 /***/ }),
 /* 348 */
@@ -44308,7 +44353,10 @@ var SessionForm = function (_React$Component) {
           { className: 'form-group' },
           _react2.default.createElement(
             'label',
-            { className: 'col-md-6 control-label', htmlFor: 'email' },
+            {
+              className: 'col-md-6 control-label session-font-input',
+              htmlFor: 'email'
+            },
             'Email'
           ),
           _react2.default.createElement(
@@ -44348,8 +44396,8 @@ var SessionForm = function (_React$Component) {
             'form',
             { className: 'form-horizontal session-form' },
             _react2.default.createElement(
-              'legend',
-              { className: 'text-session' },
+              'label',
+              { className: 'text-session session-text-header' },
               text
             ),
             _react2.default.createElement(
@@ -44357,7 +44405,7 @@ var SessionForm = function (_React$Component) {
               { className: 'form-group' },
               _react2.default.createElement(
                 'label',
-                { className: 'col-md-6 control-label' },
+                { className: 'col-md-6 control-label session-font-input' },
                 'User Name'
               ),
               _react2.default.createElement(
@@ -44379,7 +44427,10 @@ var SessionForm = function (_React$Component) {
               { className: 'form-group' },
               _react2.default.createElement(
                 'label',
-                { className: 'col-md-6 control-label', htmlFor: 'password' },
+                {
+                  className: 'col-md-6 control-label session-font-input',
+                  htmlFor: 'password'
+                },
                 'Password'
               ),
               _react2.default.createElement(
@@ -52592,10 +52643,14 @@ var ProjectForm = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       var projectId = this.props.match.params.projectId;
-      var currentUser = this.props.currentUser;
+      var _props = this.props,
+          currentUser = _props.currentUser,
+          formType = _props.formType;
+
 
       var idx = currentUser.project_ids.indexOf(parseInt(projectId));
-      if (!currentUser || idx === -1) {
+
+      if (!currentUser || idx === -1 && formType === 'edit') {
         this.props.history.push('/');
       }
       if (projectId) this.props.fetchProject(projectId);
@@ -52956,8 +53011,6 @@ var StepForm = function (_React$Component) {
   _createClass(StepForm, [{
     key: 'componentDidMount',
     value: function componentDidMount(ownProps) {
-      var _this2 = this;
-
       var _props$match$params = this.props.match.params,
           projectId = _props$match$params.projectId,
           stepId = _props$match$params.stepId;
@@ -52967,14 +53020,16 @@ var StepForm = function (_React$Component) {
       if (!currentUser || idx === -1) {
         this.props.history.push('/');
       }
-
-      if (stepId) {
-        this.props.fetchProject(projectId).then(function () {
-          return _this2.props.fetchStep(stepId);
-        });
-      } else {
-        this.props.fetchProject(projectId);
-      }
+      // debugger;
+      //
+      // if (stepId) {
+      //   this.props
+      //     .fetchProject(projectId)
+      //     .then(() => this.props.fetchStep(stepId));
+      // } else {
+      //   // this.props.fetchProject(projectId);
+      // }
+      this.props.fetchStep(stepId);
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -52989,38 +53044,30 @@ var StepForm = function (_React$Component) {
   }, {
     key: 'update',
     value: function update(type) {
-      var _this3 = this;
+      var _this2 = this;
 
       return function (e) {
         e.preventDefault();
-        _this3.setState(_defineProperty({}, type, e.target.value));
+        _this2.setState(_defineProperty({}, type, e.target.value));
       };
     }
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
-      var _this4 = this;
+      var _this3 = this;
 
       e.preventDefault();
       var projectId = this.props.match.params.projectId;
 
       this.props.action(this.state).then(function () {
-        return _this4.props.history.push('/projects/' + projectId);
+        return _this3.props.history.push('/projects/' + projectId);
       });
     }
   }, {
     key: 'render',
     value: function render() {
       if (!this.props.step) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h1',
-            null,
-            'Loading...'
-          )
-        );
+        return _react2.default.createElement('div', { className: 'loader' });
       }
 
       var _props$step = this.props.step,

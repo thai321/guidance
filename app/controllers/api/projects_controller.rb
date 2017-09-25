@@ -3,7 +3,6 @@ class Api::ProjectsController < ApplicationController
   before_action :require_user!, only: [:create, :update, :destroy]
 
   def index
-    # byebug
     if params[:project].nil?
       @projects = Project.where(published: true)
     elsif project_params[:filter] == 'true'
