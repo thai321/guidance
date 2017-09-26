@@ -44981,15 +44981,23 @@ var ProjectShow = function (_React$Component) {
           'div',
           { className: 'project-show-description' },
           _react2.default.createElement(
-            'h2',
+            'span',
             null,
             'Description'
           ),
-          _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: project.description } })
+          _react2.default.createElement('div', {
+            className: 'ql-editor',
+            dangerouslySetInnerHTML: { __html: project.description }
+          })
         ),
         _react2.default.createElement(
           'div',
           { className: 'project-show-video' },
+          _react2.default.createElement(
+            'span',
+            null,
+            'Guidance Video'
+          ),
           _react2.default.createElement('iframe', {
             width: '560',
             height: '315',
