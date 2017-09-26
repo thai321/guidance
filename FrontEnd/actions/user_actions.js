@@ -38,3 +38,13 @@ export const updateUserOption = (formData, id, callback) => dispatch =>
   UserApiUtil.updateUserForm(formData, id, callback)
     .then(ur => dispatch(receiveUser(ur)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
+
+export const fetchFollowers = followeeId => dispatch =>
+  UserApiUtil.fetchFollowers(followeeId)
+    .then(followers => dispatch(receiveAllUsers(followers)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
+
+export const fetchFollowees = followerId => dispatch =>
+  UserApiUtil.fetchFollowees(followerId)
+    .then(followees => dispatch(receiveAllUsers(followees)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
