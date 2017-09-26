@@ -173,11 +173,15 @@ class ProjectShow extends React.Component {
         </div>
 
         <div className="project-show-description">
-          <h2>Description</h2>
-          <div dangerouslySetInnerHTML={{ __html: project.description }} />
+          <span>Description</span>
+          <div
+            className="ql-editor"
+            dangerouslySetInnerHTML={{ __html: project.description }}
+          />
         </div>
 
         <div className="project-show-video">
+          <span>Guidance Video</span>
           <iframe
             width="560"
             height="315"
