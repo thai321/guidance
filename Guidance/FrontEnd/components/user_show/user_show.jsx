@@ -86,11 +86,7 @@ class UserShow extends React.Component {
   displayFavorite() {
     const { currentUser, user } = this.props;
     if (user.favorite_projects.length > 0) {
-      return (
-        <div>
-          <h4>{user.favorite_projects.length} favorite projects</h4>
-        </div>
-      );
+      return <div>{user.favorite_projects.length} favorite projects</div>;
     }
   }
 

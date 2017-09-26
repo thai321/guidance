@@ -39,7 +39,8 @@ class ProjectIndexItem extends React.Component {
       description,
       image_url,
       author_id,
-      author
+      author,
+      favorite_users
     } = this.props.project;
 
     return (
@@ -47,6 +48,7 @@ class ProjectIndexItem extends React.Component {
         <div className="thumbnail">
           <img className="img-fluid" src={image_url} />
           <span className="project-index-title">{title}</span>
+          <h6>{favorite_users.length} Likes</h6>
           <h6>by {author}</h6>
           <p>
             <Link to={`/projects/${id}`} className="btn btn-info btn-block">
