@@ -124,7 +124,6 @@ class UserShow extends React.Component {
       return <div className="loader" />;
     } else {
       const { user, projectsByUser, unPublishedProjects } = this.props;
-      const text = user.project_ids.length > 0 ? 'Projects' : '';
 
       const publishText =
         projectsByUser.length > 0
