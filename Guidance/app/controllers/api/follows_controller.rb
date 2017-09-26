@@ -16,7 +16,11 @@ class Api::FollowsController < ApplicationController
                             follower_id: follow_params[:follower_id]
                           )
       @follow.save
-      render json: @follow
+      # render json: @follow
+      render json: {
+        followeeId: @follow.followee_id,
+        followerId: @follow.follower_id,
+      }, status: 200
     end
   end
 
@@ -29,7 +33,11 @@ class Api::FollowsController < ApplicationController
 
     @follow.destroy
 
-    render json: @follow
+    # render json: @follow
+    render json: {
+      followeeId: @follow.followee_id,
+      followerId: @follow.follower_id,
+    }, status: 200
   end
 
   private

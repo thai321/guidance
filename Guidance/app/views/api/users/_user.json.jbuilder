@@ -23,3 +23,6 @@ if(image_url.include?('amazon'))
 end
 
 json.image_url asset_path(image_url)
+
+json.followers user.followers.ids
+json.followees user.followees.ids
