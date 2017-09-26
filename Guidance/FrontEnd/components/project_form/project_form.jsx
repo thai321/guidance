@@ -169,18 +169,17 @@ class ProjectForm extends React.Component {
               value={this.state.description}
               onChange={this.handleChange}
             />
-          </div>
+            <div className="image-project-form">
+              <span className="col-md-1 col-md-offset-2 text-center">
+                <i className="fa fa-file-image-o bigicon fa-lg" />
+              </span>
 
-          <div className="image-project-form">
-            <span className="col-md-1 col-md-offset-2 text-center">
-              <i className="fa fa-file-image-o bigicon fa-lg" />
-            </span>
-
-            <input
-              type="file"
-              placeholder="Upload Your image"
-              onChange={this.updateFile}
-            />
+              <input
+                type="file"
+                placeholder="Upload Your image"
+                onChange={this.updateFile}
+              />
+            </div>
           </div>
 
           <div className="form-group">
@@ -191,7 +190,7 @@ class ProjectForm extends React.Component {
             <input
               className="form-control"
               type="text"
-              placeholder="Paste Your Video URL"
+              placeholder="Paste a Youtube URL video here"
               value={this.state.video_url}
               onChange={this.update('video_url')}
             />
