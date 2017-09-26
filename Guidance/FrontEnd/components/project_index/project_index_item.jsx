@@ -44,22 +44,18 @@ class ProjectIndexItem extends React.Component {
 
     return (
       <div className="col col-md-3 col-xs-12">
-        <div className="">
-          <div className="thumbnail">
-            <img className="img-fluid" src={image_url} />
-            <div className="">
-              <h4>{title}</h4>
-              <h4>by {author}</h4>
-            </div>
-            <p>
-              <Link to={`/projects/${id}`} className="btn btn-info btn-block">
-                Project Information
-              </Link>
+        <div className="thumbnail">
+          <img className="img-fluid" src={image_url} />
+          <span className="project-index-title">{title}</span>
+          <h6>by {author}</h6>
+          <p>
+            <Link to={`/projects/${id}`} className="btn btn-info btn-block">
+              Project Information
+            </Link>
 
-              {this.displayAuthor()}
-              {this.displayEdit()}
-            </p>
-          </div>
+            {this.displayAuthor()}
+            {this.displayEdit()}
+          </p>
         </div>
       </div>
     );

@@ -1,18 +1,13 @@
-.main-app {
-  margin-top: 120px;
+.project-index {
+  display: flex;
+  list-style: none;
+  // background-color: gray;
+  width: 97%;
+  margin: 0 auto;
 }
-//
-// .project-index {
-//   display: flex;
-//   list-style: none;
-//   // background-color: gray;
-//   width: 97%;
-//   margin: 0 auto;
-// }
 
 .thumbnail {
   width: 99%;
-  // height: 99%;
   max-height: 99%;
 
   // overflow: hidden;
@@ -23,15 +18,13 @@
   height: 300px;
 }
 
-// .title-author {
-//   display: flex;
-//   color: green;
-//   justify-content: space-between;
-// }
+.thumbnail span {
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Quattrocento Sans', sans-serif;
+}
 
-// .card-wrap {
-//   display: flex;
-//   flex-wrap: wrap;
-// }
-
-//<img className="" src={image_url} />
+.thumbnail h6 {
+  font-family: 'Zilla Slab', serif;
+}
