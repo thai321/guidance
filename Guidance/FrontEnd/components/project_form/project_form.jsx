@@ -28,9 +28,7 @@ class ProjectForm extends React.Component {
     const { projectId } = this.props.match.params;
     const { currentUser, formType } = this.props;
 
-    const idx = currentUser.project_ids.indexOf(parseInt(projectId));
-
-    if (!currentUser || (idx === -1 && formType === 'edit')) {
+    if (!currentUser) {
       this.props.history.push('/');
     }
     if (projectId) this.props.fetchProject(projectId);
@@ -43,9 +41,20 @@ class ProjectForm extends React.Component {
   update(type) {
     return e => {
       e.preventDefault();
-      const value = type === 'author' ? Number(e.target.value) : e.target.value;
+      if (type === 'video_url') {
+        const regex = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/;
+        const temp = this.state.video_url + e.target.value;
+        if (temp.match(regex)) {
+          const video_url =
+            'https://www.youtube.com/embed/' + temp.match(regex)[2];
+          this.setState({ video_url });
+        }
+      } else {
+        const value =
+          type === 'author' ? Number(e.target.value) : e.target.value;
 
-      this.setState({ [type]: value });
+        this.setState({ [type]: value });
+      }
     };
   }
 
@@ -126,7 +135,13 @@ class ProjectForm extends React.Component {
         <form className="project-form">
           {this.displayBack()}
 
-          <legend className="text-center header">{header}</legend>
+          <button
+            className="btn btn-primary btn-lg"
+            type="submit"
+            onClick={this.handleSubmit}
+          >
+            {text}
+          </button>
 
           <div className="form-group">
             <span className="col-md-1 col-md-offset-2 text-center">
@@ -182,15 +197,14 @@ class ProjectForm extends React.Component {
             />
           </div>
 
-          <div className="project-form-submit-button">
-            <button
-              className="btn btn-primary btn-lg"
-              type="submit"
-              onClick={this.handleSubmit}
-            >
-              {text}
-            </button>
-          </div>
+          <iframe
+            width="560"
+            height="315"
+            src={this.state.video_url}
+            frameBorder="0"
+            allowFullScreen
+          />
+          <div className="project-form-submit-button" />
         </form>
       </div>
     );
