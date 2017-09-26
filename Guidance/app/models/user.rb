@@ -55,6 +55,21 @@ class User < ApplicationRecord
     through: :favorites,
     source: :project
 
+  has_many :in_follows,
+  foreign_key: :followee_id,
+  class_name: :Follow
+
+  has_many :out_follows,
+    foreign_key: :follower_id,
+    class_name: :Follow
+
+  has_many :followers,
+    through: :in_follows,
+    source: :follower
+
+  has_many :followees,
+  through: :out_follows,
+  source: :followee
 
 
  # Authentication
@@ -80,6 +95,15 @@ class User < ApplicationRecord
     self.session_token
   end
 
+
+  def followed_user_ids
+    @followed_user_ids ||= out_follows.pluck(:followee_id)
+  end
+
+  def follows?(user)
+    followed_user_ids.include?(user.id)
+  end
+
   private
   def ensure_session_token
     self.session_token ||= User.generate_session_token
@@ -88,4 +112,6 @@ class User < ApplicationRecord
   def self.generate_session_token
     SecureRandom.urlsafe_base64
   end
+
+
 end
