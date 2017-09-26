@@ -133,8 +133,8 @@ class ProjectShow extends React.Component {
 
     return (
       <div className="project-show-page">
-        <h3>Number of Likes: {project.favorite_users.length}</h3>
         <div className="project-show-buttons">
+          <h3>Number of Likes: {project.favorite_users.length}</h3>
           {displayLike()}
 
           <Link className="project-show-back-to-index" to="/">

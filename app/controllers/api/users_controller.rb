@@ -3,12 +3,12 @@ class Api::UsersController < ApplicationController
 
 
   def index
-    if(user_params[:followee_id])
-      @users = User.find(user_params[:followee_id]).followers
-    elsif (user_params[:follower_id])
-      @users = User.find(user_params[:follower_id]).followees
-    else
+    if !params[:user]
       @users = User.all
+    elsif (user_params[:followee_id])
+      @users = User.find(user_params[:followee_id]).followers
+    elsif ( user_params[:follower_id])
+      @users = User.find(user_params[:follower_id]).followees
     end
 
     render :index

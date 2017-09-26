@@ -44924,14 +44924,14 @@ var ProjectShow = function (_React$Component) {
         'div',
         { className: 'project-show-page' },
         _react2.default.createElement(
-          'h3',
-          null,
-          'Number of Likes: ',
-          project.favorite_users.length
-        ),
-        _react2.default.createElement(
           'div',
           { className: 'project-show-buttons' },
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Number of Likes: ',
+            project.favorite_users.length
+          ),
           displayLike(),
           _react2.default.createElement(
             _reactRouterDom.Link,
@@ -52889,21 +52889,21 @@ var ProjectForm = function (_React$Component) {
               modules: ProjectForm.modules,
               value: this.state.description,
               onChange: this.handleChange
-            })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'image-project-form' },
+            }),
             _react2.default.createElement(
-              'span',
-              { className: 'col-md-1 col-md-offset-2 text-center' },
-              _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-lg' })
-            ),
-            _react2.default.createElement('input', {
-              type: 'file',
-              placeholder: 'Upload Your image',
-              onChange: this.updateFile
-            })
+              'div',
+              { className: 'image-project-form' },
+              _react2.default.createElement(
+                'span',
+                { className: 'col-md-1 col-md-offset-2 text-center' },
+                _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-lg' })
+              ),
+              _react2.default.createElement('input', {
+                type: 'file',
+                placeholder: 'Upload Your image',
+                onChange: this.updateFile
+              })
+            )
           ),
           _react2.default.createElement(
             'div',
@@ -52916,7 +52916,7 @@ var ProjectForm = function (_React$Component) {
             _react2.default.createElement('input', {
               className: 'form-control',
               type: 'text',
-              placeholder: 'Paste Your Video URL',
+              placeholder: 'Paste a Youtube URL video here',
               value: this.state.video_url,
               onChange: this.update('video_url')
             })

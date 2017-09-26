@@ -13,6 +13,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 95%;
+  height: 95%;
 }
 
 .project-form-upload-image {
@@ -20,7 +22,7 @@
 }
 
 .description-quill {
-  height: 200px;
+  height: 500px;
 }
 
 .project-form-title {
@@ -56,4 +58,14 @@
   height: 0;
   outline: none;
   cursor: inherit;
+}
+
+// .project-form-description {
+//   width: 100%;
+//   height: 100%;
+// }
+
+.project-form-description img {
+  width: 20%;
+  height: 20%;
 }
