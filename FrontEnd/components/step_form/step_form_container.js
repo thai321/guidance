@@ -8,23 +8,30 @@ import { fetchProject } from '../../actions/project_actions';
 import StepForm from './step_form';
 
 const mapStateToProps = (state, ownProps) => {
-  // debugger;
+  const projectId = parseInt(ownProps.match.params.projectId);
+
   let step = {
     title: '',
     body: '',
-    project_id: parseInt(ownProps.match.params.projectId)
+    project_id: projectId
   };
+
+  let idx = null;
 
   if (ownProps.match.path == '/projects/:projectId/steps/:stepId/edit') {
     const stepId = parseInt(ownProps.match.params.stepId);
     step = state.entities.steps[stepId];
+
+    const project = state.entities.projects[projectId];
+    if (project) {
+      idx = project.step_ids.indexOf(stepId) + 1;
+    }
   }
 
-  return { step, currentUser: state.session.currentUser };
+  return { step, currentUser: state.session.currentUser, idx };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  // debugger;
   let formType = 'new';
   let action = createStep;
   if (ownProps.match.path == '/projects/:projectId/steps/:stepId/edit') {

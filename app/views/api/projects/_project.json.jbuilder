@@ -9,14 +9,6 @@ json.author_id project.author_id
 json.author project.author.username
 json.step_ids project.step_ids
 
-# image = project.image.url
-# if(image.include?('amazon'))
-#   host = project.image.url[0..31]
-#   path =
-#
-#
-#   temp = project.image.url[0..31] + project.image.url[45..-1]
-# end
 
 image = project.image
 image_url = image.url

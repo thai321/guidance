@@ -17,6 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     user: ownProps.user,
+    currentUser: state.session.currentUser,
     favorites
   };
 };

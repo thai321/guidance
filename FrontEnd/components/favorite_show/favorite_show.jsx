@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { uniqueId } from '../../util/id_generator';
+
+import ProjectIndexItem from '../project_index/project_index_item';
+
 class FavoriteShow extends React.Component {
   constructor(props) {
     super(props);
@@ -13,9 +17,17 @@ class FavoriteShow extends React.Component {
       return <div className="loader" />;
     } else {
       return (
-        <div>
+        <div className="row">
           {favorites.map((project, i) => {
-            return <h2 key={i}>{project.title}</h2>;
+            return (
+              <ProjectIndexItem
+                key={
+                  project.id + project.title + this.props.user.id + uniqueId()
+                }
+                project={project}
+                currentUser={this.props.currentUser}
+              />
+            );
           })}
         </div>
       );

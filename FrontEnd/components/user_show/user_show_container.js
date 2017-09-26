@@ -21,19 +21,23 @@ const mapStateToProps = (state, ownProps) => {
   if (state.session.currentUser) currentUser = state.session.currentUser;
 
   const projects = state.entities.projects;
-  let projectIds = [];
   let projectsByUser = [];
+
+  let unPublishedProjects = [];
 
   if (user && Object.keys(projects).length > 1) {
     if (currentUser && currentUser.id == userId) {
       Object.values(projects).forEach(project => {
-        if (project.id && project.author_id === currentUser.id)
-          projectsByUser.push(project);
+        if (project.id && project.author_id === currentUser.id) {
+          if (!project.published) {
+            unPublishedProjects.push(project);
+          } else {
+            projectsByUser.push(project);
+          }
+        }
       });
     } else {
-      projectIds = user.project_ids;
-
-      projectIds.forEach(id => {
+      user.project_ids.forEach(id => {
         const project = projects[id];
         if (project) projectsByUser.push(project);
       });
@@ -43,6 +47,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     user,
     currentUser,
+    unPublishedProjects,
     projectsByUser
   };
 };

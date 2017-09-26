@@ -21,20 +21,23 @@ class StepForm extends React.Component {
     if (!currentUser || idx === -1) {
       this.props.history.push('/');
     }
-    // debugger;
-    //
-    // if (stepId) {
-    //   this.props
-    //     .fetchProject(projectId)
-    //     .then(() => this.props.fetchStep(stepId));
-    // } else {
-    //   // this.props.fetchProject(projectId);
-    // }
-    this.props.fetchStep(stepId);
+
+    if (stepId) {
+      this.props
+        .fetchProject(projectId)
+        .then(() => this.props.fetchStep(stepId));
+    } else {
+      this.props.fetchProject(projectId);
+    }
   }
 
   componentWillReceiveProps(ownProps) {
-    this.setState(ownProps.step);
+    if (
+      ownProps.step &&
+      ownProps.match.path === '/projects/:projectId/steps/:stepId/edit'
+    ) {
+      this.setState(ownProps.step);
+    }
   }
 
   handleChange(value) {
@@ -63,7 +66,10 @@ class StepForm extends React.Component {
 
     const { title, body, project_id } = this.props.step;
     const text = this.props.formType === 'new' ? 'Create Step' : 'Update Step';
-    const header = this.props.formType === 'new' ? 'New Step' : 'Edit Step';
+    const header =
+      this.props.formType === 'new'
+        ? 'New Step'
+        : `Edit Step ${this.props.idx}`;
 
     return (
       <div>

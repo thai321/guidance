@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// import { projectByIds } from '../../reducers/selectors';
 import { uniqueId } from '../../util/id_generator';
 
 import ProjectIndexItem from '../project_index/project_index_item';
@@ -55,7 +54,6 @@ class UserShow extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // debugger;
     const { currentUser } = this.props;
 
     const formData = new FormData();
@@ -87,10 +85,31 @@ class UserShow extends React.Component {
 
   displayFavorite() {
     const { currentUser, user } = this.props;
-    if (currentUser && user.id == currentUser.id) {
+    if (user.favorite_projects.length > 0) {
+      return <div>{user.favorite_projects.length} favorite projects</div>;
+    }
+  }
+
+  displayProjects(type) {
+    const projects =
+      type === 'Published'
+        ? this.props.projectsByUser
+        : this.props.unPublishedProjects;
+
+    if (projects.length > 0) {
       return (
-        <div>
-          <h4>{currentUser.favorite_projects.length} favorite projects</h4>
+        <div className="row">
+          {projects.map(project => {
+            return (
+              <ProjectIndexItem
+                key={
+                  project.id + project.title + this.props.user.id + uniqueId()
+                }
+                project={project}
+                currentUser={this.props.currentUser}
+              />
+            );
+          })}
         </div>
       );
     }
@@ -100,8 +119,17 @@ class UserShow extends React.Component {
     if (!this.props.user) {
       return <div className="loader" />;
     } else {
-      const { user } = this.props;
-      const text = user.project_ids.length > 0 ? 'Projects' : '';
+      const { user, projectsByUser, unPublishedProjects } = this.props;
+
+      const publishText =
+        projectsByUser.length > 0
+          ? `${projectsByUser.length} Published Projects`
+          : '';
+
+      const UnpublishText =
+        unPublishedProjects.length > 0
+          ? `${unPublishedProjects.length} Un-Published Projects`
+          : '';
 
       const displayUpload = () => {
         const { currentUser } = this.props;
@@ -123,7 +151,7 @@ class UserShow extends React.Component {
       };
 
       return (
-        <div className="project-index">
+        <div className="user-show-projects">
           <div className="container-fluid">
             <div className="user-index-info">
               <div className="card">
@@ -131,11 +159,7 @@ class UserShow extends React.Component {
                   <img className="card-img-top" src={user.image_url} />
                 </div>
                 <div className="card-block card-user-title">
-                  <h4 className="card-title">
-                    {user.username} has {user.project_ids.length} published
-                    projects
-                  </h4>
-                  {this.displayFavorite()}
+                  <h4 className="card-title">{user.username}</h4>
                 </div>
               </div>
             </div>
@@ -143,24 +167,23 @@ class UserShow extends React.Component {
             {displayUpload()}
 
             <div className="project-text-user-show">
-              <h2>{text}</h2>
+              <h2>{publishText}</h2>
             </div>
 
-            <div className="row">
-              <br />
-              {this.props.projectsByUser.map(project => {
-                return (
-                  <ProjectIndexItem
-                    key={project.id + project.title + user.id + uniqueId()}
-                    project={project}
-                    currentUser={this.props.currentUser}
-                  />
-                );
-              })}
+            {this.displayProjects('Published')}
+
+            <div className="project-text-user-show">
+              <h2>{UnpublishText}</h2>
             </div>
+
+            {this.displayProjects('UnPublished')}
+
+            <div className="project-text-user-show">
+              <h2>{this.displayFavorite()}</h2>
+            </div>
+
+            <FavoriteShowContainer user={user} />
           </div>
-
-          <FavoriteShowContainer user={user} />
         </div>
       );
     }

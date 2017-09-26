@@ -26,8 +26,6 @@ class User < ApplicationRecord
                    uniqueness: { case_sensitive: false }
 
   has_attached_file :image, default_url: "default_user.png", styles: {
-    #  thumb: '100x100>',
-    #  square: '200x200#',
      medium: '300x300>'
    }
 

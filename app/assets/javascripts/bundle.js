@@ -15706,7 +15706,8 @@ var ProjectIndexItem = function (_React$Component) {
           description = _props$project.description,
           image_url = _props$project.image_url,
           author_id = _props$project.author_id,
-          author = _props$project.author;
+          author = _props$project.author,
+          favorite_users = _props$project.favorite_users;
 
 
       return _react2.default.createElement(
@@ -15720,6 +15721,12 @@ var ProjectIndexItem = function (_React$Component) {
             'span',
             { className: 'project-index-title' },
             title
+          ),
+          _react2.default.createElement(
+            'h6',
+            null,
+            favorite_users.length,
+            ' Likes'
           ),
           _react2.default.createElement(
             'h6',
@@ -52886,23 +52893,30 @@ var _step_form2 = _interopRequireDefault(_step_form);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  // debugger;
+  var projectId = parseInt(ownProps.match.params.projectId);
+
   var step = {
     title: '',
     body: '',
-    project_id: parseInt(ownProps.match.params.projectId)
+    project_id: projectId
   };
+
+  var idx = null;
 
   if (ownProps.match.path == '/projects/:projectId/steps/:stepId/edit') {
     var stepId = parseInt(ownProps.match.params.stepId);
     step = state.entities.steps[stepId];
+
+    var project = state.entities.projects[projectId];
+    if (project) {
+      idx = project.step_ids.indexOf(stepId) + 1;
+    }
   }
 
-  return { step: step, currentUser: state.session.currentUser };
+  return { step: step, currentUser: state.session.currentUser, idx: idx };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
-  // debugger;
   var formType = 'new';
   var _action = _step_actions.createStep;
   if (ownProps.match.path == '/projects/:projectId/steps/:stepId/edit') {
@@ -52977,6 +52991,8 @@ var StepForm = function (_React$Component) {
   _createClass(StepForm, [{
     key: 'componentDidMount',
     value: function componentDidMount(ownProps) {
+      var _this2 = this;
+
       var _props$match$params = this.props.match.params,
           projectId = _props$match$params.projectId,
           stepId = _props$match$params.stepId;
@@ -52986,21 +53002,21 @@ var StepForm = function (_React$Component) {
       if (!currentUser || idx === -1) {
         this.props.history.push('/');
       }
-      // debugger;
-      //
-      // if (stepId) {
-      //   this.props
-      //     .fetchProject(projectId)
-      //     .then(() => this.props.fetchStep(stepId));
-      // } else {
-      //   // this.props.fetchProject(projectId);
-      // }
-      this.props.fetchStep(stepId);
+
+      if (stepId) {
+        this.props.fetchProject(projectId).then(function () {
+          return _this2.props.fetchStep(stepId);
+        });
+      } else {
+        this.props.fetchProject(projectId);
+      }
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(ownProps) {
-      this.setState(ownProps.step);
+      if (ownProps.step && ownProps.match.path === '/projects/:projectId/steps/:stepId/edit') {
+        this.setState(ownProps.step);
+      }
     }
   }, {
     key: 'handleChange',
@@ -53010,23 +53026,23 @@ var StepForm = function (_React$Component) {
   }, {
     key: 'update',
     value: function update(type) {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (e) {
         e.preventDefault();
-        _this2.setState(_defineProperty({}, type, e.target.value));
+        _this3.setState(_defineProperty({}, type, e.target.value));
       };
     }
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       e.preventDefault();
       var projectId = this.props.match.params.projectId;
 
       this.props.action(this.state).then(function () {
-        return _this3.props.history.push('/projects/' + projectId);
+        return _this4.props.history.push('/projects/' + projectId);
       });
     }
   }, {
@@ -53042,7 +53058,7 @@ var StepForm = function (_React$Component) {
           project_id = _props$step.project_id;
 
       var text = this.props.formType === 'new' ? 'Create Step' : 'Update Step';
-      var header = this.props.formType === 'new' ? 'New Step' : 'Edit Step';
+      var header = this.props.formType === 'new' ? 'New Step' : 'Edit Step ' + this.props.idx;
 
       return _react2.default.createElement(
         'div',
@@ -53295,35 +53311,42 @@ var UserIndexItem = function (_React$Component) {
       var numProjects = this.props.user.project_ids.length;
       return _react2.default.createElement(
         'div',
-        { className: 'user-index-item' },
+        { className: 'col col-md-3 col-xs-12' },
         _react2.default.createElement(
           'div',
-          { className: 'card' },
+          { className: 'thumbnail' },
+          _react2.default.createElement('img', { className: 'img-fluid', src: image_url }),
           _react2.default.createElement(
-            'div',
-            { className: 'user-index-item-image' },
-            _react2.default.createElement('img', { className: 'card-img-top', alt: 'No User Photo', src: image_url })
+            'span',
+            { className: 'project-index-title' },
+            username
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'user-index-info' },
+            'h6',
+            null,
+            'Published projects: ',
+            project_ids.length
+          ),
+          _react2.default.createElement(
+            'h6',
+            null,
+            'followers: ',
+            project_ids.length
+          ),
+          _react2.default.createElement(
+            'h6',
+            null,
+            'following: ',
+            project_ids.length
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
             _react2.default.createElement(
-              'div',
-              { className: 'card-block card-user-title' },
-              _react2.default.createElement(
-                'h7',
-                { className: 'card-title' },
-                username,
-                ' has',
-                project_ids.length,
-                ' published projects'
-              )
+              _reactRouterDom.Link,
+              { className: 'btn btn-info btn-block', to: '/users/' + id },
+              'User Information'
             )
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { className: 'btn btn-info btn-sm btn-block', to: '/users/' + id },
-            'User Information'
           )
         )
       );
@@ -53373,18 +53396,23 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   if (state.session.currentUser) currentUser = state.session.currentUser;
 
   var projects = state.entities.projects;
-  var projectIds = [];
   var projectsByUser = [];
+
+  var unPublishedProjects = [];
 
   if (user && Object.keys(projects).length > 1) {
     if (currentUser && currentUser.id == userId) {
       Object.values(projects).forEach(function (project) {
-        if (project.id && project.author_id === currentUser.id) projectsByUser.push(project);
+        if (project.id && project.author_id === currentUser.id) {
+          if (!project.published) {
+            unPublishedProjects.push(project);
+          } else {
+            projectsByUser.push(project);
+          }
+        }
       });
     } else {
-      projectIds = user.project_ids;
-
-      projectIds.forEach(function (id) {
+      user.project_ids.forEach(function (id) {
         var project = projects[id];
         if (project) projectsByUser.push(project);
       });
@@ -53394,6 +53422,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     user: user,
     currentUser: currentUser,
+    unPublishedProjects: unPublishedProjects,
     projectsByUser: projectsByUser
   };
 };
@@ -53453,9 +53482,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import { projectByIds } from '../../reducers/selectors';
-
 
 var UserShow = function (_React$Component) {
   _inherits(UserShow, _React$Component);
@@ -53522,7 +53548,6 @@ var UserShow = function (_React$Component) {
       var _this4 = this;
 
       e.preventDefault();
-      // debugger;
       var currentUser = this.props.currentUser;
 
 
@@ -53562,33 +53587,56 @@ var UserShow = function (_React$Component) {
           currentUser = _props.currentUser,
           user = _props.user;
 
-      if (currentUser && user.id == currentUser.id) {
+      if (user.favorite_projects.length > 0) {
         return _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            'h4',
-            null,
-            currentUser.favorite_projects.length,
-            ' favorite projects'
-          )
+          user.favorite_projects.length,
+          ' favorite projects'
+        );
+      }
+    }
+  }, {
+    key: 'displayProjects',
+    value: function displayProjects(type) {
+      var _this6 = this;
+
+      var projects = type === 'Published' ? this.props.projectsByUser : this.props.unPublishedProjects;
+
+      if (projects.length > 0) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'row' },
+          projects.map(function (project) {
+            return _react2.default.createElement(_project_index_item2.default, {
+              key: project.id + project.title + _this6.props.user.id + (0, _id_generator.uniqueId)(),
+              project: project,
+              currentUser: _this6.props.currentUser
+            });
+          })
         );
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!this.props.user) {
         return _react2.default.createElement('div', { className: 'loader' });
       } else {
-        var user = this.props.user;
+        var _props2 = this.props,
+            user = _props2.user,
+            projectsByUser = _props2.projectsByUser,
+            unPublishedProjects = _props2.unPublishedProjects;
 
-        var text = user.project_ids.length > 0 ? 'Projects' : '';
+
+        var publishText = projectsByUser.length > 0 ? projectsByUser.length + ' Published Projects' : '';
+
+        var UnpublishText = unPublishedProjects.length > 0 ? unPublishedProjects.length + ' Un-Published Projects' : '';
 
         var displayUpload = function displayUpload() {
-          var currentUser = _this6.props.currentUser;
+          var currentUser = _this7.props.currentUser;
 
           if (currentUser && currentUser.id === user.id) {
             return _react2.default.createElement(
@@ -53600,9 +53648,9 @@ var UserShow = function (_React$Component) {
                 _react2.default.createElement('input', {
                   type: 'file',
                   placeholder: 'Upload Your image',
-                  onChange: _this6.updateFile
+                  onChange: _this7.updateFile
                 }),
-                _react2.default.createElement('input', { type: 'submit', onClick: _this6.handleSubmit })
+                _react2.default.createElement('input', { type: 'submit', onClick: _this7.handleSubmit })
               )
             );
           }
@@ -53610,7 +53658,7 @@ var UserShow = function (_React$Component) {
 
         return _react2.default.createElement(
           'div',
-          { className: 'project-index' },
+          { className: 'user-show-projects' },
           _react2.default.createElement(
             'div',
             { className: 'container-fluid' },
@@ -53631,12 +53679,8 @@ var UserShow = function (_React$Component) {
                   _react2.default.createElement(
                     'h4',
                     { className: 'card-title' },
-                    user.username,
-                    ' has ',
-                    user.project_ids.length,
-                    ' published projects'
-                  ),
-                  this.displayFavorite()
+                    user.username
+                  )
                 )
               )
             ),
@@ -53647,23 +53691,31 @@ var UserShow = function (_React$Component) {
               _react2.default.createElement(
                 'h2',
                 null,
-                text
+                publishText
               )
             ),
+            this.displayProjects('Published'),
             _react2.default.createElement(
               'div',
-              { className: 'row' },
-              _react2.default.createElement('br', null),
-              this.props.projectsByUser.map(function (project) {
-                return _react2.default.createElement(_project_index_item2.default, {
-                  key: project.id + project.title + user.id + (0, _id_generator.uniqueId)(),
-                  project: project,
-                  currentUser: _this6.props.currentUser
-                });
-              })
-            )
-          ),
-          _react2.default.createElement(_favorite_show_container2.default, { user: user })
+              { className: 'project-text-user-show' },
+              _react2.default.createElement(
+                'h2',
+                null,
+                UnpublishText
+              )
+            ),
+            this.displayProjects('UnPublished'),
+            _react2.default.createElement(
+              'div',
+              { className: 'project-text-user-show' },
+              _react2.default.createElement(
+                'h2',
+                null,
+                this.displayFavorite()
+              )
+            ),
+            _react2.default.createElement(_favorite_show_container2.default, { user: user })
+          )
         );
       }
     }
@@ -53710,6 +53762,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
   return {
     user: ownProps.user,
+    currentUser: state.session.currentUser,
     favorites: favorites
   };
 };
@@ -53743,6 +53796,12 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(6);
 
+var _id_generator = __webpack_require__(42);
+
+var _project_index_item = __webpack_require__(165);
+
+var _project_index_item2 = _interopRequireDefault(_project_index_item);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53763,6 +53822,8 @@ var FavoriteShow = function (_React$Component) {
   _createClass(FavoriteShow, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           user = _props.user,
           favorites = _props.favorites;
@@ -53773,13 +53834,13 @@ var FavoriteShow = function (_React$Component) {
       } else {
         return _react2.default.createElement(
           'div',
-          null,
+          { className: 'row' },
           favorites.map(function (project, i) {
-            return _react2.default.createElement(
-              'h2',
-              { key: i },
-              project.title
-            );
+            return _react2.default.createElement(_project_index_item2.default, {
+              key: project.id + project.title + _this2.props.user.id + (0, _id_generator.uniqueId)(),
+              project: project,
+              currentUser: _this2.props.currentUser
+            });
           })
         );
       }
