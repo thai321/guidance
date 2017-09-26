@@ -1,9 +1,11 @@
 .project-form {
   display: flex;
   justify-content: center;
-  // background-color: gray;
-  width: 95%;
-  margin: 0 auto;
+  align-items: center;
+  flex-direction: column;
+  width: auto;
+
+  background-color: white;
 }
 
 .project_form_container {
@@ -11,54 +13,47 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // background-color: gray;
-  width: 100%;
-  margin: 0 auto;
-  // border: 1px solid gray;
-  margin: 10px;
 }
 
-.project-form-fieldset {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  // width: 80%;
-  background-color: white;
-}
-
-.project-form-submit-button {
-  display: flex;
-  justify-content: center;
-}
-
-.project-form .form-horizontal {
-  border: 2px solid lightgray;
-  margin: 10px;
+.project-form-upload-image {
+  margin-top: 50px;
 }
 
 .description-quill {
   height: 200px;
 }
 
-.image-project-form {
-  padding-top: 50px;
+.project-form-title {
+  width: 100%;
 }
 
-.project-form-description {
-  padding-top: 20px;
-  padding-bottom: 30px;
+.project-form .form-group {
+  width: 100%;
+}
+
+.project-form a {
+  align-self: flex-start;
+}
+
+.image-project-form {
+  padding-top: 50px;
+  margin-right: 500px;
 }
 
 .project-form .fa-arrow-circle-o-left {
   color: black;
 }
 
-.project-show-page i {
-  color: black;
+.btn-bs-file {
+  position: relative;
 }
-
-.project-show-buttons {
-  display: flex;
-  justify-content: center;
+.btn-bs-file input[type='file'] {
+  position: absolute;
+  top: -9999999;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  width: 0;
+  height: 0;
+  outline: none;
+  cursor: inherit;
 }
