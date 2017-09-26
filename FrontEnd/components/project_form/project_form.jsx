@@ -96,18 +96,14 @@ class ProjectForm extends React.Component {
 
     return (
       <Link to={path}>
-        <i className="fa fa-arrow-circle-o-left fa-4x" />
+        <i className="fa fa-arrow-circle-o-left fa-4x back-button" />
       </Link>
     );
   }
 
   render() {
     if (!this.props.project) {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      );
+      return <div className="loader" />;
     }
 
     const text =
@@ -126,94 +122,76 @@ class ProjectForm extends React.Component {
     } = this.props.project;
 
     return (
-      <div className="project-form">
-        <div className="project_form_container">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <form className="form-horizontal">
-                  {this.displayBack()}
+      <div className="project_form_container">
+        <form className="project-form">
+          {this.displayBack()}
 
-                  <legend className="text-center header">{header}</legend>
+          <legend className="text-center header">{header}</legend>
 
-                  <div className="form-group">
-                    <span className="col-md-1 col-md-offset-2 text-center">
-                      <i className="fa fa-pencil bigicon fa-lg" />
-                    </span>
+          <div className="form-group">
+            <span className="col-md-1 col-md-offset-2 text-center">
+              <i className="fa fa-pencil bigicon fa-lg" />
+            </span>
 
-                    <div className="col-md-10">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Title"
-                        value={this.state.title}
-                        onChange={this.update('title')}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="project-form-description">
-                    <span className="col-md-1 col-md-offset-2 text-center">
-                      <i className="fa fa-pencil-square-o bigicon fa-lg" />
-                    </span>
-
-                    <div className="col-md-10">
-                      <ReactQuill
-                        className="description-quill"
-                        placeholder="Enter The Project's Description"
-                        modules={ProjectForm.modules}
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="image-project-form">
-                    <div className="form-group">
-                      <span className="col-md-1 col-md-offset-2 text-center">
-                        <i className="fa fa-file-image-o bigicon fa-lg" />
-                      </span>
-
-                      <input
-                        type="file"
-                        placeholder="Upload Your image"
-                        onChange={this.updateFile}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <span className="col-md-1 col-md-offset-2 ">
-                      <i className="fa fa-video-camera bigicon fa-lg" />
-                    </span>
-
-                    <div className="col-md-10">
-                      <input
-                        className="form-control"
-                        type="text"
-                        placeholder="Paste Your Video URL"
-                        value={this.state.video_url}
-                        onChange={this.update('video_url')}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <div className="project-form-submit-button">
-                      <button
-                        className="btn btn-primary btn-lg"
-                        type="submit"
-                        onClick={this.handleSubmit}
-                      >
-                        {text}
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+            <input
+              className="project-form-title"
+              type="text"
+              placeholder="Title"
+              value={this.state.title}
+              onChange={this.update('title')}
+            />
           </div>
-        </div>
+
+          <div className="project-form-description">
+            <span className="col-md-1 col-md-offset-2 text-center">
+              <i className="fa fa-pencil-square-o bigicon fa-lg" />
+            </span>
+
+            <ReactQuill
+              className="description-quill"
+              placeholder="Enter The Project's Description"
+              modules={ProjectForm.modules}
+              value={this.state.description}
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <div className="image-project-form">
+            <span className="col-md-1 col-md-offset-2 text-center">
+              <i className="fa fa-file-image-o bigicon fa-lg" />
+            </span>
+
+            <input
+              type="file"
+              placeholder="Upload Your image"
+              onChange={this.updateFile}
+            />
+          </div>
+
+          <div className="form-group">
+            <span className="col-md-1 col-md-offset-2 ">
+              <i className="fa fa-video-camera bigicon fa-lg" />
+            </span>
+
+            <input
+              className="form-control"
+              type="text"
+              placeholder="Paste Your Video URL"
+              value={this.state.video_url}
+              onChange={this.update('video_url')}
+            />
+          </div>
+
+          <div className="project-form-submit-button">
+            <button
+              className="btn btn-primary btn-lg"
+              type="submit"
+              onClick={this.handleSubmit}
+            >
+              {text}
+            </button>
+          </div>
+        </form>
       </div>
     );
   }

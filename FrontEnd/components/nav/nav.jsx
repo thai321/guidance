@@ -46,9 +46,9 @@ class Nav extends React.Component {
                 </div>
               </form>
             </div>
+            {this.displayNewProjectButton()}
           </div>
 
-          {this.displayNewProjectButton()}
           <SessionButtonsContainer />
         </nav>
       </div>

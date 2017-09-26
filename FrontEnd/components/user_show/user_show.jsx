@@ -10,6 +10,10 @@ import FavoriteShowContainer from '../favorite_show/favorite_show_container';
 class UserShow extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = this.props.currentUser;
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateFile = this.updateFile.bind(this);
   }
 
   componentDidMount() {
@@ -23,6 +27,7 @@ class UserShow extends React.Component {
 
     this.props.fetchUser(this.props.match.params.userId).then(action => {
       const hash = { userId: action.user.id, filter };
+      this.setState(action.user);
       this.props.fetchProjects(action.user.id, filter).then(() => {
         this.props.fetchFavoriteProjects(action.user.favorite_projects);
       });
@@ -36,13 +41,47 @@ class UserShow extends React.Component {
     let filter = true;
     if (currentUser && currentUser.id == userId) {
       filter = false;
+      this.setState(currentUser);
     }
 
     if (this.props.match.params.userId !== nextProps.match.params.userId) {
       this.props.fetchUser(nextProps.match.params.userId).then(action => {
+        this.setState(action.user);
         const hash = { userId: action.user.id, filter };
         this.props.fetchProjects(action.user.id, filter);
       });
+    }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    // debugger;
+    const { currentUser } = this.props;
+
+    const formData = new FormData();
+    formData.append('user[id]', currentUser.id);
+    formData.append('user[username]', currentUser.username);
+    formData.append('user[email]', currentUser.email);
+
+    if (this.state.imageFile) {
+      formData.append('user[image]', this.state.imageFile);
+      this.props
+        .updateUserOption(formData, currentUser.id)
+        .then(action => this.props.history.push(`/users/${action.user.id}`));
+    }
+  }
+
+  updateFile(e) {
+    e.preventDefault();
+    const file = e.currentTarget.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.onloadend = () => {
+      this.setState({ imageFile: file, image_url: fileReader.result });
+    };
+
+    if (file) {
+      fileReader.readAsDataURL(file);
     }
   }
 
@@ -63,6 +102,26 @@ class UserShow extends React.Component {
     } else {
       const { user } = this.props;
       const text = user.project_ids.length > 0 ? 'Projects' : '';
+
+      const displayUpload = () => {
+        const { currentUser } = this.props;
+        if (currentUser && currentUser.id === user.id) {
+          return (
+            <div>
+              <form>
+                <input
+                  type="file"
+                  placeholder="Upload Your image"
+                  onChange={this.updateFile}
+                />
+
+                <input type="submit" onClick={this.handleSubmit} />
+              </form>
+            </div>
+          );
+        }
+      };
+
       return (
         <div className="project-index">
           <div className="container-fluid">
@@ -80,6 +139,8 @@ class UserShow extends React.Component {
                 </div>
               </div>
             </div>
+
+            {displayUpload()}
 
             <div className="project-text-user-show">
               <h2>{text}</h2>

@@ -35,18 +35,11 @@
 body {
   background-color: white;
   font-size: 12px;
-  min-width: 970px;
   line-height: normal;
 }
 
 a:hover {
   text-decoration: none;
-}
-
-.row {
-  display: flex;
-  // float: inherit;
-  justify-content: center;
 }
 
 textarea,
@@ -58,13 +51,13 @@ input {
   text-decoration: inherit;
 }
 
-// .main-app {
-//   margin-top: 200px;
-// }
+.main-app {
+  margin-top: 120px;
+}
 
 button:hover {
   cursor: pointer;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Lora');
-@import url('https://fonts.googleapis.com/css?family=Hind');
+@import url('https://fonts.googleapis.com/css?family=Hind|Quattrocento+Sans|Zilla+Slab');
