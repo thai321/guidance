@@ -5,18 +5,18 @@ export const fetchFollows = id => {
   });
 };
 
-export const createFollow = follow => {
+export const createFollow = (followee_id, follower_id) => {
   return $.ajax({
     method: 'POST',
     url: 'api/follows',
-    data: { follow }
+    data: { follow: { followee_id, follower_id } }
   });
 };
 
-export const deteleFollow = follow => {
+export const deteleFollow = (followee_id, follower_id) => {
   return $.ajax({
     method: 'DELETE',
-    url: `api/follows/${follow.id}`,
-    data: { follow }
+    url: `api/follows/${followee_id}`,
+    data: { follow: { followee_id, follower_id } }
   });
 };
