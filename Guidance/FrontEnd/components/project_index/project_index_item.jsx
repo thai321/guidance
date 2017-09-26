@@ -48,8 +48,10 @@ class ProjectIndexItem extends React.Component {
         <div className="thumbnail">
           <img className="img-fluid" src={image_url} />
           <span className="project-index-title">{title}</span>
-          <h6>{favorite_users.length} Likes</h6>
-          <h6>by {author}</h6>
+          <div className="project-footer">
+            <h6>{favorite_users.length} Likes</h6>
+            <h6>by {author}</h6>
+          </div>
           <p>
             <Link to={`/projects/${id}`} className="btn btn-info btn-block">
               Project Information
