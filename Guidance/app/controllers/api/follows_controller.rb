@@ -7,9 +7,10 @@ class Api::FollowsController < ApplicationController
   end
 
   def create
-
     # @follow = current_user.out_followscreate(followee_id: params[:user_id])
-    if(follow_params[:followee_id].to_i == follow_params[:follower_id].to_i)
+    if(!params[:follow])
+      render json: ["You need to login or register to follow"], status: 422
+    elsif (follow_params[:followee_id].to_i == follow_params[:follower_id].to_i)
       render json: ["You Can't follow yourself"], status: 422
     else
       @follow = Follow.new(followee_id: follow_params[:followee_id],

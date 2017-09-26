@@ -39,7 +39,7 @@ const UsersReducer = (state = _defaultState, action) => {
     case RECEIVE_FOLLOW:
       newState = Object.assign({}, state);
       const id = action.follow.followeeId;
-      newState[id].followers.push(parseInt(id));
+      newState[id].followers.push(parseInt(action.follow.followerId));
       return newState;
 
     case REMOVE_FOLLOW:
