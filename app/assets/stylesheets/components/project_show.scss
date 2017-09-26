@@ -31,8 +31,10 @@
 
 .project-show-title {
   position: relative;
-  background-color: green;
+
   margin-bottom: 20px;
+  font-family: 'Faustina', serif;
+  font-size: 50px;
 }
 
 .project-show-back-to-index {
@@ -56,4 +58,37 @@
   padding: 20px;
   display: flex;
   justify-content: center;
+}
+
+.project-show-buttons {
+  margin-left: 20px;
+  margin-right: 20px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-show-buttons a {
+  color: black;
+}
+
+.project-show-buttons-user-info {
+  display: flex;
+}
+
+.project-show-buttons-user-info i {
+  cursor: pointer;
+}
+
+.project-show-buttons-likes {
+  padding-top: 10px;
+  margin-left: 10px;
+  display: flex;
+}
+
+.project-show-button-user-project {
+  display: flex;
+  button {
+    margin-top: 15px;
+  }
 }

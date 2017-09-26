@@ -44858,10 +44858,11 @@ var ProjectShow = function (_React$Component) {
     value: function displayPublish(authorId, publishedText) {
       var currentUser = this.props.currentUser;
 
+      var custom = publishedText === 'Publish This Project' ? 'btn-outline-success' : 'btn-outline-warning';
       if (currentUser && currentUser.id === authorId) {
         return _react2.default.createElement(
           'button',
-          { className: 'btn btn-info', onClick: this.publishedToggle },
+          { className: 'btn ' + custom, onClick: this.publishedToggle },
           publishedText
         );
       }
@@ -44911,11 +44912,18 @@ var ProjectShow = function (_React$Component) {
       var steps = this.props.steps;
 
       var displayLike = function displayLike() {
+        var thumb = _this3.isLiked() === 'Like' ? 'fa-thumbs-o-up' : 'fa-thumbs-up';
+
         if (project.published) {
           return _react2.default.createElement(
-            'button',
-            { onClick: _this3.toggleLike },
-            _this3.isLiked()
+            'div',
+            { className: 'project-show-buttons-likes' },
+            _react2.default.createElement('i', { className: 'fa ' + thumb + ' fa-3x', onClick: _this3.toggleLike }),
+            _react2.default.createElement(
+              'h3',
+              null,
+              project.favorite_users.length
+            )
           );
         }
       };
@@ -44927,31 +44935,36 @@ var ProjectShow = function (_React$Component) {
           'div',
           { className: 'project-show-buttons' },
           _react2.default.createElement(
-            'h3',
-            null,
-            'Number of Likes: ',
-            project.favorite_users.length
-          ),
-          displayLike(),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { className: 'project-show-back-to-index', to: '/' },
-            _react2.default.createElement('i', { className: 'fa fa-home fa-2x' })
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { className: 'project-show-back-to-index', to: '/users/' + user.id },
-            _react2.default.createElement('i', { className: 'fa fa-user fa-2x' })
+            'div',
+            { className: 'project-show-buttons-user-info' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { className: 'project-show-back-to-index', to: '/' },
+              _react2.default.createElement('i', { className: 'fa fa-home fa-2x' })
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              {
+                className: 'project-show-back-to-index',
+                to: '/users/' + user.id
+              },
+              _react2.default.createElement('i', { className: 'fa fa-user fa-2x' })
+            ),
+            displayLike()
           ),
           _react2.default.createElement(
             'div',
-            null,
-            this.displayButton('edit', user.id)
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            this.displayPublish(user.id, publishedText)
+            { className: 'project-show-button-user-project' },
+            _react2.default.createElement(
+              'div',
+              null,
+              this.displayButton('edit', user.id)
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              this.displayPublish(user.id, publishedText)
+            )
           )
         ),
         _react2.default.createElement(
