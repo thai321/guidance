@@ -16,3 +16,13 @@ export const updateUser = user =>
     url: `api/users/${user.id}`,
     data: { user }
   });
+
+export const updateUserForm = (formData, id) =>
+  $.ajax({
+    url: `/api/users/${id}`,
+    method: 'PATCH',
+    dataType: 'json',
+    contentType: false,
+    processData: false,
+    data: formData
+  });

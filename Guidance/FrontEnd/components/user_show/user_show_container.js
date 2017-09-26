@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { fetchUser } from '../../actions/user_actions';
+import { fetchUser, updateUserOption } from '../../actions/user_actions';
 import {
   fetchProjects,
   fetchFavoriteProjects
@@ -12,7 +12,13 @@ import UserShow from './user_show';
 const mapStateToProps = (state, ownProps) => {
   const { userId } = ownProps.match.params;
   const user = state.entities.users[userId];
-  const { currentUser } = state.session;
+  let currentUser = {
+    id: -1,
+    username: '',
+    imageFile: null
+  };
+
+  if (state.session.currentUser) currentUser = state.session.currentUser;
 
   const projects = state.entities.projects;
   let projectIds = [];
@@ -44,6 +50,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUser: id => dispatch(fetchUser(id)),
+    updateUserOption: (formData, id) =>
+      dispatch(updateUserOption(formData, id)),
     fetchProjects: (userId, filter) => dispatch(fetchProjects(userId, filter)),
     fetchFavoriteProjects: projectIds =>
       dispatch(fetchFavoriteProjects(projectIds))

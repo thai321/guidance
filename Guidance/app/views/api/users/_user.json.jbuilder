@@ -5,6 +5,21 @@ json.id user.id
 json.username user.username
 json.email user.email
 json.project_ids user.projects.where(published: true).ids
-json.image_url asset_path(user.image.url)
+
 
 json.favorite_projects user.favorite_projects.map { |project| project.id }
+
+
+
+image = user.image
+image_url = image.url
+
+if(image_url.include?('amazon'))
+
+  type = image.path.include?('jpg') ? 'jpg' : 'png'
+
+  host_url =   '//s3-us-west-1.amazonaws.com/guidance-dev/users/images/'
+  image_url = "#{host_url}#{user.id}/medium.#{type}"
+end
+
+json.image_url asset_path(image_url)

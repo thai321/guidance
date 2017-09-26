@@ -103,11 +103,7 @@ class ProjectForm extends React.Component {
 
   render() {
     if (!this.props.project) {
-      return (
-        <div>
-          <h1>Loading...</h1>
-        </div>
-      );
+      return <div className="loader" />;
     }
 
     const text =
