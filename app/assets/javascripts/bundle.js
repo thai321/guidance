@@ -3397,7 +3397,7 @@ module.exports = DOMLazyTree;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchFollowees = exports.fetchFollowers = exports.updateUserOption = exports.updateUser = exports.fetchUser = exports.fetchUsers = exports.receiveErrors = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_USER = exports.RECEIVE_ALL_USERS = undefined;
+exports.fetchFollowees = exports.fetchFollowers = exports.updateUserOption = exports.updateUser = exports.fetchUser = exports.fetchUsers = exports.receiveErrors = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_FOLLOW_USERS = exports.RECEIVE_USER = exports.RECEIVE_ALL_USERS = undefined;
 
 var _user_api_util = __webpack_require__(150);
 
@@ -3407,6 +3407,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var RECEIVE_ALL_USERS = exports.RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS';
 var RECEIVE_USER = exports.RECEIVE_USER = 'RECEIVE_USER';
+var RECEIVE_FOLLOW_USERS = exports.RECEIVE_FOLLOW_USERS = 'RECEIVE_FOLLOW_USERS';
+
 var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 
 var receiveAllUsers = function receiveAllUsers(users) {
@@ -3420,6 +3422,13 @@ var receiveUser = function receiveUser(user) {
   return {
     type: RECEIVE_USER,
     user: user
+  };
+};
+
+var receiveFollowUsers = function receiveFollowUsers(users) {
+  return {
+    type: RECEIVE_FOLLOW_USERS,
+    users: users
   };
 };
 
@@ -3472,8 +3481,8 @@ var updateUserOption = exports.updateUserOption = function updateUserOption(form
 
 var fetchFollowers = exports.fetchFollowers = function fetchFollowers(followeeId) {
   return function (dispatch) {
-    return UserApiUtil.fetchFollowers(followeeId).then(function (followers) {
-      return dispatch(receiveAllUsers(followers));
+    return UserApiUtil.fetchFollowers(followeeId).then(function (users) {
+      return dispatch(receiveFollowUsers(users));
     }).fail(function (errors) {
       return dispatch(receiveErrors(errors.responseJSON));
     });
@@ -3482,8 +3491,8 @@ var fetchFollowers = exports.fetchFollowers = function fetchFollowers(followeeId
 
 var fetchFollowees = exports.fetchFollowees = function fetchFollowees(followerId) {
   return function (dispatch) {
-    return UserApiUtil.fetchFollowees(followerId).then(function (followees) {
-      return dispatch(receiveAllUsers(followees));
+    return UserApiUtil.fetchFollowees(followerId).then(function (users) {
+      return dispatch(receiveFollowUsers(users));
     }).fail(function (errors) {
       return dispatch(receiveErrors(errors.responseJSON));
     });
@@ -40024,6 +40033,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _user_actions = __webpack_require__(29);
 
+var _follow_actions = __webpack_require__(485);
+
 var _defaultState = {
   allIds: []
 };
@@ -40053,6 +40064,27 @@ var UsersReducer = function UsersReducer() {
       newState = Object.assign({}, state);
       newState[action.user.id] = action.user;
       if (!newState.allIds.includes(action.user.id)) newState.allIds.push(action.user.id);
+      return newState;
+
+    case _user_actions.RECEIVE_FOLLOW_USERS:
+      newState = Object.assign({}, state);
+      return Object.assign(newState, action.users);
+
+    case _follow_actions.RECEIVE_FOLLOW:
+      newState = Object.assign({}, state);
+      var id = action.follow.followeeId;
+      newState[id].followers.push(parseInt(action.follow.followerId));
+      return newState;
+
+    case _follow_actions.REMOVE_FOLLOW:
+      newState = Object.assign({}, state);
+      var _action$follow = action.follow,
+          followeeId = _action$follow.followeeId,
+          followerId = _action$follow.followerId;
+
+
+      var idx = newState[followeeId].followers.indexOf(followerId);
+      newState[followeeId].followers.splice(idx, 1);
       return newState;
 
     default:
@@ -53422,6 +53454,8 @@ var _user_actions = __webpack_require__(29);
 
 var _project_actions = __webpack_require__(19);
 
+var _follow_actions = __webpack_require__(485);
+
 var _user_show = __webpack_require__(474);
 
 var _user_show2 = _interopRequireDefault(_user_show);
@@ -53485,6 +53519,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchFavoriteProjects: function fetchFavoriteProjects(projectIds) {
       return dispatch((0, _project_actions.fetchFavoriteProjects)(projectIds));
+    },
+    createFollow: function createFollow(followeeId, followerId) {
+      return dispatch((0, _follow_actions.createFollow)(followeeId, followerId));
+    },
+    deteleFollow: function deteleFollow(followeeId, followerId) {
+      return dispatch((0, _follow_actions.deteleFollow)(followeeId, followerId));
     }
   };
 };
@@ -53539,6 +53579,7 @@ var UserShow = function (_React$Component) {
     _this.state = _this.props.currentUser;
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.updateFile = _this.updateFile.bind(_this);
+    _this.toggleFollow = _this.toggleFollow.bind(_this);
     return _this;
   }
 
@@ -53663,6 +53704,44 @@ var UserShow = function (_React$Component) {
       }
     }
   }, {
+    key: 'isFollowed',
+    value: function isFollowed() {
+      var followText = 'Follow';
+      var _props2 = this.props,
+          user = _props2.user,
+          currentUser = _props2.currentUser;
+
+
+      if (currentUser) {
+        var userFollowers = user.followers;
+
+        if (userFollowers.indexOf(currentUser.id) !== -1) {
+          followText = 'UnFollow';
+        }
+      }
+
+      return followText;
+    }
+  }, {
+    key: 'toggleFollow',
+    value: function toggleFollow() {
+      var _props3 = this.props,
+          currentUser = _props3.currentUser,
+          user = _props3.user;
+
+      var follow = void 0;
+      if (currentUser.id === -1) {
+        this.props.createFollow(follow);
+      } else {
+        follow = { follower_id: currentUser.id, followee_id: user.id };
+        if (this.isFollowed() === 'Follow') {
+          this.props.createFollow(follow);
+        } else {
+          this.props.deteleFollow(follow);
+        }
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this7 = this;
@@ -53670,10 +53749,10 @@ var UserShow = function (_React$Component) {
       if (!this.props.user) {
         return _react2.default.createElement('div', { className: 'loader' });
       } else {
-        var _props2 = this.props,
-            user = _props2.user,
-            projectsByUser = _props2.projectsByUser,
-            unPublishedProjects = _props2.unPublishedProjects;
+        var _props4 = this.props,
+            user = _props4.user,
+            projectsByUser = _props4.projectsByUser,
+            unPublishedProjects = _props4.unPublishedProjects;
 
 
         var publishText = projectsByUser.length > 0 ? projectsByUser.length + ' Published Projects' : '';
@@ -53701,6 +53780,14 @@ var UserShow = function (_React$Component) {
           }
         };
 
+        var displayFollow = function displayFollow() {
+          return _react2.default.createElement(
+            'button',
+            { onClick: _this7.toggleFollow },
+            _this7.isFollowed()
+          );
+        };
+
         return _react2.default.createElement(
           'div',
           { className: 'user-show-projects' },
@@ -53725,7 +53812,8 @@ var UserShow = function (_React$Component) {
                     'h4',
                     { className: 'card-title' },
                     user.username
-                  )
+                  ),
+                  displayFollow()
                 )
               )
             ),
@@ -55009,6 +55097,102 @@ var projectByIds = exports.projectByIds = function projectByIds(ids) {
   });
 
   return projects;
+};
+
+/***/ }),
+/* 485 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.deteleFollow = exports.createFollow = exports.receiveErrors = exports.RECEIVE_SESSION_ERRORS = exports.REMOVE_FOLLOW = exports.RECEIVE_FOLLOW = undefined;
+
+var _follow_api_util = __webpack_require__(486);
+
+var FollowApiUtil = _interopRequireWildcard(_follow_api_util);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var RECEIVE_FOLLOW = exports.RECEIVE_FOLLOW = 'RECEIVE_FOLLOW';
+var REMOVE_FOLLOW = exports.REMOVE_FOLLOW = 'REMOVE_FOLLOW';
+var RECEIVE_SESSION_ERRORS = exports.RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
+
+var receiveFollow = function receiveFollow(follow) {
+  return {
+    type: RECEIVE_FOLLOW,
+    follow: follow
+  };
+};
+
+var removeFollow = function removeFollow(follow) {
+  return {
+    type: REMOVE_FOLLOW,
+    follow: follow
+  };
+};
+
+var receiveErrors = exports.receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_SESSION_ERRORS,
+    errors: errors
+  };
+};
+
+var createFollow = exports.createFollow = function createFollow(followeeId, followerId) {
+  return function (dispatch) {
+    return FollowApiUtil.createFollow(followeeId, followerId).then(function (follow) {
+      return dispatch(receiveFollow(follow));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+var deteleFollow = exports.deteleFollow = function deteleFollow(followeeId, followerId) {
+  return function (dispatch) {
+    return FollowApiUtil.deteleFollow(followeeId, followerId).then(function (follow) {
+      return dispatch(removeFollow(follow));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+/* 486 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var fetchFollows = exports.fetchFollows = function fetchFollows(id) {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/follows'
+  });
+};
+
+var createFollow = exports.createFollow = function createFollow(follow) {
+  return $.ajax({
+    method: 'POST',
+    url: 'api/follows',
+    data: { follow: follow }
+  });
+};
+
+var deteleFollow = exports.deteleFollow = function deteleFollow(follow) {
+  return $.ajax({
+    method: 'DELETE',
+    url: 'api/follows/1',
+    data: { follow: follow }
+  });
 };
 
 /***/ })

@@ -13,6 +13,7 @@ class UserShow extends React.Component {
     this.state = this.props.currentUser;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
+    this.toggleFollow = this.toggleFollow.bind(this);
   }
 
   componentDidMount() {
@@ -115,6 +116,36 @@ class UserShow extends React.Component {
     }
   }
 
+  isFollowed() {
+    let followText = 'Follow';
+    const { user, currentUser } = this.props;
+
+    if (currentUser) {
+      const userFollowers = user.followers;
+
+      if (userFollowers.indexOf(currentUser.id) !== -1) {
+        followText = 'UnFollow';
+      }
+    }
+
+    return followText;
+  }
+
+  toggleFollow() {
+    const { currentUser, user } = this.props;
+    let follow;
+    if (currentUser.id === -1) {
+      this.props.createFollow(follow);
+    } else {
+      follow = { follower_id: currentUser.id, followee_id: user.id };
+      if (this.isFollowed() === 'Follow') {
+        this.props.createFollow(follow);
+      } else {
+        this.props.deteleFollow(follow);
+      }
+    }
+  }
+
   render() {
     if (!this.props.user) {
       return <div className="loader" />;
@@ -150,6 +181,10 @@ class UserShow extends React.Component {
         }
       };
 
+      const displayFollow = () => {
+        return <button onClick={this.toggleFollow}>{this.isFollowed()}</button>;
+      };
+
       return (
         <div className="user-show-projects">
           <div className="container-fluid">
@@ -160,6 +195,7 @@ class UserShow extends React.Component {
                 </div>
                 <div className="card-block card-user-title">
                   <h4 className="card-title">{user.username}</h4>
+                  {displayFollow()}
                 </div>
               </div>
             </div>

@@ -2,6 +2,8 @@ import * as UserApiUtil from '../util/user_api_util';
 
 export const RECEIVE_ALL_USERS = 'RECEIVE_ALL_USERS';
 export const RECEIVE_USER = 'RECEIVE_USER';
+export const RECEIVE_FOLLOW_USERS = 'RECEIVE_FOLLOW_USERS';
+
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 
 const receiveAllUsers = users => ({
@@ -12,6 +14,11 @@ const receiveAllUsers = users => ({
 const receiveUser = user => ({
   type: RECEIVE_USER,
   user
+});
+
+const receiveFollowUsers = users => ({
+  type: RECEIVE_FOLLOW_USERS,
+  users
 });
 
 export const receiveErrors = errors => ({
@@ -41,10 +48,10 @@ export const updateUserOption = (formData, id, callback) => dispatch =>
 
 export const fetchFollowers = followeeId => dispatch =>
   UserApiUtil.fetchFollowers(followeeId)
-    .then(followers => dispatch(receiveAllUsers(followers)))
+    .then(users => dispatch(receiveFollowUsers(users)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
 export const fetchFollowees = followerId => dispatch =>
   UserApiUtil.fetchFollowees(followerId)
-    .then(followees => dispatch(receiveAllUsers(followees)))
+    .then(users => dispatch(receiveFollowUsers(users)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));

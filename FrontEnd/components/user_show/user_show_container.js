@@ -7,6 +7,8 @@ import {
   fetchFavoriteProjects
 } from '../../actions/project_actions';
 
+import { createFollow, deteleFollow } from '../../actions/follow_actions';
+
 import UserShow from './user_show';
 
 const mapStateToProps = (state, ownProps) => {
@@ -59,7 +61,11 @@ const mapDispatchToProps = dispatch => {
       dispatch(updateUserOption(formData, id)),
     fetchProjects: (userId, filter) => dispatch(fetchProjects(userId, filter)),
     fetchFavoriteProjects: projectIds =>
-      dispatch(fetchFavoriteProjects(projectIds))
+      dispatch(fetchFavoriteProjects(projectIds)),
+    createFollow: (followeeId, followerId) =>
+      dispatch(createFollow(followeeId, followerId)),
+    deteleFollow: (followeeId, followerId) =>
+      dispatch(deteleFollow(followeeId, followerId))
   };
 };
 
