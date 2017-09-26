@@ -7,9 +7,9 @@
   justify-content: center;
 }
 
-.user-index-item-image img {
-  width: 100%;
-}
+// .user-index-item-image img {
+//   width: 100%;
+// }
 
 // .user-index-info {
 //   display: flex;
@@ -18,4 +18,12 @@
 
 .card-title {
   padding: 10px;
+}
+
+.user-index {
+  display: flex;
+  list-style: none;
+  // background-color: gray;
+  width: 97%;
+  margin: 0 auto;
 }
