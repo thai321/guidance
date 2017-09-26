@@ -35,7 +35,6 @@
 body {
   background-color: white;
   font-size: 12px;
-  min-width: 970px;
   line-height: normal;
 }
 
@@ -43,11 +42,11 @@ a:hover {
   text-decoration: none;
 }
 
-.row {
-  display: flex;
-  // float: inherit;
-  justify-content: center;
-}
+// .row {
+//   display: flex;
+//   // float: inherit;
+//   justify-content: center;
+// }
 
 textarea,
 input {

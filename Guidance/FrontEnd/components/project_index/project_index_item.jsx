@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 // const ProjectIndexItem = ({ project }) => {
 class ProjectIndexItem extends React.Component {
   displayAuthor() {
-    if (this.props.match.path === '/') {
+    if (!this.props.match.params.userId) {
       const { author_id } = this.props.project;
       return (
         <Link to={`/users/${author_id}`} className="btn btn-warning btn-block">
@@ -43,11 +43,11 @@ class ProjectIndexItem extends React.Component {
     } = this.props.project;
 
     return (
-      <div className="col col-md-3">
-        <div className="thumbnail">
-          <img src={image_url} />
-          <div className="caption">
-            <div className="title-author">
+      <div className="col col-md-3 col-xs-12">
+        <div className="">
+          <div className="thumbnail">
+            <img className="img-fluid" src={image_url} />
+            <div className="">
               <h4>{title}</h4>
               <h4>by {author}</h4>
             </div>

@@ -96,7 +96,6 @@ class SessionForm extends React.Component {
 
     const buttonName =
       this.props.formType === 'signup' ? 'Register' : 'Sign In';
-
     return (
       <div>
         <div className="main-index">
