@@ -15723,16 +15723,20 @@ var ProjectIndexItem = function (_React$Component) {
             title
           ),
           _react2.default.createElement(
-            'h6',
-            null,
-            favorite_users.length,
-            ' Likes'
-          ),
-          _react2.default.createElement(
-            'h6',
-            null,
-            'by ',
-            author
+            'div',
+            { className: 'project-footer' },
+            _react2.default.createElement(
+              'h6',
+              null,
+              favorite_users.length,
+              ' Likes'
+            ),
+            _react2.default.createElement(
+              'h6',
+              null,
+              'by ',
+              author
+            )
           ),
           _react2.default.createElement(
             'p',
