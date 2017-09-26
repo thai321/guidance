@@ -3,7 +3,14 @@ class Api::UsersController < ApplicationController
 
 
   def index
-    @users = User.all
+    if(user_params[:followee_id])
+      @users = User.find(user_params[:followee_id]).followers
+    elsif (user_params[:follower_id])
+      @users = User.find(user_params[:follower_id]).followees
+    else
+      @users = User.all
+    end
+
     render :index
   end
 
@@ -24,7 +31,6 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    byebug
     @user = User.find_by(id: params[:id])
     if @user.update(user_params)
       render :show
@@ -36,7 +42,7 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:id ,:username, :password, :email, :image)
+    params.require(:user).permit(:id ,:username, :password, :email, :image, :followee_id, :follower_id)
   end
 
   def require_user!

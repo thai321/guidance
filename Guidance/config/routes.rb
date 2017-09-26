@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
     resources :favorites, only: [:create, :destroy]
 
-    resources :follows, only: [:create, :destroy]
+    resources :follows, only: [:index, :create, :destroy]
   end
 
   root to: 'static_pages#root'

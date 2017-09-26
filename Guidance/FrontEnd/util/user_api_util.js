@@ -26,3 +26,19 @@ export const updateUserForm = (formData, id) =>
     processData: false,
     data: formData
   });
+
+export const fetchFollowers = followee_id => {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/users',
+    data: { user: { followee_id } }
+  });
+};
+
+export const fetchFollowees = follower_id => {
+  return $.ajax({
+    method: 'GET',
+    url: 'api/users',
+    data: { user: { follower_id } }
+  });
+};
