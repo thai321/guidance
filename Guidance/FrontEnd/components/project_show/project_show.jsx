@@ -78,9 +78,13 @@ class ProjectShow extends React.Component {
 
   displayPublish(authorId, publishedText) {
     const { currentUser } = this.props;
+    const custom =
+      publishedText === 'Publish This Project'
+        ? 'btn-outline-success'
+        : 'btn-outline-warning';
     if (currentUser && currentUser.id === authorId) {
       return (
-        <button className="btn btn-info" onClick={this.publishedToggle}>
+        <button className={`btn ${custom}`} onClick={this.publishedToggle}>
           {publishedText}
         </button>
       );
@@ -126,27 +130,41 @@ class ProjectShow extends React.Component {
     const steps = this.props.steps;
 
     const displayLike = () => {
+      const thumb =
+        this.isLiked() === 'Like' ? 'fa-thumbs-o-up' : 'fa-thumbs-up';
+
       if (project.published) {
-        return <button onClick={this.toggleLike}>{this.isLiked()}</button>;
+        return (
+          <div className="project-show-buttons-likes">
+            <i className={`fa ${thumb} fa-3x`} onClick={this.toggleLike} />
+            <h3>{project.favorite_users.length}</h3>
+          </div>
+        );
       }
     };
 
     return (
       <div className="project-show-page">
-        <h3>Number of Likes: {project.favorite_users.length}</h3>
         <div className="project-show-buttons">
-          {displayLike()}
+          <div className="project-show-buttons-user-info">
+            <Link className="project-show-back-to-index" to="/">
+              <i className="fa fa-home fa-2x" />
+            </Link>
 
-          <Link className="project-show-back-to-index" to="/">
-            <i className="fa fa-home fa-2x" />
-          </Link>
+            <Link
+              className="project-show-back-to-index"
+              to={`/users/${user.id}`}
+            >
+              <i className="fa fa-user fa-2x" />
+            </Link>
 
-          <Link className="project-show-back-to-index" to={`/users/${user.id}`}>
-            <i className="fa fa-user fa-2x" />
-          </Link>
+            {displayLike()}
+          </div>
 
-          <div>{this.displayButton('edit', user.id)}</div>
-          <div>{this.displayPublish(user.id, publishedText)}</div>
+          <div className="project-show-button-user-project">
+            <div>{this.displayButton('edit', user.id)}</div>
+            <div>{this.displayPublish(user.id, publishedText)}</div>
+          </div>
         </div>
 
         <div className="project-show">
