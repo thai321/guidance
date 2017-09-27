@@ -80,7 +80,7 @@ class StepForm extends React.Component {
         </div>
         <div className="step-form">
           <form className="form-horizontal" onSubmit={this.handleSubmit}>
-            <i className="fa fa-pencil bigicon fa-lg" />
+            <i className="fa fa-pencil bigicon fa-lg fa-2x" />
             <div className="form-group">
               <input
                 className="form-control"
@@ -92,7 +92,7 @@ class StepForm extends React.Component {
             </div>
 
             <div className="project-form-description">
-              <i className="fa fa-pencil-square-o bigicon fa-lg" />
+              <i className="fa fa-pencil-square-o bigicon fa-lg fa-2x" />
               <ReactQuill
                 className="body-quill"
                 placeholder="Write something here..."
