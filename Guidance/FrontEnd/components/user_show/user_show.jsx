@@ -6,6 +6,8 @@ import { uniqueId } from '../../util/id_generator';
 import ProjectIndexItem from '../project_index/project_index_item';
 import FavoriteShowContainer from '../favorite_show/favorite_show_container';
 
+import UserFollowContainer from './user_follow_container';
+
 class UserShow extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +32,8 @@ class UserShow extends React.Component {
       this.setState(action.user);
       this.props.fetchProjects(action.user.id, filter).then(() => {
         this.props.fetchFavoriteProjects(action.user.favorite_projects);
+        this.props.fetchFollowers(this.props.user.id);
+        this.props.fetchFollowees(this.props.user.id);
       });
     });
   }
@@ -49,6 +53,8 @@ class UserShow extends React.Component {
         this.setState(action.user);
         const hash = { userId: action.user.id, filter };
         this.props.fetchProjects(action.user.id, filter);
+        this.props.fetchFollowers(this.props.user.id);
+        this.props.fetchFollowees(this.props.user.id);
       });
     }
   }
@@ -231,6 +237,7 @@ class UserShow extends React.Component {
             </div>
 
             <FavoriteShowContainer user={user} />
+            <UserFollowContainer user={user} />
           </div>
         </div>
       );
