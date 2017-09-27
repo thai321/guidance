@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 const SessionForm = ({ currentUser, login, logout }) =>
   currentUser ? (
     <div className="welcome">
-      <h1>Welcome {currentUser.username}</h1>
+      <div className="welcome-user-name-image">
+        <img src={currentUser.image_url} />
+        <h1>Welcome {currentUser.username}</h1>
+      </div>
       <div className="session-form-login-button">
         <Link
           className="btn btn-sm btn-outline-info"

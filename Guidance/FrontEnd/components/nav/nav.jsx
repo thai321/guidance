@@ -24,9 +24,6 @@ class Nav extends React.Component {
   }
 
   displaySearch() {
-    // console.log(this.props.location);
-    // debugger;
-
     const { pathname } = this.props.location;
     const text = pathname === '/' ? "Let's Make ..." : 'Find a teacher';
 
@@ -65,9 +62,8 @@ class Nav extends React.Component {
             </Link>
 
             {/*this.displaySearch()*/}
-
-            {this.displayNewProjectButton()}
           </div>
+          {this.displayNewProjectButton()}
 
           <SessionButtonsContainer />
         </nav>

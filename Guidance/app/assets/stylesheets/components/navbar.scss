@@ -13,7 +13,7 @@ nav ul li {
 }
 
 .new-project-button {
-  margin-right: 100px;
+  margin-right: 50px;
 }
 
 header {
@@ -94,4 +94,12 @@ nav div a {
   display: flex;
   justify-content: center;
   align-items: inherit;
+}
+
+.welcome-user-name-image {
+  display: flex;
+
+  h1 {
+    font-family: 'Lato', sans-serif;
+  }
 }
