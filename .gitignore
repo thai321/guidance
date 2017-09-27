@@ -23,3 +23,6 @@ bundle.js.map
 .byebug_history
 
 application.yml
+
+
+.DS_Store

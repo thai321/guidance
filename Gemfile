@@ -38,6 +38,7 @@ gem "font-awesome-rails"
 gem "paperclip"
 gem "figaro"
 gem 'aws-sdk', '< 3.0'
+gem 'newrelic_rpm'
 
 
 
