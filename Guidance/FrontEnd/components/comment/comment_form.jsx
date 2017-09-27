@@ -15,6 +15,7 @@ class CommentForm extends React.Component {
   }
 
   handleChange(value) {
+    if (value === '<p><br></p>') value = null;
     this.setState({ description: value });
   }
 
@@ -24,38 +25,25 @@ class CommentForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // debugger;
-    if (this.state.description && this.state.description !== '<p><br></p>') {
-      this.props
-        .createComment(this.state)
-        .then(() => this.setState({ description: '' }));
-    }
+    this.props
+      .createComment(this.state)
+      .then(() => this.setState({ description: '' }));
   }
 
   render() {
     return (
       <div className="comment-form">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-10">
-              <form className="form-horizontal" onSubmit={this.handleSubmit}>
-                <ReactQuill
-                  className="comment-quill"
-                  modules={CommentForm.modules}
-                  value={this.state.description || ''}
-                  onChange={this.handleChange}
-                />
-                <div className="comment-btn">
-                  <input
-                    className="btn btn-primary"
-                    type="submit"
-                    value="Submit"
-                  />
-                </div>
-              </form>
-            </div>
+        <form className="comment-form-actual" onSubmit={this.handleSubmit}>
+          <ReactQuill
+            className="comment-quill"
+            modules={CommentForm.modules}
+            value={this.state.description || ''}
+            onChange={this.handleChange}
+          />
+          <div className="comment-btn">
+            <input className="btn btn-primary" type="submit" value="Submit" />
           </div>
-        </div>
+        </form>
       </div>
     );
   }

@@ -51,12 +51,14 @@ class ProjectShow extends React.Component {
 
         if (type === 'new') {
           return (
-            <Link
-              className="btn btn-lg btn-primary"
-              to={`/projects/${projectId}/steps/new`}
-            >
-              Add Step
-            </Link>
+            <div className="add-step-button">
+              <Link
+                className="fa fa-plus-circle fa-4x"
+                to={`/projects/${projectId}/steps/new`}
+              >
+                <span>Add New Step</span>
+              </Link>
+            </div>
           );
         } else {
           return (
@@ -182,13 +184,7 @@ class ProjectShow extends React.Component {
 
         <div className="project-show-video">
           <span>Guidance Video</span>
-          <iframe
-            width="560"
-            height="315"
-            src={project.video_url}
-            frameBorder="0"
-            allowFullScreen
-          />
+          <iframe src={project.video_url} frameBorder="0" allowFullScreen />
         </div>
 
         <div>

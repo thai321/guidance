@@ -3,14 +3,25 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 20px;
 }
 
 .comment-detail {
   width: 60%;
   height: 30%;
   margin: 15px;
-  padding: 20px;
+  padding: 10px;
   border: 2px solid black;
+
+  span {
+    font-family: 'Saira', sans-serif;
+    font-size: 15px;
+  }
+
+  div img {
+    width: 30%;
+    height: 30%;
+  }
 }
 
 .comment-show-form {

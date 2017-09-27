@@ -1,14 +1,33 @@
 .step-item {
-  padding: 20px;
-  border: 2px solid black;
-  margin: 15px;
+  img {
+    width: 75%;
+    height: 75%;
+  }
 }
 
 .step-item-buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  border-top: 2px solid black;
+  margin-top: 10px 0;
+
+  i {
+    color: black;
+    cursor: pointer;
+    padding-left: 10px;
+  }
+
+  .step-item-count {
+    font-family: 'Faustina', sans-serif;
+    font-size: 50px;
+  }
 }
 
-.step-item-buttons button {
-  margin-left: 30px;
+.step-item-title {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 35px;
+}
+
+.step-item-buttons-group {
+  display: flex;
 }

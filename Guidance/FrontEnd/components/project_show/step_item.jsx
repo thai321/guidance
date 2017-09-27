@@ -7,32 +7,39 @@ class StepItem extends React.Component {
     const { projectId, count, author, currentUser, removeStep } = this.props;
 
     const displayButtons = authorId => {
+      let editButton = () => '';
       if (currentUser && authorId === currentUser.id) {
-        return (
-          <div className="step-item-buttons">
-            <Link
-              className="btn btn-warning"
-              to={`/projects/${projectId}/steps/${id}/edit`}
-            >
-              <i className="fa fa-wrench fa-2x" />
+        editButton = () => (
+          <div className="step-item-buttons-group">
+            <Link className="" to={`/projects/${projectId}/steps/${id}/edit`}>
+              <i className="fa fa-pencil fa-4x" />
             </Link>
-            <a>
-              <button className="btn btn-danger" onClick={() => removeStep(id)}>
-                <i className="fa fa-trash-o fa-2x" />
-              </button>
-            </a>
+            <i className="fa fa-trash fa-4x" onClick={() => removeStep(id)} />
           </div>
         );
       }
+
+      return (
+        <div className="step-item-buttons">
+          <div>
+            <span className="step-item-count">Step {count}</span>
+          </div>
+
+          {editButton()}
+        </div>
+      );
     };
 
     return (
       <div>
         <div className="step-item">
           {displayButtons(author.id)}
-          <h1>Step {count}</h1>
-          <h1>{title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: body }} />
+
+          <span className="step-item-title">{title}</span>
+          <div
+            className="ql-editor"
+            dangerouslySetInnerHTML={{ __html: body }}
+          />
         </div>
       </div>
     );

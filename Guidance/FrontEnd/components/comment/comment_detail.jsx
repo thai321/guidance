@@ -15,16 +15,14 @@ const CommentDetail = ({ comment, currentUser, project }) => {
 
   return (
     <div className="comment-detail">
-      <div className="row">
-        <div className="col-md-12">
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-          <br />
-          <h6>
-            by {author}, {time} ago
-          </h6>
-          {displayEdit()}
-        </div>
-      </div>
+      <div
+        className="ql-editor"
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
+      <br />
+      <span>
+        by {author}, {time} ago
+      </span>
     </div>
   );
 };
