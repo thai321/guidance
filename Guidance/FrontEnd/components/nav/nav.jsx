@@ -28,10 +28,11 @@ class Nav extends React.Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg fixed-top" id="mainNav">
+          <Link to="/" className="navbar-brand">
+            <img src="https://learningpolicyinstitute.org/sites/all/themes/lpi2016/images/large-external-link-icon.svg" />
+            <span>Guidance App</span>
+          </Link>
           <div className="container">
-            <Link to="/" className="navbar-brand">
-              Guidance App
-            </Link>
             <Link to="/users" className="all-teachers">
               Teachers
             </Link>
