@@ -12,9 +12,9 @@ class StepItem extends React.Component {
         editButton = () => (
           <div className="step-item-buttons-group">
             <Link className="" to={`/projects/${projectId}/steps/${id}/edit`}>
-              <i className="fa fa-pencil fa-4x" />
+              <i className="fa fa-pencil fa-3x" />
             </Link>
-            <i className="fa fa-trash fa-4x" onClick={() => removeStep(id)} />
+            <i className="fa fa-trash fa-3x" onClick={() => removeStep(id)} />
           </div>
         );
       }

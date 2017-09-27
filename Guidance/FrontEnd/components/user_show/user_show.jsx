@@ -93,7 +93,11 @@ class UserShow extends React.Component {
   displayFavorite() {
     const { currentUser, user } = this.props;
     if (user.favorite_projects.length > 0) {
-      return <div>{user.favorite_projects.length} favorite projects</div>;
+      return (
+        <div className="project-text-user-show">
+          <h2>{user.favorite_projects.length} Favorite Projects</h2>
+        </div>
+      );
     }
   }
 
@@ -162,11 +166,13 @@ class UserShow extends React.Component {
         projectsByUser.length > 0
           ? `${projectsByUser.length} Published Projects`
           : '';
+      const hidePublish = publishText === '' ? 'none' : '';
 
       const UnpublishText =
         unPublishedProjects.length > 0
           ? `${unPublishedProjects.length} Un-Published Projects`
           : '';
+      const hideUnPublish = UnpublishText === '' ? 'none' : '';
 
       const displayUpload = () => {
         const { currentUser } = this.props;
@@ -205,40 +211,36 @@ class UserShow extends React.Component {
       };
 
       return (
-        <div className="user-show-projects">
-          <div className="container-fluid">
-            <div className="user-index-info">
-              <div className="card">
-                <div className="user-index-item-image">
-                  <img className="card-img-top" src={user.image_url} />
-                </div>
-                <div className="card-block card-user-title">
-                  <h4 className="card-title">{user.username}</h4>
-                  {displayFollow()}
-                </div>
+        <div className="container-fluid">
+          <div className="user-index-info">
+            <div className="card">
+              <div className="img-thumbnail">
+                <img className="card-img-top" src={user.image_url} />
               </div>
-              {displayUpload()}
+              <div className="card-block card-user-title">
+                <h4 className="card-title">{user.username}</h4>
+                {displayFollow()}
+              </div>
             </div>
-
-            <div className="project-text-user-show">
-              <h2>{publishText}</h2>
-            </div>
-
-            {this.displayProjects('Published')}
-
-            <div className="project-text-user-show">
-              <h2>{UnpublishText}</h2>
-            </div>
-
-            {this.displayProjects('UnPublished')}
-
-            <div className="project-text-user-show">
-              <h2>{this.displayFavorite()}</h2>
-            </div>
-
-            <FavoriteShowContainer user={user} />
-            <UserFollowContainer user={user} />
+            {displayUpload()}
           </div>
+
+          <div className={`project-text-user-show ${hidePublish}`}>
+            <h2>{publishText}</h2>
+          </div>
+
+          {this.displayProjects('Published')}
+
+          <div className={`project-text-user-show ${hideUnPublish}`}>
+            <h2>{UnpublishText}</h2>
+          </div>
+
+          {this.displayProjects('UnPublished')}
+
+          {this.displayFavorite()}
+
+          <FavoriteShowContainer user={user} />
+          <UserFollowContainer user={user} />
         </div>
       );
     }

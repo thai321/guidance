@@ -22,22 +22,31 @@ class UserFollow extends React.Component {
 
   render() {
     const { followeeUsers, followerUsers } = this.props;
+    const hideFollowee = followeeUsers.length === 0 ? 'none' : '';
 
     return (
       <div className="user-follow-index">
-        <div className="user-follow-following">
-          <h1>{followeeUsers.length} Following</h1>
-          <div className="row">
-            {this.displayFollow(followeeUsers, 'follower')}
+        {followeeUsers.length === 0 ? (
+          ''
+        ) : (
+          <div className="user-follow-following">
+            <h2>{followeeUsers.length} Following</h2>
+            <div className="row">
+              {this.displayFollow(followeeUsers, 'follower')}
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="user-follow-follower">
-          <h1>{followerUsers.length} Followers</h1>
-          <div className="row">
-            {this.displayFollow(followerUsers, 'followers')}
+        {followerUsers.length === 0 ? (
+          ''
+        ) : (
+          <div className="user-follow-follower">
+            <h2>{followerUsers.length} Followers</h2>
+            <div className="row">
+              {this.displayFollow(followerUsers, 'followers')}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

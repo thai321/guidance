@@ -107,7 +107,7 @@ class ProjectForm extends React.Component {
 
     return (
       <Link to={path}>
-        <i className="fa fa-arrow-circle-o-left fa-4x back-button" />
+        <i className="fa fa-arrow-circle-o-left fa-5x" />
       </Link>
     );
   }
@@ -134,9 +134,9 @@ class ProjectForm extends React.Component {
 
     return (
       <div className="project_form_container">
-        <form className="project-form">
-          {this.displayBack()}
+        {this.displayBack()}
 
+        <form className="project-form">
           <button
             className="btn btn-primary btn-lg"
             disabled={this.state.loadding}
@@ -147,9 +147,7 @@ class ProjectForm extends React.Component {
           </button>
 
           <div className="form-group">
-            <span className="col-md-1 col-md-offset-2 text-center">
-              <i className="fa fa-pencil bigicon fa-lg" />
-            </span>
+            <i className="fa fa-pencil fa-2x" />
 
             <input
               className="project-form-title"
@@ -161,9 +159,7 @@ class ProjectForm extends React.Component {
           </div>
 
           <div className="project-form-description">
-            <span className="col-md-1 col-md-offset-2 text-center">
-              <i className="fa fa-pencil-square-o bigicon fa-lg" />
-            </span>
+            <i className="fa fa-pencil-square-o fa-2x" />
 
             <ReactQuill
               className="description-quill"
@@ -173,9 +169,7 @@ class ProjectForm extends React.Component {
               onChange={this.handleChange}
             />
             <div className="image-project-form">
-              <span className="col-md-1 col-md-offset-2 text-center">
-                <i className="fa fa-file-image-o bigicon fa-lg" />
-              </span>
+              <i className="fa fa-file-image-o bigicon fa-2x" />
 
               <input
                 type="file"
@@ -186,9 +180,7 @@ class ProjectForm extends React.Component {
           </div>
 
           <div className="form-group">
-            <span className="col-md-1 col-md-offset-2 ">
-              <i className="fa fa-video-camera bigicon fa-lg" />
-            </span>
+            <i className="fa fa-video-camera bigicon fa-2x" />
 
             <input
               className="form-control"
