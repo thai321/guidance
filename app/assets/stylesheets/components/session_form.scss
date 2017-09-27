@@ -67,6 +67,10 @@
 .session-form-login-button {
   display: flex;
   justify-content: space-around;
+
+  a {
+    margin-right: 15px;
+  }
 }
 
 // .header-home {
