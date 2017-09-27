@@ -13,6 +13,7 @@ class ProjectForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.project;
+    this.state.loading = false;
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
@@ -60,6 +61,7 @@ class ProjectForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.state.loadding = true;
     const formData = new FormData();
     formData.append('project[title]', this.state.title);
     formData.append('project[description]', this.state.description);
@@ -116,10 +118,10 @@ class ProjectForm extends React.Component {
     }
 
     const text =
-      this.props.formType === 'new' ? 'Create Project' : 'Update Project';
+      this.props.formType === 'new' ? 'Create Guidance' : 'Update Guidance';
 
     const header =
-      this.props.formType === 'new' ? 'New Project' : 'Edit Project';
+      this.props.formType === 'new' ? 'New Guidance' : 'Edit Guidance';
 
     const {
       id,
@@ -137,10 +139,11 @@ class ProjectForm extends React.Component {
 
           <button
             className="btn btn-primary btn-lg"
+            disabled={this.state.loadding}
             type="submit"
             onClick={this.handleSubmit}
           >
-            {text}
+            {this.loading ? 'Loading...' : `${text}`}
           </button>
 
           <div className="form-group">
