@@ -45,8 +45,12 @@ class ProjectIndexItem extends React.Component {
 
     return (
       <div className="col col-md-3 col-xs-12">
-        <div className="thumbnail">
-          <img className="img-fluid" src={image_url} />
+        <div className="d-block mb-4 h-100">
+          <div className="image-border">
+            <div className="image-frame-responsive">
+              <img className="img-fluid" src={image_url} />
+            </div>
+          </div>
           <span className="project-index-title">{title}</span>
           <div className="project-footer">
             <h6>

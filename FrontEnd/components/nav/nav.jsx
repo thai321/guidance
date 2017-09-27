@@ -58,7 +58,16 @@ class Nav extends React.Component {
           </Link>
           <div className="container">
             <Link to="/users" className="all-teachers">
-              Teachers
+              Teachers |
+            </Link>
+            <Link to="/users" className="all-teachers">
+              Math |
+            </Link>
+            <Link to="/users" className="all-teachers">
+              Computer Science |
+            </Link>
+            <Link to="/users" className="all-teachers">
+              Music
             </Link>
 
             {/*this.displaySearch()*/}

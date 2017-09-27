@@ -41,10 +41,25 @@
 .project-index-title {
   margin-top: 5px;
   margin-bottom: 5px;
+  font-family: 'Zilla Slab', serif;
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
 }
 
 .projects-searchBar {
   display: flex;
   justify-content: center;
   margin: 40px 0;
+}
+
+.image-frame-responsive {
+  height: 175px;
+  overflow: hidden;
+}
+
+.image-border {
+  border-radius: 5px;
+  border: 1px solid #e9ecef;
+  padding: 10px;
 }

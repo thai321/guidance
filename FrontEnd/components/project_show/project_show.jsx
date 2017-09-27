@@ -145,6 +145,8 @@ class ProjectShow extends React.Component {
       }
     };
 
+    const hideVideo = project.video_url ? '' : 'none';
+
     return (
       <div className="project-show-page">
         <div className="project-show-buttons">
@@ -182,7 +184,7 @@ class ProjectShow extends React.Component {
           />
         </div>
 
-        <div className="project-show-video">
+        <div className={`project-show-video ${hideVideo}`}>
           <span>Guidance Video</span>
           <iframe src={project.video_url} frameBorder="0" allowFullScreen />
         </div>

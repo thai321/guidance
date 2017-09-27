@@ -12,7 +12,8 @@ class UserShow extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.currentUser;
+    this.state = Object.assign({ loading: false }, this.props.currentUser);
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
     this.toggleFollow = this.toggleFollow.bind(this);
@@ -72,8 +73,10 @@ class UserShow extends React.Component {
       formData.append('user[image]', this.state.imageFile);
       this.props
         .updateUserOption(formData, currentUser.id)
-        .then(action => this.props.history.push(`/users/${action.user.id}`));
+        .then(this.setState({ loading: false }))
+        .then(window.location.reload());
     }
+    this.setState({ loading: true });
   }
 
   updateFile(e) {
@@ -190,7 +193,7 @@ class UserShow extends React.Component {
                 <input
                   className="submit-btn btn btn-primary"
                   type="submit"
-                  value="Upload Photo"
+                  disabled={this.state.loading}
                   onClick={this.handleSubmit}
                 />
               </form>
@@ -224,7 +227,7 @@ class UserShow extends React.Component {
             </div>
             {displayUpload()}
           </div>
-
+          <a href="/">soidjfosjdfjsfdo</a>
           <div className={`project-text-user-show ${hidePublish}`}>
             <h2>{publishText}</h2>
           </div>

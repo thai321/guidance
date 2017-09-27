@@ -9058,8 +9058,16 @@ var ProjectIndexItem = function (_React$Component) {
         { className: 'col col-md-3 col-xs-12' },
         _react2.default.createElement(
           'div',
-          { className: 'thumbnail' },
-          _react2.default.createElement('img', { className: 'img-fluid', src: image_url }),
+          { className: 'd-block mb-4 h-100' },
+          _react2.default.createElement(
+            'div',
+            { className: 'image-border' },
+            _react2.default.createElement(
+              'div',
+              { className: 'image-frame-responsive' },
+              _react2.default.createElement('img', { className: 'img-fluid', src: image_url })
+            )
+          ),
           _react2.default.createElement(
             'span',
             { className: 'project-index-title' },
@@ -28283,33 +28291,37 @@ var UserIndexItem = function (_React$Component) {
       var numProjects = this.props.user.project_ids.length;
       return _react2.default.createElement(
         'div',
-        { className: 'col col-md-3 col-xs-12' },
+        { className: 'col-lg-3 col-md-4 col-xs-6' },
         _react2.default.createElement(
           'div',
-          { className: 'thumbnail' },
-          _react2.default.createElement('img', { className: 'img-thumbnail', src: image_url }),
+          { className: 'd-block mb-4 h-100' },
+          _react2.default.createElement('img', { className: 'img-fluid img-thumbnail', src: image_url }),
           _react2.default.createElement(
             'span',
-            { className: 'project-index-title' },
+            { className: 'user-index-item-username' },
             username
           ),
           _react2.default.createElement(
-            'h6',
-            null,
-            'Published projects: ',
-            project_ids.length
-          ),
-          _react2.default.createElement(
-            'h6',
-            null,
-            'followers: ',
-            followers.length
-          ),
-          _react2.default.createElement(
-            'h6',
-            null,
-            'following: ',
-            followees.length
+            'div',
+            { className: 'user-index-item-project-info' },
+            _react2.default.createElement(
+              'span',
+              null,
+              'Published projects: ',
+              project_ids.length
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              'Followers: ',
+              followers.length
+            ),
+            _react2.default.createElement(
+              'span',
+              null,
+              'Following: ',
+              followees.length
+            )
           ),
           _react2.default.createElement(
             'p',
@@ -44340,7 +44352,22 @@ var Nav = function (_React$Component) {
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/users', className: 'all-teachers' },
-              'Teachers'
+              'Teachers |'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/users', className: 'all-teachers' },
+              'Math |'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/users', className: 'all-teachers' },
+              'Computer Science |'
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/users', className: 'all-teachers' },
+              'Music'
             )
           ),
           this.displayNewProjectButton(),
@@ -44882,7 +44909,7 @@ var ProjectIndex = function (_React$Component) {
         { className: 'project-index' },
         _react2.default.createElement(
           'div',
-          { className: 'container-fluid' },
+          { className: 'container' },
           _react2.default.createElement(
             'div',
             { className: 'projects-searchBar' },
@@ -44900,7 +44927,7 @@ var ProjectIndex = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'row' },
+            { className: 'row text-center text-lg-left' },
             this.findProject().map(function (project, idx) {
               return _react2.default.createElement(_project_index_item2.default, {
                 key: project.id + project.title + idx + (0, _id_generator.uniqueId)(),
@@ -45203,6 +45230,8 @@ var ProjectShow = function (_React$Component) {
         }
       };
 
+      var hideVideo = project.video_url ? '' : 'none';
+
       return _react2.default.createElement(
         'div',
         { className: 'project-show-page' },
@@ -45267,7 +45296,7 @@ var ProjectShow = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'project-show-video' },
+          { className: 'project-show-video ' + hideVideo },
           _react2.default.createElement(
             'span',
             null,
@@ -52987,12 +53016,10 @@ var ProjectForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ProjectForm.__proto__ || Object.getPrototypeOf(ProjectForm)).call(this, props));
 
-    _this.state = _this.props.project;
-    _this.state.loading = false;
+    _this.state = Object.assign({ loadding: false }, _this.props.project);
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.updateFile = _this.updateFile.bind(_this);
-
     _this.handleChange = _this.handleChange.bind(_this);
     return _this;
   }
@@ -53048,7 +53075,7 @@ var ProjectForm = function (_React$Component) {
       var _this3 = this;
 
       e.preventDefault();
-      this.state.loadding = true;
+      this.setState({ loading: true });
       var formData = new FormData();
       formData.append('project[title]', this.state.title);
       formData.append('project[description]', this.state.description);
@@ -53118,6 +53145,8 @@ var ProjectForm = function (_React$Component) {
           author_id = _props$project.author_id;
 
 
+      var hideVideo = this.state.video_url ? '' : 'none';
+
       return _react2.default.createElement(
         'div',
         { className: 'project_form_container' },
@@ -53126,14 +53155,23 @@ var ProjectForm = function (_React$Component) {
           'form',
           { className: 'project-form' },
           _react2.default.createElement(
-            'button',
-            {
-              className: 'btn btn-primary btn-lg',
-              disabled: this.state.loadding,
-              type: 'submit',
-              onClick: this.handleSubmit
-            },
-            this.loading ? 'Loading...' : '' + text
+            'div',
+            { className: 'image-project-form' },
+            _react2.default.createElement(
+              'span',
+              null,
+              'Guidance Image'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-2x' }),
+              _react2.default.createElement('input', {
+                type: 'file',
+                placeholder: 'Upload Your image',
+                onChange: this.updateFile
+              })
+            )
           ),
           _react2.default.createElement(
             'div',
@@ -53157,38 +53195,49 @@ var ProjectForm = function (_React$Component) {
               modules: ProjectForm.modules,
               value: this.state.description,
               onChange: this.handleChange
-            }),
+            })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'project-form-video' },
             _react2.default.createElement(
               'div',
-              { className: 'image-project-form' },
-              _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-2x' }),
+              { className: 'form-group' },
+              _react2.default.createElement('i', { className: 'fa fa-video-camera bigicon fa-2x' }),
               _react2.default.createElement('input', {
-                type: 'file',
-                placeholder: 'Upload Your image',
-                onChange: this.updateFile
+                className: 'form-control',
+                type: 'text',
+                placeholder: 'Paste a Youtube URL video here',
+                value: this.state.video_url,
+                onChange: this.update('video_url')
               })
             )
           ),
           _react2.default.createElement(
             'div',
-            { className: 'form-group' },
-            _react2.default.createElement('i', { className: 'fa fa-video-camera bigicon fa-2x' }),
-            _react2.default.createElement('input', {
-              className: 'form-control',
-              type: 'text',
-              placeholder: 'Paste a Youtube URL video here',
-              value: this.state.video_url,
-              onChange: this.update('video_url')
+            { className: '' + hideVideo },
+            _react2.default.createElement('iframe', {
+              width: '560',
+              height: '315',
+              src: this.state.video_url,
+              frameBorder: '0',
+              allowFullScreen: true
             })
           ),
-          _react2.default.createElement('iframe', {
-            width: '560',
-            height: '315',
-            src: this.state.video_url,
-            frameBorder: '0',
-            allowFullScreen: true
-          }),
-          _react2.default.createElement('div', { className: 'project-form-submit-button' })
+          _react2.default.createElement(
+            'div',
+            { className: 'project-form-button' },
+            _react2.default.createElement(
+              'button',
+              {
+                className: 'btn btn-primary btn-lg',
+                disabled: this.state.loadding,
+                type: 'submit',
+                onClick: this.handleSubmit
+              },
+              this.state.loading ? 'Loading...' : '' + text
+            )
+          )
         )
       );
     }
@@ -53395,7 +53444,7 @@ var StepForm = function (_React$Component) {
           project_id = _props$step.project_id;
 
       var text = this.props.formType === 'new' ? 'Create Step' : 'Update Step';
-      var header = this.props.formType === 'new' ? 'New Step' : 'Edit Step ' + this.props.idx;
+      var header = this.props.formType === 'new' ? 'New Step' : 'Edit Step ' + (this.props.idx + 1);
 
       return _react2.default.createElement(
         'div',
@@ -53420,7 +53469,7 @@ var StepForm = function (_React$Component) {
           _react2.default.createElement(
             'form',
             { className: 'form-horizontal', onSubmit: this.handleSubmit },
-            _react2.default.createElement('i', { className: 'fa fa-pencil bigicon fa-lg' }),
+            _react2.default.createElement('i', { className: 'fa fa-pencil bigicon fa-lg fa-2x' }),
             _react2.default.createElement(
               'div',
               { className: 'form-group' },
@@ -53435,7 +53484,7 @@ var StepForm = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'project-form-description' },
-              _react2.default.createElement('i', { className: 'fa fa-pencil-square-o bigicon fa-lg' }),
+              _react2.default.createElement('i', { className: 'fa fa-pencil-square-o bigicon fa-lg fa-2x' }),
               _react2.default.createElement(_reactQuill2.default, {
                 className: 'body-quill',
                 placeholder: 'Write something here...',
@@ -53597,10 +53646,10 @@ var UserIndex = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'project-index' },
+        { className: 'user-index-page' },
         _react2.default.createElement(
           'div',
-          { className: 'container-fluid' },
+          { className: 'container' },
           _react2.default.createElement(
             'div',
             { className: 'users-searchBar' },
@@ -53618,7 +53667,7 @@ var UserIndex = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'row' },
+            { className: 'row text-center text-lg-left' },
             this.findUser().map(function (user, idx) {
               return _react2.default.createElement(_user_index_item2.default, { key: user.id + idx + (0, _id_generator.uniqueId)(), user: user });
             })
@@ -53784,7 +53833,8 @@ var UserShow = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (UserShow.__proto__ || Object.getPrototypeOf(UserShow)).call(this, props));
 
-    _this.state = _this.props.currentUser;
+    _this.state = Object.assign({ loading: false }, _this.props.currentUser);
+
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.updateFile = _this.updateFile.bind(_this);
     _this.toggleFollow = _this.toggleFollow.bind(_this);
@@ -53843,8 +53893,6 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
-      var _this4 = this;
-
       e.preventDefault();
       var currentUser = this.props.currentUser;
 
@@ -53856,22 +53904,21 @@ var UserShow = function (_React$Component) {
 
       if (this.state.imageFile) {
         formData.append('user[image]', this.state.imageFile);
-        this.props.updateUserOption(formData, currentUser.id).then(function (action) {
-          return _this4.props.history.push('/users/' + action.user.id);
-        });
+        this.props.updateUserOption(formData, currentUser.id).then(this.setState({ loading: false })).then(window.location.reload());
       }
+      this.setState({ loading: true });
     }
   }, {
     key: 'updateFile',
     value: function updateFile(e) {
-      var _this5 = this;
+      var _this4 = this;
 
       e.preventDefault();
       var file = e.currentTarget.files[0];
       var fileReader = new FileReader();
 
       fileReader.onloadend = function () {
-        _this5.setState({ imageFile: file, image_url: fileReader.result });
+        _this4.setState({ imageFile: file, image_url: fileReader.result });
       };
 
       if (file) {
@@ -53901,7 +53948,7 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'displayProjects',
     value: function displayProjects(type) {
-      var _this6 = this;
+      var _this5 = this;
 
       var projects = type === 'Published' ? this.props.projectsByUser : this.props.unPublishedProjects;
 
@@ -53911,9 +53958,9 @@ var UserShow = function (_React$Component) {
           { className: 'row' },
           projects.map(function (project) {
             return _react2.default.createElement(_project_index_item2.default, {
-              key: project.id + project.title + _this6.props.user.id + (0, _id_generator.uniqueId)(),
+              key: project.id + project.title + _this5.props.user.id + (0, _id_generator.uniqueId)(),
               project: project,
-              currentUser: _this6.props.currentUser
+              currentUser: _this5.props.currentUser
             });
           })
         );
@@ -53960,7 +54007,7 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this7 = this;
+      var _this6 = this;
 
       if (!this.props.user) {
         return _react2.default.createElement('div', { className: 'loader' });
@@ -53978,7 +54025,7 @@ var UserShow = function (_React$Component) {
         var hideUnPublish = UnpublishText === '' ? 'none' : '';
 
         var displayUpload = function displayUpload() {
-          var currentUser = _this7.props.currentUser;
+          var currentUser = _this6.props.currentUser;
 
           if (currentUser && currentUser.id === user.id) {
             return _react2.default.createElement(
@@ -53990,14 +54037,14 @@ var UserShow = function (_React$Component) {
                 _react2.default.createElement('input', {
                   type: 'file',
                   placeholder: 'Upload Photo',
-                  onChange: _this7.updateFile,
+                  onChange: _this6.updateFile,
                   accept: 'image/*'
                 }),
                 _react2.default.createElement('input', {
                   className: 'submit-btn btn btn-primary',
                   type: 'submit',
-                  value: 'Upload Photo',
-                  onClick: _this7.handleSubmit
+                  disabled: _this6.state.loading,
+                  onClick: _this6.handleSubmit
                 })
               )
             );
@@ -54009,9 +54056,9 @@ var UserShow = function (_React$Component) {
             'button',
             {
               className: 'btn btn-warning btn-block',
-              onClick: _this7.toggleFollow
+              onClick: _this6.toggleFollow
             },
-            _this7.isFollowed()
+            _this6.isFollowed()
           );
         };
 
@@ -54041,6 +54088,11 @@ var UserShow = function (_React$Component) {
               )
             ),
             displayUpload()
+          ),
+          _react2.default.createElement(
+            'a',
+            { href: '/' },
+            'soidjfosjdfjsfdo'
           ),
           _react2.default.createElement(
             'div',
