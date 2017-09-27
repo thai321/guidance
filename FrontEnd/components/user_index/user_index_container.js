@@ -7,9 +7,15 @@ import { fetchProject, fetchProjects } from '../../actions/project_actions';
 import UserIndex from './user_index';
 
 const mapStateToProps = state => {
+  const users = [];
+  const userIds = Object.values(state.entities.users.allIds);
+
+  userIds.forEach(id => {
+    users.push(state.entities.users[id]);
+  });
+
   return {
-    userIds: Object.values(state.entities.users.allIds),
-    users: state.entities.users
+    users
   };
 };
 

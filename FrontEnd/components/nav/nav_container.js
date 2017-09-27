@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
 
+import { withRouter } from 'react-router-dom';
+
 import Nav from './nav';
 
-const mapStateToProps = state => {
-  // debugger;
+const mapStateToProps = (state, ownProps) => {
   return {
     currentUser: state.session.currentUser
   };
 };
 
-export default connect(mapStateToProps, null)(Nav);
+export default withRouter(connect(mapStateToProps, null)(Nav));
