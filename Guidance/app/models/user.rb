@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
-  after_initialize :ensure_session_token
+  after_initialize :ensure_session_token , :ensure_image_url
 
   attr_reader :password
 
@@ -111,6 +111,10 @@ class User < ApplicationRecord
 
   def self.generate_session_token
     SecureRandom.urlsafe_base64
+  end
+
+  def ensure_image_url
+    self.image.url.downcase!
   end
 
 
