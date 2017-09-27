@@ -49,7 +49,15 @@ class ProjectIndexItem extends React.Component {
           <img className="img-fluid" src={image_url} />
           <span className="project-index-title">{title}</span>
           <div className="project-footer">
-            <h6>{favorite_users.length} Likes</h6>
+            <h6>
+              {favorite_users.length}
+              {favorite_users.length === 0 ? (
+                <i className="fa fa-heart-o" aria-hidden="true" />
+              ) : (
+                <i className="fa fa-heart" aria-hidden="true" />
+              )}
+            </h6>
+
             <h6>by {author}</h6>
           </div>
           <p>

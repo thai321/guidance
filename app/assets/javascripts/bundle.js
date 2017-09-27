@@ -9072,7 +9072,7 @@ var ProjectIndexItem = function (_React$Component) {
               'h6',
               null,
               favorite_users.length,
-              ' Likes'
+              favorite_users.length === 0 ? _react2.default.createElement('i', { className: 'fa fa-heart-o', 'aria-hidden': 'true' }) : _react2.default.createElement('i', { className: 'fa fa-heart', 'aria-hidden': 'true' })
             ),
             _react2.default.createElement(
               'h6',

@@ -32,6 +32,10 @@
 .project-footer {
   display: flex;
   justify-content: space-between;
+
+  h6 i {
+    padding-left: 5px;
+  }
 }
 
 .project-index-title {
