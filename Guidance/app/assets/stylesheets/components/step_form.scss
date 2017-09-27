@@ -3,7 +3,10 @@
   height: 100%;
   display: flex;
   justify-content: center;
-  border: 1px solid red;
+
+  form {
+    width: 1000px;
+  }
 }
 
 .body-quill {
@@ -24,7 +27,7 @@
 
 .step-form-header {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding-bottom: 20px;
 }
 
