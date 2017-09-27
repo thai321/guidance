@@ -38,7 +38,7 @@ class ProjectIndex extends React.Component {
   render() {
     return (
       <div className="project-index">
-        <div className="container-fluid">
+        <div className="container">
           <div className="projects-searchBar">
             <div className="col-md-6">
               <input
@@ -51,7 +51,7 @@ class ProjectIndex extends React.Component {
             </div>
           </div>
 
-          <div className="row">
+          <div className="row text-center text-lg-left">
             {this.findProject().map((project, idx) => {
               return (
                 <ProjectIndexItem
