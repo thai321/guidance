@@ -12,12 +12,11 @@ import {
 class ProjectForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.project;
-    this.state.loading = false;
+
+    this.state = Object.assign({ loadding: false }, this.props.project);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
-
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -132,19 +131,24 @@ class ProjectForm extends React.Component {
       author_id
     } = this.props.project;
 
+    const hideVideo = this.state.video_url ? '' : 'none';
+
     return (
       <div className="project_form_container">
         {this.displayBack()}
 
         <form className="project-form">
-          <button
-            className="btn btn-primary btn-lg"
-            disabled={this.state.loadding}
-            type="submit"
-            onClick={this.handleSubmit}
-          >
-            {this.state.loading ? 'Loading...' : `${text}`}
-          </button>
+          <div className="image-project-form">
+            <span>Guidance Image</span>
+            <div>
+              <i className="fa fa-file-image-o bigicon fa-2x" />
+              <input
+                type="file"
+                placeholder="Upload Your image"
+                onChange={this.updateFile}
+              />
+            </div>
+          </div>
 
           <div className="form-group">
             <i className="fa fa-pencil fa-2x" />
@@ -168,37 +172,42 @@ class ProjectForm extends React.Component {
               value={this.state.description}
               onChange={this.handleChange}
             />
-            <div className="image-project-form">
-              <i className="fa fa-file-image-o bigicon fa-2x" />
+          </div>
+
+          <div className="project-form-video">
+            <div className="form-group">
+              <i className="fa fa-video-camera bigicon fa-2x" />
 
               <input
-                type="file"
-                placeholder="Upload Your image"
-                onChange={this.updateFile}
+                className="form-control"
+                type="text"
+                placeholder="Paste a Youtube URL video here"
+                value={this.state.video_url}
+                onChange={this.update('video_url')}
               />
             </div>
           </div>
 
-          <div className="form-group">
-            <i className="fa fa-video-camera bigicon fa-2x" />
-
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Paste a Youtube URL video here"
-              value={this.state.video_url}
-              onChange={this.update('video_url')}
+          <div className={`${hideVideo}`}>
+            <iframe
+              width="560"
+              height="315"
+              src={this.state.video_url}
+              frameBorder="0"
+              allowFullScreen
             />
           </div>
 
-          <iframe
-            width="560"
-            height="315"
-            src={this.state.video_url}
-            frameBorder="0"
-            allowFullScreen
-          />
-          <div className="project-form-submit-button" />
+          <div className="project-form-button">
+            <button
+              className="btn btn-primary btn-lg"
+              disabled={this.state.loadding}
+              type="submit"
+              onClick={this.handleSubmit}
+            >
+              {this.state.loading ? 'Loading...' : `${text}`}
+            </button>
+          </div>
         </form>
       </div>
     );

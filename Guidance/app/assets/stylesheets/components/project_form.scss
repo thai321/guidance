@@ -1,11 +1,18 @@
 .project-form {
   display: flex;
   justify-content: center;
-  align-items: center;
+
   flex-direction: column;
   width: auto;
 
-  background-color: white;
+  // background-color: white;
+
+  margin-top: 20px;
+
+  .project-form-button {
+    width: 200px;
+    margin-left: 310px;
+  }
 }
 
 .project_form_container {
@@ -13,11 +20,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 95%;
-  height: 95%;
+  width: 800px;
 
   a {
-    margin-right: 778px;
+    margin-right: 750px;
     color: black;
   }
 }
@@ -49,6 +55,10 @@
 .image-project-form {
   padding-top: 50px;
   margin-right: 500px;
+
+  span {
+    font-size: 20px;
+  }
 }
 
 .project-form .fa-arrow-circle-o-left {
@@ -58,4 +68,8 @@
 .project-form-description img {
   width: 20%;
   height: 20%;
+}
+
+.project-form-video {
+  margin-top: 90px;
 }
