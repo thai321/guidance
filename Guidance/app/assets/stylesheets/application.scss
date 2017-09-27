@@ -54,6 +54,14 @@ input {
 
 .main-app {
   margin-top: 120px;
+  display: flex;
+  justify-content: center;
+  // flex-direction: column;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
 }
 
 button:hover {

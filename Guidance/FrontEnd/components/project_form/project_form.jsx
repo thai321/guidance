@@ -61,7 +61,7 @@ class ProjectForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.state.loadding = true;
+    this.setState({ loading: true });
     const formData = new FormData();
     formData.append('project[title]', this.state.title);
     formData.append('project[description]', this.state.description);
@@ -143,7 +143,7 @@ class ProjectForm extends React.Component {
             type="submit"
             onClick={this.handleSubmit}
           >
-            {this.loading ? 'Loading...' : `${text}`}
+            {this.state.loading ? 'Loading...' : `${text}`}
           </button>
 
           <div className="form-group">

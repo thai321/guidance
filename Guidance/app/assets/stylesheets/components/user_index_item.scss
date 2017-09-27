@@ -16,6 +16,15 @@
 //   justify-content: center;
 // }
 
+.user-index-page {
+  width: 1000px;
+
+  .container .row {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .card-title {
   padding: 10px;
 }
@@ -32,4 +41,19 @@
   display: flex;
   justify-content: center;
   margin: 40px 0;
+}
+
+.user-index-item-username {
+  font-family: 'Faustina', sans-serif;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+}
+
+.user-index-item-project-info {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  font-family: 'Open Sans', sans-serif;
+  font-size: medium;
 }

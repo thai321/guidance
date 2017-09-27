@@ -40,8 +40,8 @@ class UserIndex extends React.Component {
     }
 
     return (
-      <div className="project-index">
-        <div className="container-fluid">
+      <div className="user-index-page">
+        <div className="container">
           <div className="users-searchBar">
             <div className="col-md-6">
               <input
@@ -53,7 +53,7 @@ class UserIndex extends React.Component {
               />
             </div>
           </div>
-          <div className="row">
+          <div className="row text-center text-lg-left">
             {this.findUser().map((user, idx) => {
               return (
                 <UserIndexItem key={user.id + idx + uniqueId()} user={user} />
