@@ -21,7 +21,7 @@ class UserIndex extends React.Component {
   }
 
   findUser() {
-    if (this.state.inputVal.length === 0) return this.props.users;
+    if (this.state.inputVal.trim().length === 0) return this.props.users;
 
     const result = [];
 
