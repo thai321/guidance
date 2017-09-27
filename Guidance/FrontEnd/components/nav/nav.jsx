@@ -7,6 +7,8 @@ import SessionButtonsContainer from '../session_buttons/session_buttons_containe
 class Nav extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = { inputVal: '' };
   }
 
   displayNewProjectButton() {
@@ -16,6 +18,31 @@ class Nav extends React.Component {
           <Link to="/projects/new" className="btn btn-outline-success btn-lg">
             Write a Guidance
           </Link>
+        </div>
+      );
+    }
+  }
+
+  displaySearch() {
+    // console.log(this.props.location);
+    // debugger;
+
+    const { pathname } = this.props.location;
+    const text = pathname === '/' ? "Let's Make ..." : 'Find a teacher';
+
+    console.log(pathname);
+    if (pathname === '/' || pathname === '/users') {
+      return (
+        <div className="col-md-6">
+          <form className="navbar-form" role="search">
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                placeholder={`\uf002 ${text}`}
+              />
+            </div>
+          </form>
         </div>
       );
     }
@@ -37,17 +64,8 @@ class Nav extends React.Component {
               Teachers
             </Link>
 
-            <div className="col-md-6">
-              <form className="navbar-form" role="search">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder={`\uf002 ${text}`}
-                  />
-                </div>
-              </form>
-            </div>
+            {/*this.displaySearch()*/}
+
             {this.displayNewProjectButton()}
           </div>
 
