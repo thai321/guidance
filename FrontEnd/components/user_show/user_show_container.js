@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { fetchUser, updateUserOption } from '../../actions/user_actions';
+import { fetchFollowers, fetchFollowees } from '../../actions/user_actions';
 import {
   fetchProjects,
   fetchFavoriteProjects
@@ -65,7 +66,9 @@ const mapDispatchToProps = dispatch => {
     createFollow: (followeeId, followerId) =>
       dispatch(createFollow(followeeId, followerId)),
     deteleFollow: (followeeId, followerId) =>
-      dispatch(deteleFollow(followeeId, followerId))
+      dispatch(deteleFollow(followeeId, followerId)),
+    fetchFollowers: id => dispatch(fetchFollowers(id)),
+    fetchFollowees: id => dispatch(fetchFollowees(id))
   };
 };
 

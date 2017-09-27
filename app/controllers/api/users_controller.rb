@@ -7,7 +7,7 @@ class Api::UsersController < ApplicationController
       @users = User.all
     elsif (user_params[:followee_id])
       @users = User.find(user_params[:followee_id]).followers
-    elsif ( user_params[:follower_id])
+    elsif (user_params[:follower_id])
       @users = User.find(user_params[:follower_id]).followees
     end
 

@@ -31,6 +31,7 @@
 @import 'components/step_item';
 @import 'components/comment_show';
 @import 'components/comment_form';
+@import 'components/user_follow';
 
 body {
   background-color: white;
@@ -59,5 +60,9 @@ button:hover {
   cursor: pointer;
 }
 
+.none {
+  display: none;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Lora');
-@import url('https://fonts.googleapis.com/css?family=Hind|Quattrocento+Sans|Zilla+Slab|Faustina|Open+Sans|Saira');
+@import url('https://fonts.googleapis.com/css?family=Hind|Quattrocento+Sans|Zilla+Slab|Faustina|Open+Sans|Saira|Lato');

@@ -44189,13 +44189,18 @@ var Nav = function (_React$Component) {
           'nav',
           { className: 'navbar navbar-expand-lg fixed-top', id: 'mainNav' },
           _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/', className: 'navbar-brand' },
+            _react2.default.createElement('img', { src: 'https://learningpolicyinstitute.org/sites/all/themes/lpi2016/images/large-external-link-icon.svg' }),
+            _react2.default.createElement(
+              'span',
+              null,
+              'Guidance App'
+            )
+          ),
+          _react2.default.createElement(
             'div',
             { className: 'container' },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/', className: 'navbar-brand' },
-              'Guidance App'
-            ),
             _react2.default.createElement(
               _reactRouterDom.Link,
               { to: '/users', className: 'all-teachers' },
@@ -45200,9 +45205,9 @@ var StepItem = function (_React$Component) {
               _react2.default.createElement(
                 _reactRouterDom.Link,
                 { className: '', to: '/projects/' + projectId + '/steps/' + id + '/edit' },
-                _react2.default.createElement('i', { className: 'fa fa-pencil fa-4x' })
+                _react2.default.createElement('i', { className: 'fa fa-pencil fa-3x' })
               ),
-              _react2.default.createElement('i', { className: 'fa fa-trash fa-4x', onClick: function onClick() {
+              _react2.default.createElement('i', { className: 'fa fa-trash fa-3x', onClick: function onClick() {
                   return removeStep(id);
                 } })
             );
@@ -52927,7 +52932,7 @@ var ProjectForm = function (_React$Component) {
       return _react2.default.createElement(
         _reactRouterDom.Link,
         { to: path },
-        _react2.default.createElement('i', { className: 'fa fa-arrow-circle-o-left fa-4x back-button' })
+        _react2.default.createElement('i', { className: 'fa fa-arrow-circle-o-left fa-5x' })
       );
     }
   }, {
@@ -52953,10 +52958,10 @@ var ProjectForm = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         { className: 'project_form_container' },
+        this.displayBack(),
         _react2.default.createElement(
           'form',
           { className: 'project-form' },
-          this.displayBack(),
           _react2.default.createElement(
             'button',
             {
@@ -52970,11 +52975,7 @@ var ProjectForm = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'form-group' },
-            _react2.default.createElement(
-              'span',
-              { className: 'col-md-1 col-md-offset-2 text-center' },
-              _react2.default.createElement('i', { className: 'fa fa-pencil bigicon fa-lg' })
-            ),
+            _react2.default.createElement('i', { className: 'fa fa-pencil fa-2x' }),
             _react2.default.createElement('input', {
               className: 'project-form-title',
               type: 'text',
@@ -52986,11 +52987,7 @@ var ProjectForm = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'project-form-description' },
-            _react2.default.createElement(
-              'span',
-              { className: 'col-md-1 col-md-offset-2 text-center' },
-              _react2.default.createElement('i', { className: 'fa fa-pencil-square-o bigicon fa-lg' })
-            ),
+            _react2.default.createElement('i', { className: 'fa fa-pencil-square-o fa-2x' }),
             _react2.default.createElement(_reactQuill2.default, {
               className: 'description-quill',
               placeholder: 'Enter The Project\'s Description',
@@ -53001,11 +52998,7 @@ var ProjectForm = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'image-project-form' },
-              _react2.default.createElement(
-                'span',
-                { className: 'col-md-1 col-md-offset-2 text-center' },
-                _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-lg' })
-              ),
+              _react2.default.createElement('i', { className: 'fa fa-file-image-o bigicon fa-2x' }),
               _react2.default.createElement('input', {
                 type: 'file',
                 placeholder: 'Upload Your image',
@@ -53016,11 +53009,7 @@ var ProjectForm = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'form-group' },
-            _react2.default.createElement(
-              'span',
-              { className: 'col-md-1 col-md-offset-2 ' },
-              _react2.default.createElement('i', { className: 'fa fa-video-camera bigicon fa-lg' })
-            ),
+            _react2.default.createElement('i', { className: 'fa fa-video-camera bigicon fa-2x' }),
             _react2.default.createElement('input', {
               className: 'form-control',
               type: 'text',
@@ -53491,7 +53480,9 @@ var UserIndexItem = function (_React$Component) {
           id = _props$user.id,
           username = _props$user.username,
           image_url = _props$user.image_url,
-          project_ids = _props$user.project_ids;
+          project_ids = _props$user.project_ids,
+          followers = _props$user.followers,
+          followees = _props$user.followees;
 
       var numProjects = this.props.user.project_ids.length;
       return _react2.default.createElement(
@@ -53500,7 +53491,7 @@ var UserIndexItem = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'thumbnail' },
-          _react2.default.createElement('img', { className: 'img-fluid', src: image_url }),
+          _react2.default.createElement('img', { className: 'img-thumbnail', src: image_url }),
           _react2.default.createElement(
             'span',
             { className: 'project-index-title' },
@@ -53516,13 +53507,13 @@ var UserIndexItem = function (_React$Component) {
             'h6',
             null,
             'followers: ',
-            project_ids.length
+            followers.length
           ),
           _react2.default.createElement(
             'h6',
             null,
             'following: ',
-            project_ids.length
+            followees.length
           ),
           _react2.default.createElement(
             'p',
@@ -53633,6 +53624,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deteleFollow: function deteleFollow(followeeId, followerId) {
       return dispatch((0, _follow_actions.deteleFollow)(followeeId, followerId));
+    },
+    fetchFollowers: function fetchFollowers(id) {
+      return dispatch((0, _user_actions.fetchFollowers)(id));
+    },
+    fetchFollowees: function fetchFollowees(id) {
+      return dispatch((0, _user_actions.fetchFollowees)(id));
     }
   };
 };
@@ -53667,6 +53664,10 @@ var _project_index_item2 = _interopRequireDefault(_project_index_item);
 var _favorite_show_container = __webpack_require__(477);
 
 var _favorite_show_container2 = _interopRequireDefault(_favorite_show_container);
+
+var _user_follow_container = __webpack_require__(488);
+
+var _user_follow_container2 = _interopRequireDefault(_user_follow_container);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -53710,6 +53711,8 @@ var UserShow = function (_React$Component) {
         _this2.setState(action.user);
         _this2.props.fetchProjects(action.user.id, filter).then(function () {
           _this2.props.fetchFavoriteProjects(action.user.favorite_projects);
+          _this2.props.fetchFollowers(_this2.props.user.id);
+          _this2.props.fetchFollowees(_this2.props.user.id);
         });
       });
     }
@@ -53733,6 +53736,8 @@ var UserShow = function (_React$Component) {
           _this3.setState(action.user);
           var hash = { userId: action.user.id, filter: filter };
           _this3.props.fetchProjects(action.user.id, filter);
+          _this3.props.fetchFollowers(_this3.props.user.id);
+          _this3.props.fetchFollowees(_this3.props.user.id);
         });
       }
     }
@@ -53784,9 +53789,13 @@ var UserShow = function (_React$Component) {
       if (user.favorite_projects.length > 0) {
         return _react2.default.createElement(
           'div',
-          null,
-          user.favorite_projects.length,
-          ' favorite projects'
+          { className: 'project-text-user-show' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            user.favorite_projects.length,
+            ' Favorite Projects'
+          )
         );
       }
     }
@@ -53864,8 +53873,10 @@ var UserShow = function (_React$Component) {
 
 
         var publishText = projectsByUser.length > 0 ? projectsByUser.length + ' Published Projects' : '';
+        var hidePublish = publishText === '' ? 'none' : '';
 
         var UnpublishText = unPublishedProjects.length > 0 ? unPublishedProjects.length + ' Un-Published Projects' : '';
+        var hideUnPublish = UnpublishText === '' ? 'none' : '';
 
         var displayUpload = function displayUpload() {
           var currentUser = _this7.props.currentUser;
@@ -53907,65 +53918,54 @@ var UserShow = function (_React$Component) {
 
         return _react2.default.createElement(
           'div',
-          { className: 'user-show-projects' },
+          { className: 'container-fluid' },
           _react2.default.createElement(
             'div',
-            { className: 'container-fluid' },
+            { className: 'user-index-info' },
             _react2.default.createElement(
               'div',
-              { className: 'user-index-info' },
+              { className: 'card' },
               _react2.default.createElement(
                 'div',
-                { className: 'card' },
-                _react2.default.createElement(
-                  'div',
-                  { className: 'user-index-item-image' },
-                  _react2.default.createElement('img', { className: 'card-img-top', src: user.image_url })
-                ),
-                _react2.default.createElement(
-                  'div',
-                  { className: 'card-block card-user-title' },
-                  _react2.default.createElement(
-                    'h4',
-                    { className: 'card-title' },
-                    user.username
-                  ),
-                  displayFollow()
-                )
+                { className: 'img-thumbnail' },
+                _react2.default.createElement('img', { className: 'card-img-top', src: user.image_url })
               ),
-              displayUpload()
-            ),
-            _react2.default.createElement(
-              'div',
-              { className: 'project-text-user-show' },
               _react2.default.createElement(
-                'h2',
-                null,
-                publishText
+                'div',
+                { className: 'card-block card-user-title' },
+                _react2.default.createElement(
+                  'h4',
+                  { className: 'card-title' },
+                  user.username
+                ),
+                displayFollow()
               )
             ),
-            this.displayProjects('Published'),
+            displayUpload()
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'project-text-user-show ' + hidePublish },
             _react2.default.createElement(
-              'div',
-              { className: 'project-text-user-show' },
-              _react2.default.createElement(
-                'h2',
-                null,
-                UnpublishText
-              )
-            ),
-            this.displayProjects('UnPublished'),
+              'h2',
+              null,
+              publishText
+            )
+          ),
+          this.displayProjects('Published'),
+          _react2.default.createElement(
+            'div',
+            { className: 'project-text-user-show ' + hideUnPublish },
             _react2.default.createElement(
-              'div',
-              { className: 'project-text-user-show' },
-              _react2.default.createElement(
-                'h2',
-                null,
-                this.displayFavorite()
-              )
-            ),
-            _react2.default.createElement(_favorite_show_container2.default, { user: user })
-          )
+              'h2',
+              null,
+              UnpublishText
+            )
+          ),
+          this.displayProjects('UnPublished'),
+          this.displayFavorite(),
+          _react2.default.createElement(_favorite_show_container2.default, { user: user }),
+          _react2.default.createElement(_user_follow_container2.default, { user: user })
         );
       }
     }
@@ -55215,6 +55215,157 @@ var projectByIds = exports.projectByIds = function projectByIds(ids) {
 
   return projects;
 };
+
+/***/ }),
+/* 487 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _id_generator = __webpack_require__(30);
+
+var _user_index_item = __webpack_require__(474);
+
+var _user_index_item2 = _interopRequireDefault(_user_index_item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UserFollow = function (_React$Component) {
+  _inherits(UserFollow, _React$Component);
+
+  function UserFollow(props) {
+    _classCallCheck(this, UserFollow);
+
+    return _possibleConstructorReturn(this, (UserFollow.__proto__ || Object.getPrototypeOf(UserFollow)).call(this, props));
+  }
+
+  _createClass(UserFollow, [{
+    key: 'displayFollow',
+    value: function displayFollow(users, type) {
+      return users.map(function (user, idx) {
+        return _react2.default.createElement(_user_index_item2.default, {
+          key: user.id + user.username + idx + (0, _id_generator.uniqueId)(),
+          user: user
+        });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          followeeUsers = _props.followeeUsers,
+          followerUsers = _props.followerUsers;
+
+      var hideFollowee = followeeUsers.length === 0 ? 'none' : '';
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'user-follow-index' },
+        followeeUsers.length === 0 ? '' : _react2.default.createElement(
+          'div',
+          { className: 'user-follow-following' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            followeeUsers.length,
+            ' Following'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            this.displayFollow(followeeUsers, 'follower')
+          )
+        ),
+        followerUsers.length === 0 ? '' : _react2.default.createElement(
+          'div',
+          { className: 'user-follow-follower' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            followerUsers.length,
+            ' Followers'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'row' },
+            this.displayFollow(followerUsers, 'followers')
+          )
+        )
+      );
+    }
+  }]);
+
+  return UserFollow;
+}(_react2.default.Component);
+
+exports.default = UserFollow;
+
+/***/ }),
+/* 488 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(11);
+
+var _user_follow = __webpack_require__(487);
+
+var _user_follow2 = _interopRequireDefault(_user_follow);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  var user = ownProps.user;
+
+
+  var followers = user.followers;
+  var followees = user.followees;
+
+  var followerUsers = [];
+  followers.forEach(function (id) {
+    var usr = state.entities.users[id];
+    if (usr) {
+      followerUsers.push(usr);
+    }
+  });
+
+  var followeeUsers = [];
+  followees.forEach(function (id) {
+    var usr = state.entities.users[id];
+    if (usr) {
+      followeeUsers.push(usr);
+    }
+  });
+
+  return {
+    followerUsers: followerUsers,
+    followeeUsers: followeeUsers
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(_user_follow2.default);
 
 /***/ })
 /******/ ]);

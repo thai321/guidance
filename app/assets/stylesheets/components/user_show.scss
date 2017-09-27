@@ -20,7 +20,13 @@
 .project-text-user-show {
   padding: 20px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
+  margin-top: 20px;
+  border-top: 2px solid;
+
+  span {
+    font-size: 20px;
+  }
 }
 
 .user-show-projects {
