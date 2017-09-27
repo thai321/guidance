@@ -214,36 +214,46 @@ class UserShow extends React.Component {
       };
 
       return (
-        <div className="container-fluid">
-          <div className="user-index-info">
-            <div className="card">
-              <div className="img-thumbnail">
-                <img className="card-img-top" src={user.image_url} />
+        <div>
+          <div className="user-show-info">
+            <div>User informationdsfs df sf</div>
+            <div>User informationdsfs df sf</div>
+            <div>User informationdsfs df sf</div>
+            <div>User informationdsfs df sf</div>
+            <div>User informationdsfs df sf</div>
+            <div>User informationdsfs df sf</div>
+          </div>
+          <div className="container-fluid">
+            <div className="user-index-info">
+              <div className="card">
+                <div className="img-thumbnail">
+                  <img className="card-img-top" src={user.image_url} />
+                </div>
+                <div className="card-block card-user-title">
+                  <h4 className="card-title">{user.username}</h4>
+                  {displayFollow()}
+                </div>
               </div>
-              <div className="card-block card-user-title">
-                <h4 className="card-title">{user.username}</h4>
-                {displayFollow()}
-              </div>
+              {displayUpload()}
             </div>
-            {displayUpload()}
+            <a href="/">soidjfosjdfjsfdo</a>
+            <div className={`project-text-user-show ${hidePublish}`}>
+              <h2>{publishText}</h2>
+            </div>
+
+            {this.displayProjects('Published')}
+
+            <div className={`project-text-user-show ${hideUnPublish}`}>
+              <h2>{UnpublishText}</h2>
+            </div>
+
+            {this.displayProjects('UnPublished')}
+
+            {this.displayFavorite()}
+
+            <FavoriteShowContainer user={user} />
+            <UserFollowContainer user={user} />
           </div>
-          <a href="/">soidjfosjdfjsfdo</a>
-          <div className={`project-text-user-show ${hidePublish}`}>
-            <h2>{publishText}</h2>
-          </div>
-
-          {this.displayProjects('Published')}
-
-          <div className={`project-text-user-show ${hideUnPublish}`}>
-            <h2>{UnpublishText}</h2>
-          </div>
-
-          {this.displayProjects('UnPublished')}
-
-          {this.displayFavorite()}
-
-          <FavoriteShowContainer user={user} />
-          <UserFollowContainer user={user} />
         </div>
       );
     }

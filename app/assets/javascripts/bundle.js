@@ -54064,59 +54064,97 @@ var UserShow = function (_React$Component) {
 
         return _react2.default.createElement(
           'div',
-          { className: 'container-fluid' },
+          null,
           _react2.default.createElement(
             'div',
-            { className: 'user-index-info' },
+            { className: 'user-show-info' },
             _react2.default.createElement(
               'div',
-              { className: 'card' },
+              null,
+              'User informationdsfs df sf'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              'User informationdsfs df sf'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              'User informationdsfs df sf'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              'User informationdsfs df sf'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              'User informationdsfs df sf'
+            ),
+            _react2.default.createElement(
+              'div',
+              null,
+              'User informationdsfs df sf'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'container-fluid' },
+            _react2.default.createElement(
+              'div',
+              { className: 'user-index-info' },
               _react2.default.createElement(
                 'div',
-                { className: 'img-thumbnail' },
-                _react2.default.createElement('img', { className: 'card-img-top', src: user.image_url })
-              ),
-              _react2.default.createElement(
-                'div',
-                { className: 'card-block card-user-title' },
+                { className: 'card' },
                 _react2.default.createElement(
-                  'h4',
-                  { className: 'card-title' },
-                  user.username
+                  'div',
+                  { className: 'img-thumbnail' },
+                  _react2.default.createElement('img', { className: 'card-img-top', src: user.image_url })
                 ),
-                displayFollow()
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-block card-user-title' },
+                  _react2.default.createElement(
+                    'h4',
+                    { className: 'card-title' },
+                    user.username
+                  ),
+                  displayFollow()
+                )
+              ),
+              displayUpload()
+            ),
+            _react2.default.createElement(
+              'a',
+              { href: '/' },
+              'soidjfosjdfjsfdo'
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'project-text-user-show ' + hidePublish },
+              _react2.default.createElement(
+                'h2',
+                null,
+                publishText
               )
             ),
-            displayUpload()
-          ),
-          _react2.default.createElement(
-            'a',
-            { href: '/' },
-            'soidjfosjdfjsfdo'
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'project-text-user-show ' + hidePublish },
+            this.displayProjects('Published'),
             _react2.default.createElement(
-              'h2',
-              null,
-              publishText
-            )
-          ),
-          this.displayProjects('Published'),
-          _react2.default.createElement(
-            'div',
-            { className: 'project-text-user-show ' + hideUnPublish },
-            _react2.default.createElement(
-              'h2',
-              null,
-              UnpublishText
-            )
-          ),
-          this.displayProjects('UnPublished'),
-          this.displayFavorite(),
-          _react2.default.createElement(_favorite_show_container2.default, { user: user }),
-          _react2.default.createElement(_user_follow_container2.default, { user: user })
+              'div',
+              { className: 'project-text-user-show ' + hideUnPublish },
+              _react2.default.createElement(
+                'h2',
+                null,
+                UnpublishText
+              )
+            ),
+            this.displayProjects('UnPublished'),
+            this.displayFavorite(),
+            _react2.default.createElement(_favorite_show_container2.default, { user: user }),
+            _react2.default.createElement(_user_follow_container2.default, { user: user })
+          )
         );
       }
     }
