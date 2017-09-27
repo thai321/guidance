@@ -170,11 +170,17 @@ class UserShow extends React.Component {
               <form>
                 <input
                   type="file"
-                  placeholder="Upload Your image"
+                  placeholder="Upload Photo"
                   onChange={this.updateFile}
+                  accept="image/*"
                 />
 
-                <input type="submit" onClick={this.handleSubmit} />
+                <input
+                  className="submit-btn btn btn-primary"
+                  type="submit"
+                  value="Upload Photo"
+                  onClick={this.handleSubmit}
+                />
               </form>
             </div>
           );
@@ -182,7 +188,14 @@ class UserShow extends React.Component {
       };
 
       const displayFollow = () => {
-        return <button onClick={this.toggleFollow}>{this.isFollowed()}</button>;
+        return (
+          <button
+            className="btn btn-warning btn-block"
+            onClick={this.toggleFollow}
+          >
+            {this.isFollowed()}
+          </button>
+        );
       };
 
       return (
@@ -198,9 +211,8 @@ class UserShow extends React.Component {
                   {displayFollow()}
                 </div>
               </div>
+              {displayUpload()}
             </div>
-
-            {displayUpload()}
 
             <div className="project-text-user-show">
               <h2>{publishText}</h2>

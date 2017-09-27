@@ -3,7 +3,7 @@
   list-style: none;
   // background-color: gray;
   width: 97%;
-  margin: 0 auto;
+  margin: 100px auto;
 }
 
 .thumbnail {
@@ -32,4 +32,9 @@
 .project-footer {
   display: flex;
   justify-content: space-between;
+}
+
+.project-index-title {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

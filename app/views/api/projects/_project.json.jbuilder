@@ -11,7 +11,7 @@ json.step_ids project.step_ids
 
 
 image = project.image
-image_url = image.url
+image_url = image.url.downcase
 
 if(image_url.include?('amazon'))
 

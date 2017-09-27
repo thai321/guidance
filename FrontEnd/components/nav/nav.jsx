@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import SessionButtonsContainer from '../session_buttons/session_buttons_container';
 
@@ -22,7 +22,8 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.props;
+    const { currentUser, location } = this.props;
+    const text = "Let's Make ...";
 
     return (
       <div>
@@ -41,7 +42,7 @@ class Nav extends React.Component {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Let's Make ..."
+                    placeholder={`\uf002 ${text}`}
                   />
                 </div>
               </form>
@@ -56,4 +57,4 @@ class Nav extends React.Component {
   }
 }
 
-export default Nav;
+export default withRouter(Nav);

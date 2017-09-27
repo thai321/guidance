@@ -25,7 +25,7 @@ class Project < ApplicationRecord
  }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 
-  after_initialize :ensure_video_url
+  after_initialize :ensure_video_url, :ensure_image_url
 
 
   # Associations
@@ -64,6 +64,10 @@ class Project < ApplicationRecord
     else
       self.video_url = 'https://youtu.be/8aGhZQkoFbQ'
     end
+  end
+
+  def ensure_image_url
+    self.image.url.downcase!
   end
 
 end

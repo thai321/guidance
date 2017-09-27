@@ -12,8 +12,7 @@ json.favorite_projects user.favorite_projects.map { |project| project.id }
 
 
 image = user.image
-image_url = image.url
-
+image_url = image.url.downcase
 if(image_url.include?('amazon'))
 
   type = image.path.include?('jpg') ? 'jpg' : 'png'
