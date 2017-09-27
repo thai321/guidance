@@ -44284,9 +44284,6 @@ var Nav = function (_React$Component) {
   }, {
     key: 'displaySearch',
     value: function displaySearch() {
-      // console.log(this.props.location);
-      // debugger;
-
       var pathname = this.props.location.pathname;
 
       var text = pathname === '/' ? "Let's Make ..." : 'Find a teacher';
@@ -44344,9 +44341,9 @@ var Nav = function (_React$Component) {
               _reactRouterDom.Link,
               { to: '/users', className: 'all-teachers' },
               'Teachers'
-            ),
-            this.displayNewProjectButton()
+            )
           ),
+          this.displayNewProjectButton(),
           _react2.default.createElement(_session_buttons_container2.default, null)
         )
       );
@@ -44429,10 +44426,15 @@ var SessionForm = function SessionForm(_ref) {
     'div',
     { className: 'welcome' },
     _react2.default.createElement(
-      'h1',
-      null,
-      'Welcome ',
-      currentUser.username
+      'div',
+      { className: 'welcome-user-name-image' },
+      _react2.default.createElement('img', { src: currentUser.image_url }),
+      _react2.default.createElement(
+        'h1',
+        null,
+        'Welcome ',
+        currentUser.username
+      )
     ),
     _react2.default.createElement(
       'div',
