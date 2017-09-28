@@ -41,5 +41,19 @@
   margin-left: 100px;
 }
 
-.user-show-info {
+.user-show-page-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.user-show-page-buttons {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+
+  button {
+    width: 50%;
+    margin-left: 25%;
+  }
 }

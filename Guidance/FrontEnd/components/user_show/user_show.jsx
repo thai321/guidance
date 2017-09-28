@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Scroll from 'react-scroll';
+
 import { uniqueId } from '../../util/id_generator';
 
 import ProjectIndexItem from '../project_index/project_index_item';
@@ -13,6 +15,8 @@ class UserShow extends React.Component {
     super(props);
 
     this.state = Object.assign({ loading: false }, this.props.currentUser);
+
+    Element = Scroll.Element;
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
@@ -91,6 +95,17 @@ class UserShow extends React.Component {
     if (file) {
       fileReader.readAsDataURL(file);
     }
+  }
+
+  handleScroll() {
+    let scroller = Scroll.scroller;
+
+    scroller.scrollTo('myScrollToElement', {
+      duration: 1500,
+      delay: 100,
+      smooth: true,
+      offset: 50 // Scrolls to element + 50 pixels down the page
+    });
   }
 
   displayFavorite() {
@@ -214,16 +229,14 @@ class UserShow extends React.Component {
       };
 
       return (
-        <div>
-          <div className="user-show-info">
-            <div>User informationdsfs df sf</div>
-            <div>User informationdsfs df sf</div>
-            <div>User informationdsfs df sf</div>
-            <div>User informationdsfs df sf</div>
-            <div>User informationdsfs df sf</div>
-            <div>User informationdsfs df sf</div>
-          </div>
-          <div className="container-fluid">
+        <div className="container-fluid">
+          <div className="user-show-page-header">
+            <div className="user-show-page-buttons">
+              <button onClick={this.handleScroll}>button 1</button>
+              <button>button 2</button>
+              <button>button 3</button>
+              <button>button 4</button>
+            </div>
             <div className="user-index-info">
               <div className="card">
                 <div className="img-thumbnail">
@@ -236,24 +249,25 @@ class UserShow extends React.Component {
               </div>
               {displayUpload()}
             </div>
-            <a href="/">soidjfosjdfjsfdo</a>
-            <div className={`project-text-user-show ${hidePublish}`}>
-              <h2>{publishText}</h2>
-            </div>
-
-            {this.displayProjects('Published')}
-
-            <div className={`project-text-user-show ${hideUnPublish}`}>
-              <h2>{UnpublishText}</h2>
-            </div>
-
-            {this.displayProjects('UnPublished')}
-
-            {this.displayFavorite()}
-
-            <FavoriteShowContainer user={user} />
-            <UserFollowContainer user={user} />
           </div>
+          <a href="/">soidjfosjdfjsfdo</a>
+          <div className={`project-text-user-show ${hidePublish}`}>
+            <h2>{publishText}</h2>
+          </div>
+
+          {this.displayProjects('Published')}
+
+          <div className={`project-text-user-show ${hideUnPublish}`}>
+            <h2>{UnpublishText}</h2>
+          </div>
+
+          {this.displayProjects('UnPublished')}
+
+          {this.displayFavorite()}
+
+          <FavoriteShowContainer user={user} />
+          <UserFollowContainer user={user} />
+          <Element name="myScrollToElement" />
         </div>
       );
     }
