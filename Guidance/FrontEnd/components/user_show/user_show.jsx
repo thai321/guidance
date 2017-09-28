@@ -97,15 +97,17 @@ class UserShow extends React.Component {
     }
   }
 
-  handleScroll() {
-    let scroller = Scroll.scroller;
+  handleScroll(myElement) {
+    return e => {
+      e.preventDefault();
+      let scroller = Scroll.scroller;
 
-    scroller.scrollTo('myScrollToElement', {
-      duration: 1500,
-      delay: 100,
-      smooth: true,
-      offset: 50 // Scrolls to element + 50 pixels down the page
-    });
+      scroller.scrollTo(myElement, {
+        duration: 1500,
+        delay: 100,
+        smooth: true
+      });
+    };
   }
 
   displayFavorite() {
@@ -232,10 +234,27 @@ class UserShow extends React.Component {
         <div className="container-fluid">
           <div className="user-show-page-header">
             <div className="user-show-page-buttons">
-              <button onClick={this.handleScroll}>button 1</button>
-              <button>button 2</button>
-              <button>button 3</button>
-              <button>button 4</button>
+              <button
+                className={`${hidePublish}`}
+                onClick={this.handleScroll('published')}
+              >{`${projectsByUser.length} published projects`}</button>
+              <button
+                className={`${hideUnPublish}`}
+                onClick={this.handleScroll('unPublished')}
+              >
+                button 2
+              </button>
+
+              {user.favorite_projects.length > 0 ? (
+                <button onClick={this.handleScroll('favorite')}>
+                  {`${user.favorite_projects.length} favorite projects`}
+                </button>
+              ) : (
+                ''
+              )}
+
+              <button onClick={this.handleScroll('Following')}>button 4</button>
+              <button onClick={this.handleScroll('Follower')}>button 4</button>
             </div>
             <div className="user-index-info">
               <div className="card">
@@ -251,6 +270,7 @@ class UserShow extends React.Component {
             </div>
           </div>
           <a href="/">soidjfosjdfjsfdo</a>
+          <Element name="published" />
           <div className={`project-text-user-show ${hidePublish}`}>
             <h2>{publishText}</h2>
           </div>
