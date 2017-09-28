@@ -21,7 +21,7 @@ class UserIndexItem extends React.Component {
         <div className="d-block mb-4 h-100">
           <div className="image-border">
             <div className="image-frame-responsive">
-              <img className="img-fluid img-thumbnail" src={image_url} />
+              <img className="img-fluid" src={image_url} />
             </div>
           </div>
           <span className="user-index-item-username">{username}</span>
