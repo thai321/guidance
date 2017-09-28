@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20170926073316) do
   create_table "projects", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
-    t.string "video_url", null: false
+    t.string "video_url"
     t.boolean "published", default: false, null: false
     t.integer "author_id", null: false
     t.datetime "created_at", null: false
