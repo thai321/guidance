@@ -47,11 +47,35 @@ const mapStateToProps = (state, ownProps) => {
     }
   }
 
+  const followerUsers = [];
+  const followeeUsers = [];
+
+  if (user) {
+    const followers = user.followers;
+    const followees = user.followees;
+
+    followers.forEach(id => {
+      const usr = state.entities.users[id];
+      if (usr) {
+        followerUsers.push(usr);
+      }
+    });
+
+    followees.forEach(id => {
+      const usr = state.entities.users[id];
+      if (usr) {
+        followeeUsers.push(usr);
+      }
+    });
+  }
+
   return {
     user,
     currentUser,
     unPublishedProjects,
-    projectsByUser
+    projectsByUser,
+    followerUsers,
+    followeeUsers
   };
 };
 

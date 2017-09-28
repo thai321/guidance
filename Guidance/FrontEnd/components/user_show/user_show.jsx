@@ -8,7 +8,7 @@ import { uniqueId } from '../../util/id_generator';
 import ProjectIndexItem from '../project_index/project_index_item';
 import FavoriteShowContainer from '../favorite_show/favorite_show_container';
 
-import UserFollowContainer from './user_follow_container';
+import UserIndexItem from '../user_index/user_index_item';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -176,11 +176,28 @@ class UserShow extends React.Component {
     }
   }
 
+  displayFollowUsers(users, type) {
+    return users.map((user, idx) => {
+      return (
+        <UserIndexItem
+          key={user.id + user.username + idx + uniqueId()}
+          user={user}
+        />
+      );
+    });
+  }
+
   render() {
     if (!this.props.user) {
       return <div className="loader" />;
     } else {
-      const { user, projectsByUser, unPublishedProjects } = this.props;
+      const {
+        user,
+        projectsByUser,
+        unPublishedProjects,
+        followeeUsers,
+        followerUsers
+      } = this.props;
 
       const publishText =
         projectsByUser.length > 0
@@ -242,19 +259,32 @@ class UserShow extends React.Component {
                 className={`${hideUnPublish}`}
                 onClick={this.handleScroll('unPublished')}
               >
-                button 2
+                {`${unPublishedProjects.length} Published Projects`}
               </button>
 
               {user.favorite_projects.length > 0 ? (
                 <button onClick={this.handleScroll('favorite')}>
-                  {`${user.favorite_projects.length} favorite projects`}
+                  {`${user.favorite_projects.length} Favorite Projects`}
                 </button>
               ) : (
                 ''
               )}
 
-              <button onClick={this.handleScroll('Following')}>button 4</button>
-              <button onClick={this.handleScroll('Follower')}>button 4</button>
+              {followeeUsers.length > 0 ? (
+                <button onClick={this.handleScroll('following')}>
+                  {`${followeeUsers.length} Following`}
+                </button>
+              ) : (
+                ''
+              )}
+
+              {followerUsers.length > 0 ? (
+                <button onClick={this.handleScroll('follower')}>
+                  {`${followerUsers.length} Followers`}
+                </button>
+              ) : (
+                ''
+              )}
             </div>
             <div className="user-index-info">
               <div className="card">
@@ -269,7 +299,7 @@ class UserShow extends React.Component {
               {displayUpload()}
             </div>
           </div>
-          <a href="/">soidjfosjdfjsfdo</a>
+
           <Element name="published" />
           <div className={`project-text-user-show ${hidePublish}`}>
             <h2>{publishText}</h2>
@@ -278,16 +308,42 @@ class UserShow extends React.Component {
           {this.displayProjects('Published')}
 
           <div className={`project-text-user-show ${hideUnPublish}`}>
+            <Element name="unPublished" />
             <h2>{UnpublishText}</h2>
           </div>
 
           {this.displayProjects('UnPublished')}
 
+          <Element name="favorite" />
           {this.displayFavorite()}
 
           <FavoriteShowContainer user={user} />
-          <UserFollowContainer user={user} />
-          <Element name="myScrollToElement" />
+
+          <div className="user-follow-index">
+            {followeeUsers.length === 0 ? (
+              ''
+            ) : (
+              <div className="user-follow-following">
+                <Element name="following" />
+                <h2>{followeeUsers.length} Following</h2>
+                <div className="row">
+                  {this.displayFollowUsers(followeeUsers, 'follower')}
+                </div>
+              </div>
+            )}
+
+            {followerUsers.length === 0 ? (
+              ''
+            ) : (
+              <div className="user-follow-follower">
+                <Element name="follower" />
+                <h2>{followerUsers.length} Followers</h2>
+                <div className="row">
+                  {this.displayFollowUsers(followerUsers, 'followers')}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       );
     }
