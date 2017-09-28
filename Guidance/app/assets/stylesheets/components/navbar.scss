@@ -38,6 +38,7 @@ nav {
   img {
     width: 50px;
     height: 50px;
+    margin-bottom: 7px;
   }
 
   span {
@@ -47,7 +48,7 @@ nav {
     font-weight: 900;
     color: black;
   }
-  span:hover {
+  a span:hover {
     color: rgb(74, 105, 155);
   }
 }
@@ -99,8 +100,10 @@ nav div a {
 .welcome-user-name-image {
   display: flex;
 
-  h1 {
+  span {
     font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    text-align: center;
   }
 }
 
