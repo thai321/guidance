@@ -16421,10 +16421,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var mapStateToProps = function mapStateToProps(state) {
   var projects = [];
 
-  var projectIds = Object.values(state.entities.projects.allIds);
-
-  projectIds.forEach(function (id) {
-    projects.push(state.entities.projects[id]);
+  Object.values(state.entities.projects).reverse().forEach(function (project) {
+    if (project.id) {
+      projects.push(project);
+    }
   });
 
   return {

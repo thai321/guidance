@@ -4,13 +4,13 @@ class Api::ProjectsController < ApplicationController
 
   def index
     if params[:project].nil?
-      @projects = Project.where(published: true).order(updated_at: :desc)
+      @projects = Project.where(published: true)
     elsif project_params[:filter] == 'true'
-      @projects = Project.where(author_id: project_params[:author_id].to_i).where(published: true).order(updated_at: :desc)
+      @projects = Project.where(author_id: project_params[:author_id].to_i).where(published: true)
     elsif project_params[:filter] == 'false'
-      @projects = Project.where(author_id: project_params[:author_id].to_i).order(updated_at: :desc)
+      @projects = Project.where(author_id: project_params[:author_id].to_i)
     else
-      @projects = Project.find(project_params[:project_ids]).order(updated_at: :desc)
+      @projects = Project.find(project_params[:project_ids])
     end
     render :index
     # render json: ['test errors'], status: 422
