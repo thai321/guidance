@@ -6,7 +6,7 @@ const SessionForm = ({ currentUser, login, logout }) =>
     <div className="welcome">
       <div className="welcome-user-name-image">
         <img src={currentUser.image_url} />
-        <h1>Welcome {currentUser.username}</h1>
+        <span>Welcome {currentUser.username}</span>
       </div>
       <div className="session-form-login-button">
         <Link

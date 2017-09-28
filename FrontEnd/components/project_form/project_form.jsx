@@ -117,7 +117,7 @@ class ProjectForm extends React.Component {
     }
 
     const text =
-      this.props.formType === 'new' ? 'Create Guidance' : 'Update Guidance';
+      this.props.formType === 'new' ? 'Save Guidance' : 'Update Guidance';
 
     const header =
       this.props.formType === 'new' ? 'New Guidance' : 'Edit Guidance';

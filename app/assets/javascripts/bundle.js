@@ -45280,7 +45280,7 @@ var SessionForm = function SessionForm(_ref) {
       { className: 'welcome-user-name-image' },
       _react2.default.createElement('img', { src: currentUser.image_url }),
       _react2.default.createElement(
-        'h1',
+        'span',
         null,
         'Welcome ',
         currentUser.username
@@ -71047,7 +71047,7 @@ var ProjectForm = function (_React$Component) {
         return _react2.default.createElement('div', { className: 'loader' });
       }
 
-      var text = this.props.formType === 'new' ? 'Create Guidance' : 'Update Guidance';
+      var text = this.props.formType === 'new' ? 'Save Guidance' : 'Update Guidance';
 
       var header = this.props.formType === 'new' ? 'New Guidance' : 'Edit Guidance';
 
