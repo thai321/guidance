@@ -260,7 +260,7 @@ class UserShow extends React.Component {
                   className={`${hideUnPublish} btn btn-primary`}
                   onClick={this.handleScroll('unPublished')}
                 >
-                  {`${unPublishedProjects.length} Published Projects`}
+                  {`${unPublishedProjects.length} Un-Published Projects`}
                 </button>
 
                 {user.favorite_projects.length > 0 ? (
