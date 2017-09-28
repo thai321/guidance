@@ -45325,7 +45325,7 @@ var SessionForm = function SessionForm(_ref) {
           {
             className: 'btn btn-outline-info',
             onClick: login.bind(undefined, {
-              username: 'ThaiNguyen',
+              username: 'guest',
               password: '123456'
             })
           },
@@ -63112,7 +63112,10 @@ var ProjectShow = function (_React$Component) {
   }, {
     key: 'toggleLike',
     value: function toggleLike() {
-      var favorite = { project_id: this.props.project.id };
+      var favorite = {
+        project_id: this.props.project.id,
+        user_id: this.props.currentUser.id
+      };
 
       if (this.isLiked() === 'Like') {
         this.props.createFavorite(favorite);
