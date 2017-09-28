@@ -24,3 +24,7 @@ end
 json.image_url asset_path(image_url)
 
 json.favorite_users project.favorite_users.map { |user| user.id }
+
+
+json.created_at project.created_at
+json.updated_at project.updated_at

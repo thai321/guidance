@@ -7,11 +7,13 @@ import ProjectIndex from './project_index';
 const mapStateToProps = state => {
   const projects = [];
 
-  const projectIds = Object.values(state.entities.projects.allIds);
-
-  projectIds.forEach(id => {
-    projects.push(state.entities.projects[id]);
-  });
+  Object.values(state.entities.projects)
+    .reverse()
+    .forEach(project => {
+      if (project.id) {
+        projects.push(project);
+      }
+    });
 
   return {
     currentUser: state.session.currentUser,
