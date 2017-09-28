@@ -139,7 +139,7 @@ class ProjectShow extends React.Component {
         return (
           <div className="project-show-buttons-likes">
             <i className={`fa ${thumb} fa-3x`} onClick={this.toggleLike} />
-            <h3>{project.favorite_users.length}</h3>
+            <span>{project.favorite_users.length}</span>
           </div>
         );
       }

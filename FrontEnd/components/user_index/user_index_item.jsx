@@ -19,7 +19,11 @@ class UserIndexItem extends React.Component {
     return (
       <div className="col-lg-3 col-md-4 col-xs-6">
         <div className="d-block mb-4 h-100">
-          <img className="img-fluid img-thumbnail" src={image_url} />
+          <div className="image-border">
+            <div className="image-frame-responsive">
+              <img className="img-fluid" src={image_url} />
+            </div>
+          </div>
           <span className="user-index-item-username">{username}</span>
           <div className="user-index-item-project-info">
             <span>Published projects: {project_ids.length}</span>

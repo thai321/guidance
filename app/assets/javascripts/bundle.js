@@ -28859,7 +28859,15 @@ var UserIndexItem = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'd-block mb-4 h-100' },
-          _react2.default.createElement('img', { className: 'img-fluid img-thumbnail', src: image_url }),
+          _react2.default.createElement(
+            'div',
+            { className: 'image-border' },
+            _react2.default.createElement(
+              'div',
+              { className: 'image-frame-responsive' },
+              _react2.default.createElement('img', { className: 'img-fluid', src: image_url })
+            )
+          ),
           _react2.default.createElement(
             'span',
             { className: 'user-index-item-username' },
@@ -63137,7 +63145,7 @@ var ProjectShow = function (_React$Component) {
             { className: 'project-show-buttons-likes' },
             _react2.default.createElement('i', { className: 'fa ' + thumb + ' fa-3x', onClick: _this3.toggleLike }),
             _react2.default.createElement(
-              'h3',
+              'span',
               null,
               project.favorite_users.length
             )

@@ -16,19 +16,6 @@
   border-top: 2px solid black;
 }
 
-// .project-show img {
-//   display: block;
-//   width: 100%;
-//   height: 5%;
-//   // position: relative;
-//
-//   min-width: 90%;
-//   min-height: 90%;
-//   position: relative;
-//   // left: -5px;
-//   // right: 20px;
-// }
-
 .project-show-img {
   display: flex;
 
@@ -36,7 +23,6 @@
   width: 50%;
   height: 70%;
 
-  // max-width: 100%;
   margin-bottom: 10px;
 }
 
@@ -91,9 +77,6 @@
     height: 400px;
     max-width: 560px;
     min-height: 100px;
-
-    // width="560"
-    // height="315"
   }
 
   span {
@@ -126,9 +109,18 @@
 }
 
 .project-show-buttons-likes {
-  padding-top: 10px;
+  padding-top: 6px;
   margin-left: 10px;
   display: flex;
+
+  .fa-3x {
+    font-size: 3.5em;
+  }
+
+  span {
+    font-family: 'Saira', sans-serif;
+    font-size: xx-large;
+  }
 }
 
 .project-show-button-user-project {
