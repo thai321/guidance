@@ -251,41 +251,55 @@ class UserShow extends React.Component {
         <div className="container-fluid">
           <div className="user-show-page-header">
             <div className="user-show-page-buttons">
-              <button
-                className={`${hidePublish}`}
-                onClick={this.handleScroll('published')}
-              >{`${projectsByUser.length} published projects`}</button>
-              <button
-                className={`${hideUnPublish}`}
-                onClick={this.handleScroll('unPublished')}
-              >
-                {`${unPublishedProjects.length} Published Projects`}
-              </button>
-
-              {user.favorite_projects.length > 0 ? (
-                <button onClick={this.handleScroll('favorite')}>
-                  {`${user.favorite_projects.length} Favorite Projects`}
+              <div className="user-show-page-buttons-projects">
+                <button
+                  className={`${hidePublish} btn btn-success`}
+                  onClick={this.handleScroll('published')}
+                >{`${projectsByUser.length} published projects`}</button>
+                <button
+                  className={`${hideUnPublish} btn btn-primary`}
+                  onClick={this.handleScroll('unPublished')}
+                >
+                  {`${unPublishedProjects.length} Published Projects`}
                 </button>
-              ) : (
-                ''
-              )}
 
-              {followeeUsers.length > 0 ? (
-                <button onClick={this.handleScroll('following')}>
-                  {`${followeeUsers.length} Following`}
-                </button>
-              ) : (
-                ''
-              )}
+                {user.favorite_projects.length > 0 ? (
+                  <button
+                    className="btn btn-success"
+                    onClick={this.handleScroll('favorite')}
+                  >
+                    {`${user.favorite_projects.length} Favorite Projects`}
+                  </button>
+                ) : (
+                  ''
+                )}
+              </div>
 
-              {followerUsers.length > 0 ? (
-                <button onClick={this.handleScroll('follower')}>
-                  {`${followerUsers.length} Followers`}
-                </button>
-              ) : (
-                ''
-              )}
+              <div className="user-show-follow-buttons">
+                {followeeUsers.length > 0 ? (
+                  <button
+                    className="btn btn-outline-primary"
+                    onClick={this.handleScroll('following')}
+                  >
+                    {`${followeeUsers.length} Following`}
+                  </button>
+                ) : (
+                  ''
+                )}
+
+                {followerUsers.length > 0 ? (
+                  <button
+                    className="btn btn-outline-success"
+                    onClick={this.handleScroll('follower')}
+                  >
+                    {`${followerUsers.length} Followers`}
+                  </button>
+                ) : (
+                  ''
+                )}
+              </div>
             </div>
+
             <div className="user-index-info">
               <div className="card">
                 <div className="img-thumbnail">
