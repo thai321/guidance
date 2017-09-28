@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170926073316) do
+ActiveRecord::Schema.define(version: 20170928144743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,22 @@ ActiveRecord::Schema.define(version: 20170926073316) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
+  create_table "projectTags", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "tag_id"], name: "index_projectTags_on_project_id_and_tag_id", unique: true
+  end
+
+  create_table "project_tags", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "tag_id"], name: "index_project_tags_on_project_id_and_tag_id", unique: true
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "title", null: false
     t.text "description", null: false
@@ -69,6 +85,13 @@ ActiveRecord::Schema.define(version: 20170926073316) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_steps_on_project_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|

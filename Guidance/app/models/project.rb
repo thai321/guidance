@@ -5,7 +5,7 @@
 #  id                 :integer          not null, primary key
 #  title              :string           not null
 #  description        :text             not null
-#  video_url          :string           not null
+#  video_url          :string
 #  published          :boolean          default(FALSE), not null
 #  author_id          :integer          not null
 #  created_at         :datetime         not null
@@ -46,12 +46,16 @@ class Project < ApplicationRecord
     primary_key: :id,
     foreign_key: :project_id,
     class_name: :Comment,
-    inverse_of: :project
+    inverse_of: :project,
+    dependent: :destroy
 
   has_many :favorites
   has_many :favorite_users,
     through: :favorites,
     source: :user
+
+  has_many :project_tags
+  has_many :tags, through: :project_tags, inverse_of: :projects
 
 
 

@@ -5,7 +5,7 @@
 #  id                 :integer          not null, primary key
 #  title              :string           not null
 #  description        :text             not null
-#  video_url          :string           not null
+#  video_url          :string
 #  published          :boolean          default(FALSE), not null
 #  author_id          :integer          not null
 #  created_at         :datetime         not null
