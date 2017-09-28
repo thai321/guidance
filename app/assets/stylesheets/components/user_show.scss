@@ -32,7 +32,6 @@
 .user-show-projects {
   display: flex;
   list-style: none;
-  // background-color: gray;
   width: 97%;
   margin: 0 auto;
 }
@@ -41,5 +40,31 @@
   margin-left: 100px;
 }
 
-.user-show-info {
+.user-show-page-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.user-show-page-buttons {
+  display: flex;
+  flex: 1;
+
+  justify-content: center;
+  align-items: center;
+
+  button {
+    margin-top: 5px;
+  }
+
+  .user-show-page-buttons-projects {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+
+  .user-show-follow-buttons {
+    display: flex;
+    flex-direction: column;
+  }
 }

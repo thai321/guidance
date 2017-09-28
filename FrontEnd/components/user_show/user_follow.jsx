@@ -9,7 +9,7 @@ class UserFollow extends React.Component {
     super(props);
   }
 
-  displayFollow(users, type) {
+  displayFollowUsers(users, type) {
     return users.map((user, idx) => {
       return (
         <UserIndexItem
@@ -30,9 +30,10 @@ class UserFollow extends React.Component {
           ''
         ) : (
           <div className="user-follow-following">
+            <Element name="following" />
             <h2>{followeeUsers.length} Following</h2>
             <div className="row">
-              {this.displayFollow(followeeUsers, 'follower')}
+              {this.displayFollowUsers(followeeUsers, 'follower')}
             </div>
           </div>
         )}
@@ -41,6 +42,7 @@ class UserFollow extends React.Component {
           ''
         ) : (
           <div className="user-follow-follower">
+            <Element name="follower" />
             <h2>{followerUsers.length} Followers</h2>
             <div className="row">
               {this.displayFollow(followerUsers, 'followers')}
