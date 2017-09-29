@@ -28,7 +28,7 @@ const SessionForm = ({ currentUser, login, logout }) =>
           <button
             className="btn btn-outline-info"
             onClick={login.bind(this, {
-              username: 'ThaiNguyen',
+              username: 'guest',
               password: '123456'
             })}
           >

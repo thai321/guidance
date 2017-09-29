@@ -68,7 +68,7 @@ class StepForm extends React.Component {
     const header =
       this.props.formType === 'new'
         ? 'New Step'
-        : `Edit Step ${this.props.idx + 1}`;
+        : `Edit Step ${this.props.idx}`;
 
     return (
       <div>

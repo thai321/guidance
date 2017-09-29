@@ -20,7 +20,7 @@ class Project < ApplicationRecord
   validates :title, presence: true
   validates :published, inclusion: [true, false]
 
-  default_scope -> { order(created_at: :desc) }
+  # default_scope -> { order(created_at: :desc) }
 
   has_attached_file :image, default_url: "default_project.png",styles: {
    medium: '300x300>'

@@ -39,6 +39,7 @@ gem "paperclip"
 gem "figaro"
 gem 'aws-sdk', '< 3.0'
 gem 'newrelic_rpm'
+gem 'seed_dump'
 
 
 

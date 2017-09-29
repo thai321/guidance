@@ -109,7 +109,10 @@ class ProjectShow extends React.Component {
   }
 
   toggleLike() {
-    const favorite = { project_id: this.props.project.id };
+    const favorite = {
+      project_id: this.props.project.id,
+      user_id: this.props.currentUser.id
+    };
 
     if (this.isLiked() === 'Like') {
       this.props.createFavorite(favorite);

@@ -22,7 +22,8 @@ class StepItem extends React.Component {
       return (
         <div className="step-item-buttons">
           <div>
-            <span className="step-item-count">Step {count}</span>
+            <span className="step-item-count">Step {count}:</span>
+            <span className="step-item-title">{title}</span>
           </div>
 
           {editButton()}
@@ -35,7 +36,6 @@ class StepItem extends React.Component {
         <div className="step-item">
           {displayButtons(author.id)}
 
-          <span className="step-item-title">{title}</span>
           <div
             className="ql-editor"
             dangerouslySetInnerHTML={{ __html: body }}
