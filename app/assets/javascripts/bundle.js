@@ -63430,7 +63430,7 @@ var ProjectShow = function (_React$Component) {
     value: function toggleLike() {
       var favorite = {
         project_id: this.props.project.id,
-        user_id: this.props.currentUser.id
+        user_id: this.props.currentUser ? this.props.currentUser.id : null
       };
 
       if (this.isLiked() === 'Like') {
