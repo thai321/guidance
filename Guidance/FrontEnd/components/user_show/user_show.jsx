@@ -79,8 +79,8 @@ class UserShow extends React.Component {
         .updateUserOption(formData, currentUser.id)
         .then(this.setState({ loading: false }))
         .then(window.location.reload());
+      this.setState({ loading: true });
     }
-    this.setState({ loading: true });
   }
 
   updateFile(e) {
