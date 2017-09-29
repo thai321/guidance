@@ -6,6 +6,10 @@ class NavLink extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchTags();
+  }
+
   render() {
     return (
       <nav className="navbar navbar-custom">

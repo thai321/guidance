@@ -60,7 +60,7 @@ class Api::ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:id, :title, :description, :video_url, :published, :author_id, :image, :filter, project_ids: [])
+    params.require(:project).permit(:id, :title, :description, :video_url, :published, :author_id, :image, :filter, project_ids: [], tags_ids: [])
   end
 
   def require_user!
