@@ -105,7 +105,8 @@ class UserShow extends React.Component {
       scroller.scrollTo(myElement, {
         duration: 1500,
         delay: 100,
-        smooth: true
+        smooth: true,
+        offset: -80
       });
     };
   }
@@ -324,8 +325,8 @@ class UserShow extends React.Component {
 
           {this.displayProjects('Published')}
 
+          <Element name="unPublished" />
           <div className={`project-text-user-show ${hideUnPublish}`}>
-            <Element name="unPublished" />
             <h2>{UnpublishText}</h2>
           </div>
 

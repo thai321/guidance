@@ -10,7 +10,7 @@ export const fetchProjects = (arg, filter = true) => {
       url: 'api/projects',
       data: { project: { project_ids: arg } }
     });
-  } else {
+  } else if (typeof arg === 'number') {
     return $.ajax({
       method: 'GET',
       url: 'api/projects',
