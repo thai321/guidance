@@ -71,3 +71,8 @@ export const fetchFavoriteProjects = projectIds => dispatch =>
   ProjectApiUtil.fetchProjects(projectIds)
     .then(projects => dispatch(receiveFavoriteProjects(projects)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
+
+export const fetchTagProjects = name => dispatch =>
+  ProjectApiUtil.fetchProjects(name)
+    .then(projects => dispatch(receiveAllProjects(projects)))
+    .fail(errors => dispatch(receiveErrors(errors.responseJSON)));

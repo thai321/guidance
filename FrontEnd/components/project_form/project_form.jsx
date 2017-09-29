@@ -18,6 +18,7 @@ class ProjectForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleTagChange = this.handleTagChange.bind(this);
   }
 
   handleChange(value) {
@@ -114,6 +115,13 @@ class ProjectForm extends React.Component {
     );
   }
 
+  handleTagChange(e) {
+    e.preventDefault();
+    const value = e.currentTarget.querySelector('input').value;
+    this.setState({ tags: [...this.state.tags, value] });
+    debugger;
+  }
+
   render() {
     if (!this.props.project) {
       return <div className="loader" />;
@@ -163,6 +171,31 @@ class ProjectForm extends React.Component {
               value={this.state.title}
               onChange={this.update('title')}
             />
+          </div>
+
+          <div className="btn-group" data-toggle="buttons">
+            <label
+              onClick={this.handleTagChange}
+              className="btn btn-outline-primary active"
+            >
+              <input
+                type="checkbox"
+                value="Arduino"
+                autoComplete="off"
+              />Arduino
+            </label>
+            <label className="btn btn-outline-danger">
+              <input type="checkbox" autoComplete="off" />Math
+            </label>
+            <label className="btn btn-outline-info">
+              <input type="checkbox" autoComplete="off" />Computer Science
+            </label>
+            <label className="btn btn-outline-success">
+              <input type="checkbox" autoComplete="off" />Music
+            </label>
+            <label className="btn btn-outline-secondary">
+              <input type="checkbox" autoComplete="off" />Other
+            </label>
           </div>
 
           <div className="project-form-description">

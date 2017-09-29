@@ -2053,7 +2053,7 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchFavoriteProjects = exports.updateProjectOption = exports.createProjectOption = exports.deleteProject = exports.updateProject = exports.createProject = exports.fetchProject = exports.fetchProjects = exports.receiveErrors = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_FAVORITE_PROJECTS = exports.REMOVE_PROJECT = exports.RECEIVE_PROJECT = exports.RECEIVE_ALL_PROJECTS = undefined;
+exports.fetchTagProjects = exports.fetchFavoriteProjects = exports.updateProjectOption = exports.createProjectOption = exports.deleteProject = exports.updateProject = exports.createProject = exports.fetchProject = exports.fetchProjects = exports.receiveErrors = exports.RECEIVE_SESSION_ERRORS = exports.RECEIVE_FAVORITE_PROJECTS = exports.REMOVE_PROJECT = exports.RECEIVE_PROJECT = exports.RECEIVE_ALL_PROJECTS = undefined;
 
 var _project_api_util = __webpack_require__(56);
 
@@ -2177,6 +2177,16 @@ var fetchFavoriteProjects = exports.fetchFavoriteProjects = function fetchFavori
   return function (dispatch) {
     return ProjectApiUtil.fetchProjects(projectIds).then(function (projects) {
       return dispatch(receiveFavoriteProjects(projects));
+    }).fail(function (errors) {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+var fetchTagProjects = exports.fetchTagProjects = function fetchTagProjects(name) {
+  return function (dispatch) {
+    return ProjectApiUtil.fetchProjects(name).then(function (projects) {
+      return dispatch(receiveAllProjects(projects));
     }).fail(function (errors) {
       return dispatch(receiveErrors(errors.responseJSON));
     });
@@ -5815,6 +5825,12 @@ var fetchProjects = exports.fetchProjects = function fetchProjects(arg) {
       method: 'GET',
       url: 'api/projects',
       data: { project: { author_id: arg, filter: filter } }
+    });
+  } else {
+    return $.ajax({
+      method: 'GET',
+      url: 'api/projects',
+      data: { project: { tag_name: arg } }
     });
   }
 };
@@ -45016,6 +45032,10 @@ var _notification_container = __webpack_require__(497);
 
 var _notification_container2 = _interopRequireDefault(_notification_container);
 
+var _project_tag_container = __webpack_require__(505);
+
+var _project_tag_container2 = _interopRequireDefault(_project_tag_container);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -45038,6 +45058,7 @@ var App = function App() {
           _reactRouterDom.Switch,
           null,
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _project_index_container2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/tags/:name', component: _project_tag_container2.default }),
           _react2.default.createElement(_route_util.ProtectedRoute, {
             path: '/projects/new',
             component: _project_form_container2.default
@@ -71160,6 +71181,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     description: '',
     imageFile: null,
     video_url: '',
+    tags: [],
     author_id: state.session.currentUser.id
   };
   var formType = 'new';
@@ -71222,6 +71244,8 @@ var _project_api_util = __webpack_require__(56);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71243,6 +71267,7 @@ var ProjectForm = function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.updateFile = _this.updateFile.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleTagChange = _this.handleTagChange.bind(_this);
     return _this;
   }
 
@@ -71349,6 +71374,14 @@ var ProjectForm = function (_React$Component) {
       );
     }
   }, {
+    key: 'handleTagChange',
+    value: function handleTagChange(e) {
+      e.preventDefault();
+      var value = e.currentTarget.querySelector('input').value;
+      this.setState({ tags: [].concat(_toConsumableArray(this.state.tags), [value]) });
+      debugger;
+    }
+  }, {
     key: 'render',
     value: function render() {
       if (!this.props.project) {
@@ -71411,6 +71444,47 @@ var ProjectForm = function (_React$Component) {
               value: this.state.title,
               onChange: this.update('title')
             })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'btn-group', 'data-toggle': 'buttons' },
+            _react2.default.createElement(
+              'label',
+              {
+                onClick: this.handleTagChange,
+                className: 'btn btn-outline-primary active'
+              },
+              _react2.default.createElement('input', {
+                type: 'checkbox',
+                value: 'Arduino',
+                autoComplete: 'off'
+              }),
+              'Arduino'
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'btn btn-outline-danger' },
+              _react2.default.createElement('input', { type: 'checkbox', autoComplete: 'off' }),
+              'Math'
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'btn btn-outline-info' },
+              _react2.default.createElement('input', { type: 'checkbox', autoComplete: 'off' }),
+              'Computer Science'
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'btn btn-outline-success' },
+              _react2.default.createElement('input', { type: 'checkbox', autoComplete: 'off' }),
+              'Music'
+            ),
+            _react2.default.createElement(
+              'label',
+              { className: 'btn btn-outline-secondary' },
+              _react2.default.createElement('input', { type: 'checkbox', autoComplete: 'off' }),
+              'Other'
+            )
           ),
           _react2.default.createElement(
             'div',
@@ -74009,6 +74083,123 @@ var projectByIds = exports.projectByIds = function projectByIds(ids) {
 
   return projects;
 };
+
+/***/ }),
+/* 505 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _reactRedux = __webpack_require__(10);
+
+var _project_actions = __webpack_require__(19);
+
+var _project_tag = __webpack_require__(506);
+
+var _project_tag2 = _interopRequireDefault(_project_tag);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  debugger;
+  var projects = [];
+
+  Object.values(state.entities.projects).reverse().forEach(function (project) {
+    if (project.id) {
+      projects.push(project);
+    }
+  });
+
+  return {
+    currentUser: state.session.currentUser,
+    // tagName
+    projects: projects
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchTagProjects: function fetchTagProjects(name) {
+      return dispatch((0, _project_actions.fetchTagProjects)(name));
+    }
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_project_tag2.default);
+
+/***/ }),
+/* 506 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProjectTag = function (_React$Component) {
+  _inherits(ProjectTag, _React$Component);
+
+  function ProjectTag(props) {
+    _classCallCheck(this, ProjectTag);
+
+    return _possibleConstructorReturn(this, (ProjectTag.__proto__ || Object.getPrototypeOf(ProjectTag)).call(this, props));
+  }
+
+  _createClass(ProjectTag, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchTagProjects(this.props.match.params.name);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var currentTag = this.props.match.params.name;
+      var nextTag = nextProps.match.params.name;
+
+      if (nextTag !== currentTag) {
+        this.props.fetchProjects(nextTag);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Project Tag Page'
+        )
+      );
+    }
+  }]);
+
+  return ProjectTag;
+}(_react2.default.Component);
+
+exports.default = ProjectTag;
 
 /***/ })
 /******/ ]);

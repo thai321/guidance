@@ -19,6 +19,8 @@ import UserShowContainer from './user_show/user_show_container';
 
 import NotificationContainer from './notification/notification_container';
 
+import ProjectTagContainer from './project_tag/project_tag_container';
+
 const App = () => (
   <div>
     <NotificationContainer />
@@ -33,12 +35,10 @@ const App = () => (
         <AuthRoute path="/signup" component={SessionFormContainer} />
 
         <Switch>
-          <Route exact path={`/`} component={ProjectIndexContainer} />
-          {/*<Route
-            exact
-            path={`/tags/:tagName`}
-            component={TagProjectIndexContainer}
-          /> */}
+          <Route exact path="/" component={ProjectIndexContainer} />
+
+          <Route exact path="/tags/:name" component={ProjectTagContainer} />
+
           <ProtectedRoute
             path="/projects/new"
             component={ProjectFormContainer}
