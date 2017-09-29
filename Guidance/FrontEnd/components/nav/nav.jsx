@@ -53,7 +53,7 @@ class Nav extends React.Component {
     const hideLogout = currentUser ? '' : 'none';
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div className="container">
           <Link to="/" className="navbar-brand">
             <img
