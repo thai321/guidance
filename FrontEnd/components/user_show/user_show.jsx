@@ -79,8 +79,8 @@ class UserShow extends React.Component {
         .updateUserOption(formData, currentUser.id)
         .then(this.setState({ loading: false }))
         .then(window.location.reload());
+      this.setState({ loading: true });
     }
-    this.setState({ loading: true });
   }
 
   updateFile(e) {
@@ -169,7 +169,10 @@ class UserShow extends React.Component {
     } else {
       follow = { follower_id: currentUser.id, followee_id: user.id };
       if (this.isFollowed() === 'Follow') {
-        this.props.createFollow(follow);
+        this.props.createFollow(follow).then(() => {
+          this.props.fetchFollowers(this.props.user.id);
+          this.props.fetchFollowees(this.props.user.id);
+        });
       } else {
         this.props.deteleFollow(follow);
       }

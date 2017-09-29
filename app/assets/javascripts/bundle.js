@@ -44885,6 +44885,10 @@ var _nav_container = __webpack_require__(353);
 
 var _nav_container2 = _interopRequireDefault(_nav_container);
 
+var _nav_link = __webpack_require__(500);
+
+var _nav_link2 = _interopRequireDefault(_nav_link);
+
 var _session_form_container = __webpack_require__(357);
 
 var _session_form_container2 = _interopRequireDefault(_session_form_container);
@@ -44933,39 +44937,47 @@ var App = function App() {
     // return (
     _react2.default.createElement(
       'div',
-      { className: 'app' },
+      null,
       _react2.default.createElement(_notification_container2.default, null),
       _react2.default.createElement(_nav_container2.default, null),
+      _react2.default.createElement(_nav_link2.default, null),
       _react2.default.createElement(
         'div',
-        { className: 'main-app' },
-        _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _session_form_container2.default }),
-        _react2.default.createElement(_route_util.AuthRoute, { path: '/demo', component: _session_form_container2.default }),
-        _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _session_form_container2.default }),
+        { className: 'app' },
         _react2.default.createElement(
-          _reactRouterDom.Switch,
-          null,
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _project_index_container2.default }),
-          _react2.default.createElement(_route_util.ProtectedRoute, { path: '/projects/new', component: _project_form_container2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, {
-            exact: true,
-            path: '/projects/:projectId',
-            component: _project_show_container2.default
-          }),
-          _react2.default.createElement(_route_util.ProtectedRoute, {
-            path: '/projects/:projectId/edit',
-            component: _project_form_container2.default
-          }),
-          _react2.default.createElement(_route_util.ProtectedRoute, {
-            path: '/projects/:projectId/steps/new',
-            component: _step_form_container2.default
-          }),
-          _react2.default.createElement(_route_util.ProtectedRoute, {
-            path: '/projects/:projectId/steps/:stepId/edit',
-            component: _step_form_container2.default
-          }),
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users', component: _user_index_container2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users/:userId', component: _user_show_container2.default })
+          'div',
+          { className: 'main-app' },
+          _react2.default.createElement(_route_util.AuthRoute, { path: '/login', component: _session_form_container2.default }),
+          _react2.default.createElement(_route_util.AuthRoute, { path: '/demo', component: _session_form_container2.default }),
+          _react2.default.createElement(_route_util.AuthRoute, { path: '/signup', component: _session_form_container2.default }),
+          _react2.default.createElement(
+            _reactRouterDom.Switch,
+            null,
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _project_index_container2.default }),
+            _react2.default.createElement(_route_util.ProtectedRoute, {
+              path: '/projects/new',
+              component: _project_form_container2.default
+            }),
+            _react2.default.createElement(_reactRouterDom.Route, {
+              exact: true,
+              path: '/projects/:projectId',
+              component: _project_show_container2.default
+            }),
+            _react2.default.createElement(_route_util.ProtectedRoute, {
+              path: '/projects/:projectId/edit',
+              component: _project_form_container2.default
+            }),
+            _react2.default.createElement(_route_util.ProtectedRoute, {
+              path: '/projects/:projectId/steps/new',
+              component: _step_form_container2.default
+            }),
+            _react2.default.createElement(_route_util.ProtectedRoute, {
+              path: '/projects/:projectId/steps/:stepId/edit',
+              component: _step_form_container2.default
+            }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users', component: _user_index_container2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/users/:userId', component: _user_show_container2.default })
+          )
         )
       )
     )
@@ -45052,6 +45064,8 @@ var _reactRedux = __webpack_require__(11);
 
 var _reactRouterDom = __webpack_require__(6);
 
+var _session_actions = __webpack_require__(39);
+
 var _nav = __webpack_require__(354);
 
 var _nav2 = _interopRequireDefault(_nav);
@@ -45064,7 +45078,18 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   };
 };
 
-exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, null)(_nav2.default));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    logout: function logout() {
+      return dispatch((0, _session_actions.logout)());
+    },
+    login: function login(user) {
+      return dispatch((0, _session_actions.login)(user));
+    }
+  };
+};
+
+exports.default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_nav2.default));
 
 /***/ }),
 /* 354 */
@@ -45161,48 +45186,130 @@ var Nav = function (_React$Component) {
 
       var text = "Let's Make ...";
 
+      var hideLogin = currentUser ? 'none' : '';
+      var hideLogout = currentUser ? '' : 'none';
+
       return _react2.default.createElement(
-        'div',
-        null,
+        'nav',
+        { className: 'navbar navbar-expand-lg navbar-dark bg-dark' },
         _react2.default.createElement(
-          'nav',
-          { className: 'navbar navbar-expand-lg fixed-top', id: 'mainNav' },
+          'div',
+          { className: 'container' },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/', className: 'navbar-brand' },
-            _react2.default.createElement('img', { src: 'https://learningpolicyinstitute.org/sites/all/themes/lpi2016/images/large-external-link-icon.svg' }),
+            _react2.default.createElement('img', {
+              className: 'd-inline-block align-top',
+              src: 'https://learningpolicyinstitute.org/sites/all/themes/lpi2016/images/large-external-link-icon.svg'
+            }),
             _react2.default.createElement(
               'span',
-              null,
+              { className: 'nav-logo-name' },
               'Guidance App'
             )
           ),
           _react2.default.createElement(
-            'div',
-            { className: 'container' },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/users', className: 'all-teachers' },
-              'Teachers |'
-            ),
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/users', className: 'all-teachers' },
-              'Math |'
-            ),
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/users', className: 'all-teachers' },
-              'Computer Science |'
-            ),
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/users', className: 'all-teachers' },
-              'Music'
-            )
+            'button',
+            {
+              className: 'navbar-toggler',
+              type: 'button',
+              'data-toggle': 'collapse',
+              'data-target': '#navbarResponsive',
+              'aria-controls': 'navbarResponsive',
+              'aria-expanded': 'false',
+              'aria-label': 'Toggle navigation'
+            },
+            _react2.default.createElement('span', { className: 'navbar-toggler-icon' })
           ),
-          this.displayNewProjectButton(),
-          _react2.default.createElement(_session_buttons_container2.default, null)
+          _react2.default.createElement(
+            'div',
+            { className: 'collapse navbar-collapse', id: 'navbarResponsive' },
+            _react2.default.createElement(
+              'ul',
+              { className: 'navbar-nav ml-auto' },
+              _react2.default.createElement(
+                'button',
+                {
+                  className: 'btn btn-outline-info ' + hideLogin,
+                  onClick: this.props.login.bind(this, {
+                    username: 'guest',
+                    password: '123456'
+                  })
+                },
+                'DEMO'
+              ),
+              _react2.default.createElement(
+                'li',
+                { className: 'nav-item ' + hideLogin },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { className: 'nav-link btn btn-outline-primary', to: '/signup' },
+                  _react2.default.createElement(
+                    'span',
+                    null,
+                    'Signup'
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                { className: 'nav-item ' + hideLogin },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { className: 'nav-link btn btn-outline-success', to: '/login' },
+                  'Login'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                { className: 'nav-item' },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  {
+                    className: 'nav-link btn btn-sm btn-outline-success ' + hideLogout,
+                    to: '/projects/new'
+                  },
+                  'Write a Guidance'
+                )
+              ),
+              _react2.default.createElement(
+                'li',
+                { className: 'nav-item' },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  {
+                    className: 'nav-link btn btn-sm btn-outline-info dash-board ' + hideLogout,
+                    to: currentUser ? '/users/' + currentUser.id : '/'
+                  },
+                  'Dash Board'
+                )
+              ),
+              _react2.default.createElement(
+                'button',
+                {
+                  className: 'btn btn-outline-danger ' + hideLogout,
+                  onClick: this.props.logout
+                },
+                'Log Out'
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'welcome-user-name-image ' + hideLogout },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: currentUser ? '/users/' + currentUser.id : '/' },
+                  _react2.default.createElement(
+                    'span',
+                    null,
+                    'Welcome ',
+                    currentUser ? currentUser.username : '',
+                    ' '
+                  ),
+                  _react2.default.createElement('img', { src: currentUser ? currentUser.image_url : '/' })
+                )
+              )
+            )
+          )
         )
       );
     }
@@ -71862,8 +71969,8 @@ var UserShow = function (_React$Component) {
       if (this.state.imageFile) {
         formData.append('user[image]', this.state.imageFile);
         this.props.updateUserOption(formData, currentUser.id).then(this.setState({ loading: false })).then(window.location.reload());
+        this.setState({ loading: true });
       }
-      this.setState({ loading: true });
     }
   }, {
     key: 'updateFile',
@@ -71959,6 +72066,8 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'toggleFollow',
     value: function toggleFollow() {
+      var _this6 = this;
+
       var _props3 = this.props,
           currentUser = _props3.currentUser,
           user = _props3.user;
@@ -71969,7 +72078,10 @@ var UserShow = function (_React$Component) {
       } else {
         follow = { follower_id: currentUser.id, followee_id: user.id };
         if (this.isFollowed() === 'Follow') {
-          this.props.createFollow(follow);
+          this.props.createFollow(follow).then(function () {
+            _this6.props.fetchFollowers(_this6.props.user.id);
+            _this6.props.fetchFollowees(_this6.props.user.id);
+          });
         } else {
           this.props.deteleFollow(follow);
         }
@@ -71988,7 +72100,7 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
       if (!this.props.user) {
         return _react2.default.createElement('div', { className: 'loader' });
@@ -72008,7 +72120,7 @@ var UserShow = function (_React$Component) {
         var hideUnPublish = UnpublishText === '' ? 'none' : '';
 
         var displayUpload = function displayUpload() {
-          var currentUser = _this6.props.currentUser;
+          var currentUser = _this7.props.currentUser;
 
           if (currentUser && currentUser.id === user.id) {
             return _react2.default.createElement(
@@ -72020,14 +72132,14 @@ var UserShow = function (_React$Component) {
                 _react2.default.createElement('input', {
                   type: 'file',
                   placeholder: 'Upload Photo',
-                  onChange: _this6.updateFile,
+                  onChange: _this7.updateFile,
                   accept: 'image/*'
                 }),
                 _react2.default.createElement('input', {
                   className: 'submit-btn btn btn-primary',
                   type: 'submit',
-                  disabled: _this6.state.loading,
-                  onClick: _this6.handleSubmit
+                  disabled: _this7.state.loading,
+                  onClick: _this7.handleSubmit
                 })
               )
             );
@@ -72039,9 +72151,9 @@ var UserShow = function (_React$Component) {
             'button',
             {
               className: 'btn btn-warning btn-block',
-              onClick: _this6.toggleFollow
+              onClick: _this7.toggleFollow
             },
-            _this6.isFollowed()
+            _this7.isFollowed()
           );
         };
 
@@ -73698,6 +73810,71 @@ var projectByIds = exports.projectByIds = function projectByIds(ids) {
 
   return projects;
 };
+
+/***/ }),
+/* 500 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(6);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NavLink = function (_React$Component) {
+  _inherits(NavLink, _React$Component);
+
+  function NavLink(props) {
+    _classCallCheck(this, NavLink);
+
+    return _possibleConstructorReturn(this, (NavLink.__proto__ || Object.getPrototypeOf(NavLink)).call(this, props));
+  }
+
+  _createClass(NavLink, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'nav',
+        { className: 'navbar navbar-custom' },
+        _react2.default.createElement(
+          'div',
+          { className: 'navbar-custom-links' },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/users', className: '' },
+            'All Teachers'
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/', className: '' },
+            'Guidance App'
+          )
+        )
+      );
+    }
+  }]);
+
+  return NavLink;
+}(_react2.default.Component);
+
+exports.default = NavLink;
 
 /***/ })
 /******/ ]);
