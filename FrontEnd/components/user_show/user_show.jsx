@@ -77,9 +77,14 @@ class UserShow extends React.Component {
       formData.append('user[image]', this.state.imageFile);
       this.props
         .updateUserOption(formData, currentUser.id)
-        .then(this.setState({ loading: false }))
-        .then(window.location.reload());
-      this.setState({ loading: true });
+        .then(this.setState({ loading: true }), () =>
+          window.location.reload().then(this.setState({ loading: false }))
+        );
+      // window.location.reload();
+      // window.location.reload();
+      // .then(setTimeout(() => window.location.reload()), 5000);
+
+      // this.setState({ loading: true });
     }
   }
 

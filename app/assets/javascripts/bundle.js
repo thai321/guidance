@@ -71379,7 +71379,6 @@ var ProjectForm = function (_React$Component) {
       e.preventDefault();
       var value = e.currentTarget.querySelector('input').value;
       this.setState({ tags: [].concat(_toConsumableArray(this.state.tags), [value]) });
-      debugger;
     }
   }, {
     key: 'render',
@@ -72229,6 +72228,8 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
+      var _this4 = this;
+
       e.preventDefault();
       var currentUser = this.props.currentUser;
 
@@ -72240,21 +72241,27 @@ var UserShow = function (_React$Component) {
 
       if (this.state.imageFile) {
         formData.append('user[image]', this.state.imageFile);
-        this.props.updateUserOption(formData, currentUser.id).then(this.setState({ loading: false })).then(window.location.reload());
-        this.setState({ loading: true });
+        this.props.updateUserOption(formData, currentUser.id).then(this.setState({ loading: true }), function () {
+          return window.location.reload().then(_this4.setState({ loading: false }));
+        });
+        // window.location.reload();
+        // window.location.reload();
+        // .then(setTimeout(() => window.location.reload()), 5000);
+
+        // this.setState({ loading: true });
       }
     }
   }, {
     key: 'updateFile',
     value: function updateFile(e) {
-      var _this4 = this;
+      var _this5 = this;
 
       e.preventDefault();
       var file = e.currentTarget.files[0];
       var fileReader = new FileReader();
 
       fileReader.onloadend = function () {
-        _this4.setState({ imageFile: file, image_url: fileReader.result });
+        _this5.setState({ imageFile: file, image_url: fileReader.result });
       };
 
       if (file) {
@@ -72299,7 +72306,7 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'displayProjects',
     value: function displayProjects(type) {
-      var _this5 = this;
+      var _this6 = this;
 
       var projects = type === 'Published' ? this.props.projectsByUser : this.props.unPublishedProjects;
 
@@ -72309,9 +72316,9 @@ var UserShow = function (_React$Component) {
           { className: 'row' },
           projects.map(function (project) {
             return _react2.default.createElement(_project_index_item2.default, {
-              key: project.id + project.title + _this5.props.user.id + (0, _id_generator.uniqueId)(),
+              key: project.id + project.title + _this6.props.user.id + (0, _id_generator.uniqueId)(),
               project: project,
-              currentUser: _this5.props.currentUser
+              currentUser: _this6.props.currentUser
             });
           })
         );
@@ -72339,7 +72346,7 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'toggleFollow',
     value: function toggleFollow() {
-      var _this6 = this;
+      var _this7 = this;
 
       var _props3 = this.props,
           currentUser = _props3.currentUser,
@@ -72352,8 +72359,8 @@ var UserShow = function (_React$Component) {
         follow = { follower_id: currentUser.id, followee_id: user.id };
         if (this.isFollowed() === 'Follow') {
           this.props.createFollow(follow).then(function () {
-            _this6.props.fetchFollowers(_this6.props.user.id);
-            _this6.props.fetchFollowees(_this6.props.user.id);
+            _this7.props.fetchFollowers(_this7.props.user.id);
+            _this7.props.fetchFollowees(_this7.props.user.id);
           });
         } else {
           this.props.deteleFollow(follow);
@@ -72373,7 +72380,7 @@ var UserShow = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this7 = this;
+      var _this8 = this;
 
       if (!this.props.user) {
         return _react2.default.createElement('div', { className: 'loader' });
@@ -72393,7 +72400,7 @@ var UserShow = function (_React$Component) {
         var hideUnPublish = UnpublishText === '' ? 'none' : '';
 
         var displayUpload = function displayUpload() {
-          var currentUser = _this7.props.currentUser;
+          var currentUser = _this8.props.currentUser;
 
           if (currentUser && currentUser.id === user.id) {
             return _react2.default.createElement(
@@ -72405,14 +72412,14 @@ var UserShow = function (_React$Component) {
                 _react2.default.createElement('input', {
                   type: 'file',
                   placeholder: 'Upload Photo',
-                  onChange: _this7.updateFile,
+                  onChange: _this8.updateFile,
                   accept: 'image/*'
                 }),
                 _react2.default.createElement('input', {
                   className: 'submit-btn btn btn-primary',
                   type: 'submit',
-                  disabled: _this7.state.loading,
-                  onClick: _this7.handleSubmit
+                  disabled: _this8.state.loading,
+                  onClick: _this8.handleSubmit
                 })
               )
             );
@@ -72424,9 +72431,9 @@ var UserShow = function (_React$Component) {
             'button',
             {
               className: 'btn btn-warning btn-block',
-              onClick: _this7.toggleFollow
+              onClick: _this8.toggleFollow
             },
-            _this7.isFollowed()
+            _this8.isFollowed()
           );
         };
 

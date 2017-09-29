@@ -119,7 +119,6 @@ class ProjectForm extends React.Component {
     e.preventDefault();
     const value = e.currentTarget.querySelector('input').value;
     this.setState({ tags: [...this.state.tags, value] });
-    debugger;
   }
 
   render() {
