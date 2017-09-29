@@ -5,11 +5,11 @@ class Api::ProjectsController < ApplicationController
   def index
     if params[:project].nil?
       @projects = Project.where(published: true)
-    elsif project_params[:tag]
-      # @projects = [];
-    @projects = Project.where(published: true) do |project|
-        project.tags.any? { |t| t.name == 'Computer Science'}
-      end
+    # elsif project_params[:tag]
+    #   # @projects = [];
+    # @projects = Project.where(published: true) do |project|
+    #     project.tags.any? { |t| t.name == 'Computer Science'}
+    #   end
     elsif project_params[:filter] == 'true'
       @projects = Project.where(author_id: project_params[:author_id].to_i).where(published: true)
     elsif project_params[:filter] == 'false'

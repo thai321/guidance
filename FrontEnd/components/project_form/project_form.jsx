@@ -74,6 +74,7 @@ class ProjectForm extends React.Component {
     if (this.props.formType === 'new') {
       this.props
         .createProjectOption(formData)
+        .then(this.setState({ loading: false }))
         .then(action =>
           this.props.history.push(`/projects/${action.project.id}`)
         );
@@ -81,8 +82,10 @@ class ProjectForm extends React.Component {
       const { projectId } = this.props.match.params;
       this.props
         .updateProjectOption(formData, projectId)
+        .then(this.setState({ loading: false }))
         .then(() => this.props.history.push(`/projects/${projectId}`));
     }
+    this.setState({ loading: true });
   }
 
   updateFile(e) {
@@ -135,7 +138,7 @@ class ProjectForm extends React.Component {
 
     return (
       <div className="project_form_container">
-        {this.displayBack()}
+        <div className="project-form-back-button">{this.displayBack()}</div>
 
         <form className="project-form">
           <div className="image-project-form">
@@ -186,27 +189,27 @@ class ProjectForm extends React.Component {
                 onChange={this.update('video_url')}
               />
             </div>
-          </div>
 
-          <div className={`${hideVideo}`}>
-            <iframe
-              width="560"
-              height="315"
-              src={this.state.video_url}
-              frameBorder="0"
-              allowFullScreen
-            />
-          </div>
+            <div className={`${hideVideo}`}>
+              <iframe
+                width="560"
+                height="315"
+                src={this.state.video_url}
+                frameBorder="0"
+                allowFullScreen
+              />
+            </div>
 
-          <div className="project-form-button">
-            <button
-              className="btn btn-primary btn-lg"
-              disabled={this.state.loadding}
-              type="submit"
-              onClick={this.handleSubmit}
-            >
-              {this.state.loading ? 'Loading...' : `${text}`}
-            </button>
+            <div className="project-form-button">
+              <button
+                className="btn btn-primary btn-lg"
+                disabled={this.state.loadding}
+                type="submit"
+                onClick={this.handleSubmit}
+              >
+                {this.state.loading ? 'Loading...' : `${text}`}
+              </button>
+            </div>
           </div>
         </form>
       </div>

@@ -11,8 +11,6 @@ class StepForm extends React.Component {
 
     this.state = Object.assign({ loading: false }, this.props.step);
 
-    this.loading = false;
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
@@ -56,7 +54,6 @@ class StepForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { projectId } = this.props.match.params;
-    this.loading = true;
     this.props
       .action(this.state)
       .then(this.setState({ loading: false }))
