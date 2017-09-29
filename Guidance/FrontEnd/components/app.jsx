@@ -4,6 +4,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
 import NavContainer from './nav/nav_container';
+import NavLink from './nav_links/nav_link';
 
 import SessionFormContainer from './session_form/session_form_container';
 
@@ -29,42 +30,48 @@ const App = () => (
   // render() {
   // console.log(this.props);
   // return (
-  <div className="app">
+  <div>
     <NotificationContainer />
-
     <NavContainer />
 
-    <div className="main-app">
-      <AuthRoute path="/login" component={SessionFormContainer} />
-      <AuthRoute path="/demo" component={SessionFormContainer} />
-      <AuthRoute path="/signup" component={SessionFormContainer} />
+    <NavLink />
 
-      <Switch>
-        <Route exact path="/" component={ProjectIndexContainer} />
-        <ProtectedRoute path="/projects/new" component={ProjectFormContainer} />
-        <Route
-          exact
-          path="/projects/:projectId"
-          component={ProjectShowContainer}
-        />
-        <ProtectedRoute
-          path="/projects/:projectId/edit"
-          component={ProjectFormContainer}
-        />
+    <div className="app">
+      <div className="main-app">
+        <AuthRoute path="/login" component={SessionFormContainer} />
+        <AuthRoute path="/demo" component={SessionFormContainer} />
+        <AuthRoute path="/signup" component={SessionFormContainer} />
 
-        <ProtectedRoute
-          path="/projects/:projectId/steps/new"
-          component={StepFormContainer}
-        />
+        <Switch>
+          <Route exact path="/" component={ProjectIndexContainer} />
+          <ProtectedRoute
+            path="/projects/new"
+            component={ProjectFormContainer}
+          />
+          <Route
+            exact
+            path="/projects/:projectId"
+            component={ProjectShowContainer}
+          />
+          <ProtectedRoute
+            path="/projects/:projectId/edit"
+            component={ProjectFormContainer}
+          />
 
-        <ProtectedRoute
-          path="/projects/:projectId/steps/:stepId/edit"
-          component={StepFormContainer}
-        />
+          <ProtectedRoute
+            path="/projects/:projectId/steps/new"
+            component={StepFormContainer}
+          />
 
-        <Route exact path="/users" component={UserIndexContainer} />
-        <Route exact path="/users/:userId" component={UserShowContainer} />
-      </Switch>
+          <ProtectedRoute
+            path="/projects/:projectId/steps/:stepId/edit"
+            component={StepFormContainer}
+          />
+
+          <Route exact path="/users" component={UserIndexContainer} />
+          <Route exact path="/users/:userId" component={UserShowContainer} />
+        </Switch>
+      </div>
     </div>
   </div>
 );

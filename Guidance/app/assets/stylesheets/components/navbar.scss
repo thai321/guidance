@@ -1,113 +1,153 @@
-nav ul li {
-  font-size: 20px;
-}
-
-.login li {
-  list-style: none;
-}
-
-.welcome h1 {
-  font-size: 20px;
-  display: flex;
-  padding-right: 20px;
-}
-
-.new-project-button {
-  margin-right: 50px;
-}
-
-header {
-  padding: 154px 0 100px;
-}
-
-@media (min-width: 992px) {
-  header {
-    padding: 156px 0 100px;
-  }
-}
-
-section {
-  padding: 150px 0;
-}
-
-nav {
-  background-color: #eee;
-  display: flex;
-  justify-content: space-between;
-  height: 100px;
-
-  img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 7px;
-  }
-
-  span {
-    font-family: 'Lato', sans-serif;
-    padding-left: 10px;
-    font-size: 30px;
-    font-weight: 900;
-    color: black;
-  }
-  a span:hover {
-    color: rgb(74, 105, 155);
-  }
-}
-
-nav ul li {
-  margin-left: 15px;
-}
-
-nav div a {
-  color: black;
-  font-weight: bold;
-  font-size: 18px;
-}
-
-.navbar .container {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.all-teachers {
-  padding-top: 50px;
-  display: flex;
-  justify-content: center;
-  font-size: 20px;
-  font-weight: 300;
-}
-
-.container {
-  margin-left: 0;
-}
-
-.navbar-form .input-group {
-  width: 100%;
-  margin-bottom: 20px;
-  max-width: 395px;
-}
-
-.container .navbar-brand {
-  padding-bottom: 10px;
-  font-size: xx-large;
-}
-
-.navbar-brand {
-  display: flex;
-  justify-content: center;
-  align-items: inherit;
-}
-
+// nav ul li {
+//   font-size: 20px;
+// }
+//
+// .login li {
+//   list-style: none;
+// }
+//
+// .welcome h1 {
+//   font-size: 20px;
+//   display: flex;
+//   padding-right: 20px;
+// }
+//
+// .new-project-button {
+//   margin-right: 50px;
+// }
+//
+// header {
+//   padding: 154px 0 100px;
+// }
+//
+// @media (min-width: 992px) {
+//   header {
+//     padding: 156px 0 100px;
+//   }
+// }
+//
+// section {
+//   padding: 150px 0;
+// }
+//
+// nav {
+//   background-color: #eee;
+//   display: flex;
+//   justify-content: space-between;
+//   height: 100px;
+//
+//   img {
+//     width: 50px;
+//     height: 50px;
+//     margin-bottom: 7px;
+//   }
+//
+//   span {
+//     font-family: 'Lato', sans-serif;
+//     padding-left: 10px;
+//     font-size: 30px;
+//     font-weight: 900;
+//     color: black;
+//   }
+//   a span:hover {
+//     color: rgb(74, 105, 155);
+//   }
+// }
+//
+// nav ul li {
+//   margin-left: 15px;
+// }
+//
+// nav div a {
+//   color: black;
+//   font-weight: bold;
+//   font-size: 18px;
+// }
+//
+// .navbar .container {
+//   display: flex;
+//   justify-content: flex-start;
+// }
+//
+// .all-teachers {
+//   padding-top: 50px;
+//   display: flex;
+//   justify-content: center;
+//   font-size: 20px;
+//   font-weight: 300;
+// }
+//
+// .container {
+//   margin-left: 0;
+// }
+//
+// .navbar-form .input-group {
+//   width: 100%;
+//   margin-bottom: 20px;
+//   max-width: 395px;
+// }
+//
+// .container .navbar-brand {
+//   padding-bottom: 10px;
+//   font-size: xx-large;
+// }
+//
+// .navbar-brand {
+//   display: flex;
+//   justify-content: center;
+//   align-items: inherit;
+// }
+//
 .welcome-user-name-image {
   display: flex;
+  margin-left: 14px;
 
   span {
     font-family: 'Lato', sans-serif;
     font-size: 18px;
-    text-align: center;
+    margin-right: 10px;
+    color: white;
+  }
+}
+//
+// .fixed-top {
+//   position: absolute;
+// }
+
+nav {
+  img {
+    width: 40px;
+    height: 40px;
+  }
+
+  a,
+  button {
+    margin-left: 7px;
+  }
+
+  div a span:hover {
+    color: #f7e0db;
   }
 }
 
-.fixed-top {
-  position: absolute;
+.nav-logo-name {
+  margin-left: 10px;
+  font-size: xx-large;
+}
+
+.navbar-custom {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-custom-links {
+  font-family: 'Noto Serif', serif;
+  font-size: 15px;
+  a {
+    color: #aaa;
+  }
+
+  a:hover {
+    color: #333;
+  }
 }

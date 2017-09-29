@@ -28,7 +28,7 @@ u5.save
 
 
 u6 = User.create(username: 'CSLewis', email: 'cslewis@example.com', password: '123456')
-u6.image = File.new("#{Rails.root}/app/assets/images/lewis.jpg")
+u6.image = File.new("#{Rails.root}/app/assets/images/lewis2.jpg")
 u6.save
 
 

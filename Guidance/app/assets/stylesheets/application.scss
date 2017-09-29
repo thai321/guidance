@@ -53,8 +53,8 @@ input {
 }
 
 .main-app {
-  margin-top: 120px;
-  margin-bottom: 120px;
+  margin-top: 45px;
+  margin-bottom: 80px;
   display: flex;
   justify-content: center;
   // flex-direction: column;
@@ -65,6 +65,7 @@ input {
 .app {
   display: flex;
   justify-content: center;
+  background-color: #eee;
 }
 
 button:hover {
@@ -76,4 +77,4 @@ button:hover {
 }
 
 @import url('https://fonts.googleapis.com/css?family=Lora');
-@import url('https://fonts.googleapis.com/css?family=Hind|Quattrocento+Sans|Zilla+Slab|Faustina|Open+Sans|Saira|Lato|Saira');
+@import url('https://fonts.googleapis.com/css?family=Hind|Quattrocento+Sans|Zilla+Slab|Faustina|Open+Sans|Saira|Lato|Saira|Noto+Serif');
