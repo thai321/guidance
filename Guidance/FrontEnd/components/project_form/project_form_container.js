@@ -17,6 +17,7 @@ const mapStateToProps = (state, ownProps) => {
     description: '',
     imageFile: null,
     video_url: '',
+    tags: [],
     author_id: state.session.currentUser.id
   };
   let formType = 'new';

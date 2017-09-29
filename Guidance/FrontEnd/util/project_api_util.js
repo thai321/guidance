@@ -16,6 +16,12 @@ export const fetchProjects = (arg, filter = true) => {
       url: 'api/projects',
       data: { project: { author_id: arg, filter } }
     });
+  } else {
+    return $.ajax({
+      method: 'GET',
+      url: 'api/projects',
+      data: { project: { tag_name: arg } }
+    });
   }
 };
 
