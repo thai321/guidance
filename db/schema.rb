@@ -46,14 +46,6 @@ ActiveRecord::Schema.define(version: 20170928144743) do
     t.index ["follower_id"], name: "index_follows_on_follower_id"
   end
 
-  create_table "projectTags", force: :cascade do |t|
-    t.integer "project_id", null: false
-    t.integer "tag_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["project_id", "tag_id"], name: "index_projectTags_on_project_id_and_tag_id", unique: true
-  end
-
   create_table "project_tags", force: :cascade do |t|
     t.integer "project_id", null: false
     t.integer "tag_id", null: false

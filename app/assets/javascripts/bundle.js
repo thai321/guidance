@@ -63342,7 +63342,13 @@ var StepItem = function (_React$Component) {
               'span',
               { className: 'step-item-count' },
               'Step ',
-              count
+              count,
+              ':'
+            ),
+            _react2.default.createElement(
+              'span',
+              { className: 'step-item-title' },
+              title
             )
           ),
           editButton()
@@ -63356,11 +63362,6 @@ var StepItem = function (_React$Component) {
           'div',
           { className: 'step-item' },
           displayButtons(author.id),
-          _react2.default.createElement(
-            'span',
-            { className: 'step-item-title' },
-            title
-          ),
           _react2.default.createElement('div', {
             className: 'ql-editor',
             dangerouslySetInnerHTML: { __html: body }
@@ -71370,7 +71371,7 @@ var StepForm = function (_React$Component) {
           project_id = _props$step.project_id;
 
       var text = this.props.formType === 'new' ? 'Create Step' : 'Update Step';
-      var header = this.props.formType === 'new' ? 'New Step' : 'Edit Step ' + (this.props.idx + 1);
+      var header = this.props.formType === 'new' ? 'New Step' : 'Edit Step ' + this.props.idx;
 
       return _react2.default.createElement(
         'div',
