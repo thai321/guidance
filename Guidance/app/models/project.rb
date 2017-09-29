@@ -17,7 +17,7 @@
 #
 
 class Project < ApplicationRecord
-  validates :title, presence: true
+  validates :title, presence: true, length: { minimum: 3 }
   validates :published, inclusion: [true, false]
 
   # default_scope -> { order(created_at: :desc) }

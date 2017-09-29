@@ -10,8 +10,8 @@
   margin-top: 20px;
 
   .project-form-button {
-    width: 200px;
-    margin-left: 310px;
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -23,8 +23,14 @@
   width: 800px;
 
   a {
-    margin-right: 750px;
     color: black;
+  }
+
+  .project-form-back-button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    width: 100%;
   }
 }
 
@@ -35,11 +41,12 @@
 .description-quill {
   height: 530px;
   background-color: white;
-  padding-bottom: 64px;
+  padding-bottom: 65px;
 }
 
 .project-form-title {
   width: 100%;
+  font-size: medium;
 }
 
 .project-form .form-group {
