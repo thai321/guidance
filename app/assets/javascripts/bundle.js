@@ -45293,7 +45293,7 @@ var Nav = function (_React$Component) {
 
       return _react2.default.createElement(
         'nav',
-        { className: 'navbar navbar-expand-lg navbar-dark bg-dark fixed-top' },
+        { className: 'navbar navbar-expand-lg navbar-dark bg-dark' },
         _react2.default.createElement(
           'div',
           { className: 'container' },
@@ -45648,7 +45648,7 @@ var NavLink = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'nav',
-        { className: 'navbar navbar-custom fixed-top' },
+        { className: 'navbar navbar-custom' },
         _react2.default.createElement(
           'div',
           { className: 'navbar-custom-links' },

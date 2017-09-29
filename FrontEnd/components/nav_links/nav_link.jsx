@@ -12,7 +12,7 @@ class NavLink extends React.Component {
 
   render() {
     return (
-      <nav className="navbar navbar-custom fixed-top">
+      <nav className="navbar navbar-custom">
         <div className="navbar-custom-links">
           <Link to="/users" className="">
             All Teachers
