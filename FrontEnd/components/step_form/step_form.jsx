@@ -8,7 +8,10 @@ import ReactQuill from 'react-quill';
 class StepForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.step;
+
+    this.state = Object.assign({ loading: false }, this.props.step);
+
+    this.loading = false;
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -53,9 +56,12 @@ class StepForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { projectId } = this.props.match.params;
+    this.loading = true;
     this.props
       .action(this.state)
+      .then(this.setState({ loading: false }))
       .then(() => this.props.history.push(`/projects/${projectId}`));
+    this.setState({ loading: true });
   }
 
   render() {
@@ -103,8 +109,12 @@ class StepForm extends React.Component {
             </div>
 
             <div className="step-form-submit-button">
-              <button className="btn btn-primary btn-lg" type="submit">
-                {text}
+              <button
+                disabled={this.state.loading}
+                className="btn btn-primary btn-lg"
+                type="submit"
+              >
+                {this.state.loading ? 'Loading...' : text}
               </button>
             </div>
           </form>

@@ -71402,7 +71402,9 @@ var StepForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (StepForm.__proto__ || Object.getPrototypeOf(StepForm)).call(this, props));
 
-    _this.state = _this.props.step;
+    _this.state = Object.assign({ loading: false }, _this.props.step);
+
+    _this.loading = false;
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleChange = _this.handleChange.bind(_this);
@@ -71461,9 +71463,11 @@ var StepForm = function (_React$Component) {
       e.preventDefault();
       var projectId = this.props.match.params.projectId;
 
-      this.props.action(this.state).then(function () {
+      this.loading = true;
+      this.props.action(this.state).then(this.setState({ loading: false })).then(function () {
         return _this4.props.history.push('/projects/' + projectId);
       });
+      this.setState({ loading: true });
     }
   }, {
     key: 'render',
@@ -71532,8 +71536,12 @@ var StepForm = function (_React$Component) {
               { className: 'step-form-submit-button' },
               _react2.default.createElement(
                 'button',
-                { className: 'btn btn-primary btn-lg', type: 'submit' },
-                text
+                {
+                  disabled: this.state.loading,
+                  className: 'btn btn-primary btn-lg',
+                  type: 'submit'
+                },
+                this.state.loading ? 'Loading...' : text
               )
             )
           )
