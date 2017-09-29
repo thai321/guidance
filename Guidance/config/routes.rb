@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :favorites, only: [:create, :destroy]
 
     resources :follows, only: [:index, :create, :destroy]
+
+    resources :tags, only: [:index]
   end
 
   root to: 'static_pages#root'

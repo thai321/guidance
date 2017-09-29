@@ -4,7 +4,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 
 import NavContainer from './nav/nav_container';
-import NavLink from './nav_links/nav_link';
+import NavLinkContainer from './nav_links/nav_link_container';
 
 import SessionFormContainer from './session_form/session_form_container';
 
@@ -20,21 +20,11 @@ import UserShowContainer from './user_show/user_show_container';
 import NotificationContainer from './notification/notification_container';
 
 const App = () => (
-  // const {state} =
-  // console.log(this.props);
-  // class App extends React.Component {
-  //   constructor(props) {
-  //     super(props);
-  //   }
-
-  // render() {
-  // console.log(this.props);
-  // return (
   <div>
     <NotificationContainer />
     <NavContainer />
 
-    <NavLink />
+    <NavLinkContainer />
 
     <div className="app">
       <div className="main-app">
@@ -43,7 +33,7 @@ const App = () => (
         <AuthRoute path="/signup" component={SessionFormContainer} />
 
         <Switch>
-          <Route exact path="/" component={ProjectIndexContainer} />
+          <Route exact path={`/`} component={ProjectIndexContainer} />
           <ProtectedRoute
             path="/projects/new"
             component={ProjectFormContainer}
@@ -75,7 +65,5 @@ const App = () => (
     </div>
   </div>
 );
-
-// )
 
 export default App;
