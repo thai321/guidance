@@ -34,6 +34,11 @@ const App = () => (
 
         <Switch>
           <Route exact path={`/`} component={ProjectIndexContainer} />
+          {/*<Route
+            exact
+            path={`/tags/:tagName`}
+            component={TagProjectIndexContainer}
+          /> */}
           <ProtectedRoute
             path="/projects/new"
             component={ProjectFormContainer}

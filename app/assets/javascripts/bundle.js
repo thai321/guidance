@@ -5810,7 +5810,7 @@ var fetchProjects = exports.fetchProjects = function fetchProjects(arg) {
       url: 'api/projects',
       data: { project: { project_ids: arg } }
     });
-  } else {
+  } else if (typeof arg === 'number') {
     return $.ajax({
       method: 'GET',
       url: 'api/projects',
@@ -45272,7 +45272,7 @@ var Nav = function (_React$Component) {
 
       return _react2.default.createElement(
         'nav',
-        { className: 'navbar navbar-expand-lg navbar-dark bg-dark' },
+        { className: 'navbar navbar-expand-lg navbar-dark bg-dark fixed-top' },
         _react2.default.createElement(
           'div',
           { className: 'container' },
@@ -45627,7 +45627,7 @@ var NavLink = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'nav',
-        { className: 'navbar navbar-custom' },
+        { className: 'navbar navbar-custom fixed-top' },
         _react2.default.createElement(
           'div',
           { className: 'navbar-custom-links' },
@@ -72197,7 +72197,8 @@ var UserShow = function (_React$Component) {
         scroller.scrollTo(myElement, {
           duration: 1500,
           delay: 100,
-          smooth: true
+          smooth: true,
+          offset: -80
         });
       };
     }
@@ -72449,10 +72450,10 @@ var UserShow = function (_React$Component) {
             )
           ),
           this.displayProjects('Published'),
+          _react2.default.createElement(Element, { name: 'unPublished' }),
           _react2.default.createElement(
             'div',
             { className: 'project-text-user-show ' + hideUnPublish },
-            _react2.default.createElement(Element, { name: 'unPublished' }),
             _react2.default.createElement(
               'h2',
               null,
