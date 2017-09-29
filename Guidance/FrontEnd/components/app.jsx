@@ -34,6 +34,7 @@ const App = () => (
 
         <Switch>
           <Route exact path={`/`} component={ProjectIndexContainer} />
+          <Route exact path={`/`} component={ProjectIndexContainer} />
           <ProtectedRoute
             path="/projects/new"
             component={ProjectFormContainer}
