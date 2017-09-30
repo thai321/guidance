@@ -80,11 +80,6 @@ class UserShow extends React.Component {
         .then(this.setState({ loading: true }), () =>
           window.location.reload().then(this.setState({ loading: false }))
         );
-      // window.location.reload();
-      // window.location.reload();
-      // .then(setTimeout(() => window.location.reload()), 5000);
-
-      // this.setState({ loading: true });
     }
   }
 
