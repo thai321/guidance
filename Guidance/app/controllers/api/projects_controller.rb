@@ -4,31 +4,35 @@ class Api::ProjectsController < ApplicationController
 
   def index
     if params[:project].nil?
-      @projects = Project.where(published: true)
-    # elsif project_params[:tag]
-    #   # @projects = [];
-    # @projects = Project.where(published: true) do |project|
-    #     project.tags.any? { |t| t.name == 'Computer Science'}
-    #   end
+      @projects = Project.includes(:tags).where(published: true)
     elsif project_params[:filter] == 'true'
-      @projects = Project.where(author_id: project_params[:author_id].to_i).where(published: true)
+      @projects = Project.includes(:tags).where(author_id: project_params[:author_id].to_i).where(published: true)
     elsif project_params[:filter] == 'false'
-      @projects = Project.where(author_id: project_params[:author_id].to_i)
+      @projects = Project.includes(:tags).where(author_id: project_params[:author_id].to_i)
+    elsif project_params[:tag_name]
+      @projects = Tag.find_by(name: project_params[:tag_name]).projects.includes(:tags)
+      # @projects = Project.includes(:tags)
     else
-      @projects = Project.find(project_params[:project_ids])
+      @projects = Project.includes(:favorite_users).find(project_params[:project_ids]) # favorite
     end
     render :index
     # render json: ['test errors'], status: 422
   end
 
   def show
-    # @project = Project.includes(:steps).find_by(id: params[:id])
-    @project = Project.find_by(id: params[:id])
+    @project = Project.includes(:steps).find_by(id: params[:id])
+    # @project = Project.find_by(id: params[:id])
     render :show
   end
 
   def create
-    @project = Project.new(project_params)
+    tags = Tag.pluck(:name)
+    tag_ids = params[:tags].split(',').map { |name| tags.index(name) + 1 }
+    package = project_params
+
+    package[:tag_ids] = tag_ids
+
+    @project = Project.new(package)
 
     if @project.save
       render :show
@@ -40,7 +44,13 @@ class Api::ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
 
-    if @project.update(project_params)
+    tags = Tag.pluck(:name)
+    tag_ids = params[:tags].split(',').map { |name| tags.index(name) + 1 }
+    package = project_params
+
+    package[:tag_ids] = tag_ids
+
+    if @project.update(package)
       render :show
     else
       render json: @project.errors.full_messages, status: 422
@@ -60,7 +70,7 @@ class Api::ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:id, :title, :description, :video_url, :published, :author_id, :image, :filter, :tag_name, tags:[], project_ids: [], tags_ids: [])
+    params.require(:project).permit(:id, :title, :description, :video_url, :published, :author_id, :image, :filter, :tag_name, :tags, project_ids: [], tags_ids: [])
   end
 
   def require_user!

@@ -61,32 +61,36 @@ class ProjectForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState({ loading: true });
+
     const formData = new FormData();
     formData.append('project[title]', this.state.title);
     formData.append('project[description]', this.state.description);
     formData.append('project[video_url]', this.state.video_url);
     formData.append('project[author_id]', this.state.author_id);
+    formData.append('tags', this.state.tags);
 
     if (this.state.imageFile) {
       formData.append('project[image]', this.state.imageFile);
     }
 
     if (this.props.formType === 'new') {
-      this.props
-        .createProjectOption(formData)
-        .then(this.setState({ loading: false }))
-        .then(action =>
-          this.props.history.push(`/projects/${action.project.id}`)
-        );
+      this.props.createProjectOption(formData).then(action => {
+        this.setState({ loading: true });
+        this.props.history
+          .push(`/projects/${action.project.id}`)
+          .then(this.setState({ loading: false }));
+      });
     } else {
       const { projectId } = this.props.match.params;
       this.props
         .updateProjectOption(formData, projectId)
-        .then(this.setState({ loading: false }))
-        .then(() => this.props.history.push(`/projects/${projectId}`));
+        .then(this.setState({ loading: true }))
+        .then(() =>
+          this.props.history
+            .push(`/projects/${projectId}`)
+            .then(this.setState({ loading: false }))
+        );
     }
-    this.setState({ loading: true });
   }
 
   updateFile(e) {
@@ -118,10 +122,24 @@ class ProjectForm extends React.Component {
   handleTagChange(e) {
     e.preventDefault();
     const value = e.currentTarget.querySelector('input').value;
-    this.setState({ tags: [...this.state.tags, value] });
+
+    if (!this.state.tags.includes(value)) {
+      this.setState({ tags: [...this.state.tags, value] });
+    } else {
+      const tags = this.state.tags;
+      const idx = tags.indexOf(value);
+      tags.splice(idx, 1);
+    }
+  }
+
+  isActive(name) {
+    const { tags } = this.state;
+    return tags.includes(name) ? 'active' : '';
   }
 
   render() {
+    console.log(this.state.tags);
+
     if (!this.props.project) {
       return <div className="loader" />;
     }
@@ -175,7 +193,7 @@ class ProjectForm extends React.Component {
           <div className="btn-group" data-toggle="buttons">
             <label
               onClick={this.handleTagChange}
-              className="btn btn-outline-primary active"
+              className={`btn btn-outline-primary ${this.isActive('Arduino')}`}
             >
               <input
                 type="checkbox"
@@ -183,17 +201,39 @@ class ProjectForm extends React.Component {
                 autoComplete="off"
               />Arduino
             </label>
-            <label className="btn btn-outline-danger">
-              <input type="checkbox" autoComplete="off" />Math
+
+            <label
+              onClick={this.handleTagChange}
+              className={`btn btn-outline-danger ${this.isActive('Math')}`}
+            >
+              <input type="checkbox" value="Math" autoComplete="off" />Math
             </label>
-            <label className="btn btn-outline-info">
-              <input type="checkbox" autoComplete="off" />Computer Science
+
+            <label
+              onClick={this.handleTagChange}
+              className={`btn btn-outline-info ${this.isActive(
+                'Computer Science'
+              )}`}
+            >
+              <input
+                type="checkbox"
+                value="Computer Science"
+                autoComplete="off"
+              />Computer Science
             </label>
-            <label className="btn btn-outline-success">
-              <input type="checkbox" autoComplete="off" />Music
+
+            <label
+              onClick={this.handleTagChange}
+              className={`btn btn-outline-success ${this.isActive('Music')}`}
+            >
+              <input type="checkbox" value="Music" autoComplete="off" />Music
             </label>
-            <label className="btn btn-outline-secondary">
-              <input type="checkbox" autoComplete="off" />Other
+
+            <label
+              onClick={this.handleTagChange}
+              className={`btn btn-outline-warning ${this.isActive('Other')}`}
+            >
+              <input type="checkbox" value="Other" autoComplete="off" />Other
             </label>
           </div>
 
