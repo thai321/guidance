@@ -10,18 +10,15 @@ class Api::ProjectsController < ApplicationController
     elsif project_params[:filter] == 'false'
       @projects = Project.includes(:tags).where(author_id: project_params[:author_id].to_i)
     elsif project_params[:tag_name]
-      @projects = Tag.find_by(name: project_params[:tag_name]).projects.includes(:tags)
-      # @projects = Project.includes(:tags)
-    else
-      @projects = Project.includes(:favorite_users).find(project_params[:project_ids]) # favorite
+      @projects = Tag.find_by(name: project_params[:tag_name]).projects.includes(:tags).where(published: true)
+    else # favorite
+      @projects = Project.includes(:favorite_users).find(project_params[:project_ids]).includes(:tags)
     end
     render :index
-    # render json: ['test errors'], status: 422
   end
 
   def show
     @project = Project.includes(:steps).find_by(id: params[:id])
-    # @project = Project.find_by(id: params[:id])
     render :show
   end
 
@@ -43,12 +40,13 @@ class Api::ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-
-    tags = Tag.pluck(:name)
-    tag_ids = params[:tags].split(',').map { |name| tags.index(name) + 1 }
     package = project_params
 
-    package[:tag_ids] = tag_ids
+    if params[:tags]
+      tags = Tag.pluck(:name)
+      tag_ids = params[:tags].split(',').map { |name| tags.index(name) + 1 }
+      package[:tag_ids] = tag_ids
+    end
 
     if @project.update(package)
       render :show

@@ -10,3 +10,15 @@
   font-size: 50px;
   font-family: 'EB Garamond', serif;
 }
+
+.project-show-tag {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 27px;
+  margin-right: 102px;
+
+  span {
+    margin-right: 10px;
+  }
+}
