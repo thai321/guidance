@@ -63,3 +63,13 @@
   border: 1px solid #e9ecef;
   // padding: 10px;
 }
+
+.project-index-item-tag {
+  justify-content: flex-end;
+  display: flex;
+  margin-bottom: 5px;
+
+  span {
+    margin-left: 5px;
+  }
+}

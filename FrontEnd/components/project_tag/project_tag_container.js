@@ -5,7 +5,6 @@ import { fetchTagProjects } from '../../actions/project_actions';
 import ProjectTag from './project_tag';
 
 const mapStateToProps = (state, ownProps) => {
-  debugger;
   const projects = [];
 
   Object.values(state.entities.projects)
@@ -18,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     currentUser: state.session.currentUser,
-    // tagName
+    tagName: ownProps.match.params.name,
     projects
   };
 };

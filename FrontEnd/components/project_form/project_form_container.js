@@ -29,6 +29,10 @@ const mapStateToProps = (state, ownProps) => {
 
   const errors = state.errors.session;
 
+  if (project.tags.length === 0) {
+    project.tags = ['Other'];
+  }
+
   return { project, formType, errors, currentUser: state.session.currentUser };
 };
 

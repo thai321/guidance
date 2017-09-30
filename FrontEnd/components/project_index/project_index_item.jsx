@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
-// const ProjectIndexItem = ({ project }) => {
+import { uniqueId } from '../../util/id_generator';
+
 class ProjectIndexItem extends React.Component {
   displayAuthor() {
     if (!this.props.match.params.userId) {
@@ -32,6 +33,28 @@ class ProjectIndexItem extends React.Component {
     }
   }
 
+  displayTags() {
+    const { tags } = this.props.project;
+    const badges = {
+      Arduino: 'primary',
+      Math: 'danger',
+      'Computer Science': 'info',
+      Music: 'success',
+      Other: 'warning'
+    };
+
+    return (
+      <div className="project-index-item-tag">
+        {tags.map((name, idx) => (
+          <span
+            key={name + idx + uniqueId()}
+            className={`badge badge-${badges[name]}`}
+          >{`${name}`}</span>
+        ))}
+      </div>
+    );
+  }
+
   render() {
     const {
       id,
@@ -42,6 +65,7 @@ class ProjectIndexItem extends React.Component {
       author,
       favorite_users
     } = this.props.project;
+    this.displayTags();
 
     return (
       <div className="col col-md-3 col-xs-12">
@@ -52,6 +76,9 @@ class ProjectIndexItem extends React.Component {
             </div>
           </div>
           <span className="project-index-title">{title}</span>
+
+          {this.displayTags()}
+
           <div className="project-footer">
             <h6>
               {favorite_users.length}

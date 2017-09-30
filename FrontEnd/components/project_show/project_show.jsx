@@ -93,6 +93,28 @@ class ProjectShow extends React.Component {
     }
   }
 
+  displayTags() {
+    const { tags } = this.props.project;
+    const badges = {
+      Arduino: 'primary',
+      Math: 'danger',
+      'Computer Science': 'info',
+      Music: 'success',
+      Other: 'warning'
+    };
+
+    return (
+      <div className="project-index-item-tag">
+        {tags.map((name, idx) => (
+          <span
+            key={name + idx + uniqueId()}
+            className={`badge badge-${badges[name]}`}
+          >{`${name}`}</span>
+        ))}
+      </div>
+    );
+  }
+
   isLiked() {
     let likeText = 'Like';
     const { currentUser } = this.props;
@@ -152,6 +174,8 @@ class ProjectShow extends React.Component {
 
     return (
       <div className="project-show-page">
+        <div>{this.displayTags()}</div>
+
         <div className="project-show-buttons">
           <div className="project-show-buttons-user-info">
             <Link className="project-show-back-to-index" to="/">

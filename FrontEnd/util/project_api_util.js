@@ -51,8 +51,8 @@ export const deleteProject = id =>
     url: `api/projects/${id}`
   });
 
-export const createProjectForm = formData =>
-  $.ajax({
+export const createProjectForm = formData => {
+  return $.ajax({
     url: '/api/projects',
     method: 'POST',
     dataType: 'json',
@@ -60,6 +60,7 @@ export const createProjectForm = formData =>
     processData: false,
     data: formData
   });
+};
 
 export const updateProjectForm = (formData, id) =>
   $.ajax({
