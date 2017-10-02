@@ -13,7 +13,7 @@ class ProjectForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Object.assign({ loadding: false }, this.props.project);
+    this.state = Object.assign({ loading: false }, this.props.project);
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
@@ -37,6 +37,12 @@ class ProjectForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState(nextProps.project);
+    const { projectId } = this.props.match.params;
+    const nextId = nextProps.match.params.projectId;
+
+    if (nextId != projectId) {
+      this.props.fetchProject(nextId);
+    }
   }
 
   update(type) {
@@ -74,12 +80,11 @@ class ProjectForm extends React.Component {
     }
 
     if (this.props.formType === 'new') {
+      this.setState({ loading: true });
       this.props.createProjectOption(formData).then(action => {
-        this.setState({ loading: true });
-        this.props.history
-          .push(`/projects/${action.project.id}`)
-          .then(this.setState({ loading: false }));
-      });
+        // debugger;
+        this.props.history.push(`/projects/${action.project.id}`);
+      }, this.setState({ loading: false }));
     } else {
       const { projectId } = this.props.match.params;
       this.props
@@ -138,8 +143,6 @@ class ProjectForm extends React.Component {
   }
 
   render() {
-    console.log(this.state.tags);
-
     if (!this.props.project) {
       return <div className="loader" />;
     }
@@ -275,7 +278,7 @@ class ProjectForm extends React.Component {
             <div className="project-form-button">
               <button
                 className="btn btn-primary btn-lg"
-                disabled={this.state.loadding}
+                disabled={this.state.loading}
                 type="submit"
                 onClick={this.handleSubmit}
               >
