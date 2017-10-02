@@ -71881,6 +71881,7 @@ var StepForm = function (_React$Component) {
             { to: '/projects/' + project_id },
             _react2.default.createElement('i', { className: 'fa fa-arrow-circle-o-left fa-4x' })
           ),
+          _react2.default.createElement('h1', { className: 'none' }),
           _react2.default.createElement(
             'h1',
             null,

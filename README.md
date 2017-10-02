@@ -43,6 +43,10 @@
 #### Search
 - User can search for any guides and other users by keyword
 
+#### Taggings
+- User can add tag to their guides
+- Each project has tags on it
+
 
 ----------
 ## Steps
@@ -136,8 +140,6 @@
 #### Guides Sort By
 - Currently, a user's guides can only be shown in the order of when a note was last updated at. I plan to allow users the capability of sorting their guides by date created, date update uploaded, and guide title. With this filtering capability, users will given more control of how they prefer their notes to be organized and will greatly increase their user experience.
 
-#### Taggings
-- User can add tag to their guides
 
 #### classes
 - Guides can be classified into different group like classes (Math, Computer Science, Music, ...)
