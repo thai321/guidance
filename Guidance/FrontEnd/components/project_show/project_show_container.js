@@ -26,7 +26,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     project,
-    steps: Object.values(stepObj),
+    steps: Object.values(stepObj).sort((a, b) => a.id - b.id),
     currentUser: state.session.currentUser
   };
 };

@@ -24,7 +24,8 @@ const mapStateToProps = (state, ownProps) => {
 
     const project = state.entities.projects[projectId];
     if (project) {
-      idx = project.step_ids.indexOf(stepId) + 1;
+      const steps = project.step_ids.sort((a, b) => a - b);
+      idx = steps.indexOf(stepId) + 1;
     }
   }
 
