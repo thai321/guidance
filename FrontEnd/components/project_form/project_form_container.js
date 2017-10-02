@@ -33,7 +33,12 @@ const mapStateToProps = (state, ownProps) => {
     project.tags = ['Other'];
   }
 
-  return { project, formType, errors, currentUser: state.session.currentUser };
+  return {
+    project,
+    formType,
+    errors,
+    currentUser: state.session.currentUser
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {

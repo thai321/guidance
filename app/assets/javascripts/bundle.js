@@ -71283,7 +71283,12 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     project.tags = ['Other'];
   }
 
-  return { project: project, formType: formType, errors: errors, currentUser: state.session.currentUser };
+  return {
+    project: project,
+    formType: formType,
+    errors: errors,
+    currentUser: state.session.currentUser
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
@@ -71352,7 +71357,7 @@ var ProjectForm = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (ProjectForm.__proto__ || Object.getPrototypeOf(ProjectForm)).call(this, props));
 
-    _this.state = Object.assign({ loadding: false }, _this.props.project);
+    _this.state = Object.assign({ loading: false }, _this.props.project);
 
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.updateFile = _this.updateFile.bind(_this);
@@ -71384,6 +71389,13 @@ var ProjectForm = function (_React$Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       this.setState(nextProps.project);
+      var projectId = this.props.match.params.projectId;
+
+      var nextId = nextProps.match.params.projectId;
+
+      if (nextId != projectId) {
+        this.props.fetchProject(nextId);
+      }
     }
   }, {
     key: 'update',
@@ -71425,10 +71437,11 @@ var ProjectForm = function (_React$Component) {
       }
 
       if (this.props.formType === 'new') {
+        this.setState({ loading: true });
         this.props.createProjectOption(formData).then(function (action) {
-          _this3.setState({ loading: true });
-          _this3.props.history.push('/projects/' + action.project.id).then(_this3.setState({ loading: false }));
-        });
+          // debugger;
+          _this3.props.history.push('/projects/' + action.project.id);
+        }, this.setState({ loading: false }));
       } else {
         var projectId = this.props.match.params.projectId;
 
@@ -71490,8 +71503,6 @@ var ProjectForm = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state.tags);
-
       if (!this.props.project) {
         return _react2.default.createElement('div', { className: 'loader' });
       }
@@ -71655,7 +71666,7 @@ var ProjectForm = function (_React$Component) {
                 'button',
                 {
                   className: 'btn btn-primary btn-lg',
-                  disabled: this.state.loadding,
+                  disabled: this.state.loading,
                   type: 'submit',
                   onClick: this.handleSubmit
                 },
