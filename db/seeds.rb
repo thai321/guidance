@@ -3,6 +3,10 @@ Project.destroy_all
 Step.destroy_all
 Comment.destroy_all
 Follow.destroy_all
+Favorite.destroy_all
+ProjectTag.destroy_all
+Tag.destroy_all
+
 
 
 t1 = Tag.create(name: 'Arduino')
@@ -11,26 +15,77 @@ t3 = Tag.create(name: 'Computer Science')
 t4 = Tag.create(name: 'Music')
 t5 = Tag.create(name: 'Other')
 
+puts "Create 5 tags"
+
+load "#{Rails.root}/db/seeds/guest.rb"
+puts "Create Guest and guest's projects"
+
 
 load "#{Rails.root}/db/seeds/aristotle.rb"
+puts "Create Aristotle and his project"
+
 load "#{Rails.root}/db/seeds/galieo.rb"
+puts "Create Galieo and his project"
+
 load "#{Rails.root}/db/seeds/plato.rb"
+puts "Create Plato and his project"
+
 load "#{Rails.root}/db/seeds/pythagoras.rb"
+puts "Create Pythagoras and his project"
+
+
 load "#{Rails.root}/db/seeds/rene.rb"
+puts "Create Rene and his project"
+
+
 load "#{Rails.root}/db/seeds/lewis.rb"
+puts "Create Lewis and his project"
+
 load "#{Rails.root}/db/seeds/aquinas.rb"
+puts "Create Aquinas and his project"
+
+
 load "#{Rails.root}/db/seeds/epicurus.rb"
+puts "Create Epicurus and his project"
+
+
 load "#{Rails.root}/db/seeds/socrates.rb"
+puts "Create Socrates and his project"
+
 load "#{Rails.root}/db/seeds/hume.rb"
+puts "Create Hume and his project"
+
+
+load "#{Rails.root}/db/seeds/newton.rb"
+puts "Create Newton and his project"
 
 
 
+puts 'Create 12 Users, 15 projects and many steps'
 
 
-u11 = User.create(username: 'Isaac Newton', email: 'isaacnewton@example.com', password: '123456')
-u11.image = File.new("#{Rails.root}/app/assets/images/newton.jpg")
-u11.save
+# 3.times do
+#   User.ids.each do |id|
+#     project_id = rand(1..14)
+#     until !User.find(id).favorite_project_ids.include?(project_id)
+#       project_id = rand(1..14)
+#     end
+#
+#     Favorite.create(project_id: project_id, user_id: id)
+#   end
+# end
 
+# puts "Create favorite_projects/Likes"
 
-demo = User.create(username: 'guest', email: 'guest@example.com', password: '123456')
-puts 'Create 11 Users and 6 projects'
+3.times do
+  User.ids.each do |id|
+    user_id = rand(1..12)
+    until user_id != id
+      user_id = rand(1..12)
+    end
+
+    Follow.create(followee_id: user_id, follower_id: id)
+  end
+end
+
+puts "Create Followers, Following"

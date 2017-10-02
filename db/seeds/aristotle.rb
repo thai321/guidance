@@ -2,6 +2,13 @@ u1 = User.create(username: 'Aristotle', email: 'aristotle@example.com', password
 u1.image = File.new("#{Rails.root}/app/assets/images/aristotle.jpg")
 u1.save
 
+# user_ids = []
+# User.all.map do |u|
+#   user_ids.push(u.id) if u1.id != u.id
+# end
+#
+# u1.follower_ids = user_ids
+# u1.save
 
 
 p1 = Project.create(

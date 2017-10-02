@@ -71848,10 +71848,12 @@ var StepForm = function (_React$Component) {
       e.preventDefault();
       var projectId = this.props.match.params.projectId;
 
-      this.props.action(this.state).then(this.setState({ loading: false })).then(function () {
-        return _this4.props.history.push('/projects/' + projectId);
+      this.props.action(this.state).then(function (action) {
+        _this4.setState({ loading: true });
+        _this4.props.history.push('/projects/' + projectId).then(_this4.setState({ loading: false }));
+        // .then(this.setState({ loading: true }))
       });
-      this.setState({ loading: true });
+      // this.setState({ loading: false });
     }
   }, {
     key: 'render',

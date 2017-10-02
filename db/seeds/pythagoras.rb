@@ -2,6 +2,13 @@ u4 = User.create(username: 'Pythagoras', email: 'pythagoras@example.com', passwo
 u4.image = File.new("#{Rails.root}/app/assets/images/pythagoras.jpg")
 u4.save
 
+# user_ids = []
+# User.all.map do |u|
+#   user_ids.push(u.id) if u4.id != u.id
+# end
+#
+# u4.follower_ids = user_ids
+# u4.save
 
 p4 = Project.create(
   title: "Improved Arduino Rotary Encoder",

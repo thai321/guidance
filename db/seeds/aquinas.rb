@@ -2,6 +2,14 @@ u7 = User.create(username: 'Thomas Aquinas', email: 'aquinas@example.com', passw
 u7.image = File.new("#{Rails.root}/app/assets/images/aquinas.jpg")
 u7.save
 
+# user_ids = []
+# User.all.map do |u|
+#   user_ids.push(u.id) if u7.id != u.id
+# end
+#
+# u7.follower_ids = user_ids
+# u7.save
+
 
 p7 = Project.create(
   title: "Fast Multiply Numbers Between 1-100",

@@ -2,6 +2,14 @@ u3 = User.create(username: 'Plato', email: 'plato@example.com', password: '12345
 u3.image = File.new("#{Rails.root}/app/assets/images/plato.jpg")
 u3.save
 
+# user_ids = []
+# User.all.map do |u|
+#   user_ids.push(u.id) if u3.id != u.id
+# end
+#
+# u3.follower_ids = user_ids
+# u3.save
+
 
 p3 = Project.create(
   title: "Morse Code by a PS\\2 Keyboard",
