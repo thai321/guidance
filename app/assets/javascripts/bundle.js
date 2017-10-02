@@ -71721,7 +71721,10 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
     var project = state.entities.projects[projectId];
     if (project) {
-      idx = project.step_ids.indexOf(stepId) + 1;
+      var steps = project.step_ids.sort(function (a, b) {
+        return a.id - b.id;
+      });
+      idx = steps.indexOf(stepId) + 1;
     }
   }
 
