@@ -17,9 +17,11 @@ t5 = Tag.create(name: 'Other')
 
 puts "Create 5 tags"
 
-load "#{Rails.root}/db/seeds/guest.rb"
-puts "Create Guest and guest's projects"
+demo = User.create(username: 'guest', email: 'guest@example.com', password: '123456')
+demo.image = File.new("#{Rails.root}/app/assets/images/thai.jpg")
+demo.save
 
+puts "Create Guest account"
 
 load "#{Rails.root}/db/seeds/aristotle.rb"
 puts "Create Aristotle and his project"
@@ -59,23 +61,25 @@ puts "Create Hume and his project"
 load "#{Rails.root}/db/seeds/newton.rb"
 puts "Create Newton and his project"
 
+load "#{Rails.root}/db/seeds/guest.rb"
+puts "Create guest's projects"
 
 
 puts 'Create 12 Users, 15 projects and many steps'
 
 
-# 3.times do
-#   User.ids.each do |id|
-#     project_id = rand(1..14)
-#     until !User.find(id).favorite_project_ids.include?(project_id)
-#       project_id = rand(1..14)
-#     end
-#
-#     Favorite.create(project_id: project_id, user_id: id)
-#   end
-# end
+4.times do
+  User.ids.each do |id|
+    project_id = rand(1..14)
+    until !User.find(id).favorite_project_ids.include?(project_id)
+      project_id = rand(1..14)
+    end
 
-# puts "Create favorite_projects/Likes"
+    Favorite.create(project_id: project_id, user_id: id)
+  end
+end
+
+puts "Create favorite_projects/Likes"
 
 3.times do
   User.ids.each do |id|

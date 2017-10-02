@@ -100,7 +100,7 @@ class SessionForm extends React.Component {
       <div>
         <div className="main-index">
           <div className="index-img">
-            <img src="http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg" />
+            <img src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/2680043/580/386/m1/fpnw/wm0/timeline-paper-style-design-4-steps-converted-01-.jpg?1494624097&s=7c44b2e5a795f5b5a65b0eb0116bb280" />
           </div>
 
           <form className="form-horizontal session-form">
