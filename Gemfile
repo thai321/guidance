@@ -39,13 +39,13 @@ gem 'aws-sdk', '< 3.0'
 gem 'newrelic_rpm'
 # gem 'thin'
 gem 'listen', '>= 3.0.5', '< 3.2'
+gem 'pry-rails'
 
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
-  gem 'pry-rails'
   gem 'annotate'
   gem 'binding_of_caller'
   gem 'better_errors'

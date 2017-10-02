@@ -18,24 +18,14 @@ load "#{Rails.root}/db/seeds/plato.rb"
 load "#{Rails.root}/db/seeds/pythagoras.rb"
 load "#{Rails.root}/db/seeds/rene.rb"
 load "#{Rails.root}/db/seeds/lewis.rb"
+load "#{Rails.root}/db/seeds/aquinas.rb"
+load "#{Rails.root}/db/seeds/epicurus.rb"
+load "#{Rails.root}/db/seeds/socrates.rb"
+load "#{Rails.root}/db/seeds/hume.rb"
 
 
-u7 = User.create(username: 'Thomas Aquinas', email: 'aquinas@example.com', password: '123456')
-u7.image = File.new("#{Rails.root}/app/assets/images/aquinas.jpg")
-u7.save
-
-u8 = User.create(username: 'Epicurus', email: 'epicurus@example.com', password: '123456')
-u8.image = File.new("#{Rails.root}/app/assets/images/epicurus.jpg")
-u8.save
-
-u9 = User.create(username: 'Socrates', email: 'socrates@example.com', password: '123456')
-u9.image = File.new("#{Rails.root}/app/assets/images/socrates.jpg")
-u9.save
 
 
-u10 = User.create(username: 'David Hume', email: 'davidhume@example.com', password: '123456')
-u10.image = File.new("#{Rails.root}/app/assets/images/davidhume.jpg")
-u10.save
 
 u11 = User.create(username: 'Isaac Newton', email: 'isaacnewton@example.com', password: '123456')
 u11.image = File.new("#{Rails.root}/app/assets/images/newton.jpg")
