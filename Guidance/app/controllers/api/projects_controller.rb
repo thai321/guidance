@@ -12,7 +12,7 @@ class Api::ProjectsController < ApplicationController
     elsif project_params[:tag_name]
       @projects = Tag.find_by(name: project_params[:tag_name]).projects.includes(:tags).where(published: true)
     else # favorite
-      @projects = Project.includes(:favorite_users).find(project_params[:project_ids]).includes(:tags)
+      @projects = Project.includes(:favorite_users, :tags).find(project_params[:project_ids])
     end
     render :index
   end

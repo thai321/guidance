@@ -13,7 +13,7 @@ class FavoriteShow extends React.Component {
   render() {
     const { user, favorites } = this.props;
 
-    if (!user || !favorites) {
+    if (!user) {
       return <div className="loader" />;
     } else {
       return (
