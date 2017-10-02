@@ -63279,7 +63279,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
   return {
     project: project,
-    steps: Object.values(stepObj),
+    steps: Object.values(stepObj).sort(function (a, b) {
+      return a.id - b.id;
+    }),
     currentUser: state.session.currentUser
   };
 };
