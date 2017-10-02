@@ -71722,7 +71722,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
     var project = state.entities.projects[projectId];
     if (project) {
       var steps = project.step_ids.sort(function (a, b) {
-        return a.id - b.id;
+        return a - b;
       });
       idx = steps.indexOf(stepId) + 1;
     }
