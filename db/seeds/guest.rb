@@ -1,4 +1,4 @@
-demo = User.create(username: 'guest', email: 'guest@example.com', password: '123456')
+demo = User.find_by(username: 'guest')
 
 # user_ids = []
 # User.all.map do |u|

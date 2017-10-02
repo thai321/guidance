@@ -45932,7 +45932,7 @@ var SessionForm = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'index-img' },
-            _react2.default.createElement('img', { src: 'http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg' })
+            _react2.default.createElement('img', { src: 'https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/2680043/580/386/m1/fpnw/wm0/timeline-paper-style-design-4-steps-converted-01-.jpg?1494624097&s=7c44b2e5a795f5b5a65b0eb0116bb280' })
           ),
           _react2.default.createElement(
             'form',
@@ -73072,7 +73072,7 @@ var FavoriteShow = function (_React$Component) {
           favorites = _props.favorites;
 
 
-      if (!user || !favorites) {
+      if (!user) {
         return _react2.default.createElement('div', { className: 'loader' });
       } else {
         return _react2.default.createElement(
