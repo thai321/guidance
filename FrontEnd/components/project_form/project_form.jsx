@@ -84,7 +84,7 @@ class ProjectForm extends React.Component {
       const { projectId } = this.props.match.params;
       this.props
         .updateProjectOption(formData, projectId)
-        .then(this.setState({ loading: true }))
+        .then(action => this.setState({ loading: true }))
         .then(() =>
           this.props.history
             .push(`/projects/${projectId}`)

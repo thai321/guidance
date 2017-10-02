@@ -71430,7 +71430,9 @@ var ProjectForm = function (_React$Component) {
       } else {
         var projectId = this.props.match.params.projectId;
 
-        this.props.updateProjectOption(formData, projectId).then(this.setState({ loading: true })).then(function () {
+        this.props.updateProjectOption(formData, projectId).then(function (action) {
+          return _this3.setState({ loading: true });
+        }).then(function () {
           return _this3.props.history.push('/projects/' + projectId).then(_this3.setState({ loading: false }));
         });
       }
