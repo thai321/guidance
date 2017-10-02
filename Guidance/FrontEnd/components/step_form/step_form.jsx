@@ -82,6 +82,7 @@ class StepForm extends React.Component {
           <Link to={`/projects/${project_id}`}>
             <i className="fa fa-arrow-circle-o-left fa-4x" />
           </Link>
+          <h1 className="none">{/*header*/}</h1>
           <h1>{header}</h1>
         </div>
         <div className="step-form">
