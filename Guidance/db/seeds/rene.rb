@@ -2,6 +2,14 @@ u5 = User.create(username: 'Rene Descartes', email: 'rene@example.com', password
 u5.image = File.new("#{Rails.root}/app/assets/images/rene.jpg")
 u5.save
 
+# user_ids = []
+# User.all.map do |u|
+#   user_ids.push(u.id) if u5.id != u.id
+# end
+#
+# u5.follower_ids = user_ids
+# u5.save
+
 p5 = Project.create(
   title: "How to Make a Wheel Encoder",
 description:

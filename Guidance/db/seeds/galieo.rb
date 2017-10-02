@@ -3,6 +3,14 @@ u2.image = File.new("#{Rails.root}/app/assets/images/galileo.jpg")
 u2.save
 
 
+# user_ids = []
+# User.all.map do |u|
+#   user_ids.push(u.id) if u2.id != u.id
+# end
+#
+# u2.follower_ids = user_ids
+# u2.save
+
 
 p2 = Project.create(
   title: "The Morse Translator With Arduino ",
