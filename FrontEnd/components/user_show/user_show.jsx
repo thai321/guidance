@@ -58,6 +58,7 @@ class UserShow extends React.Component {
         this.setState(action.user);
         const hash = { userId: action.user.id, filter };
         this.props.fetchProjects(action.user.id, filter);
+        this.props.fetchFavoriteProjects(action.user.favorite_projects);
         this.props.fetchFollowers(this.props.user.id);
         this.props.fetchFollowees(this.props.user.id);
       });
