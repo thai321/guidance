@@ -10,6 +10,19 @@ class FavoriteShow extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchFavoriteProjects(this.props.user.favorite_projects);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const oldId = this.props.user.id;
+    const newId = nextProps.user.id;
+
+    if (oldId !== newId) {
+      this.props.fetchFavoriteProjects(nextProps.user.favorite_projects);
+    }
+  }
+
   render() {
     const { user, favorites } = this.props;
 
