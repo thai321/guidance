@@ -72362,6 +72362,7 @@ var UserShow = function (_React$Component) {
           _this3.setState(action.user);
           var hash = { userId: action.user.id, filter: filter };
           _this3.props.fetchProjects(action.user.id, filter);
+          _this3.props.fetchFavoriteProjects(action.user.favorite_projects);
           _this3.props.fetchFollowers(_this3.props.user.id);
           _this3.props.fetchFollowees(_this3.props.user.id);
         });
@@ -73082,6 +73083,21 @@ var FavoriteShow = function (_React$Component) {
   }
 
   _createClass(FavoriteShow, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.props.fetchFavoriteProjects(this.props.user.favorite_projects);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var oldId = this.props.user.id;
+      var newId = nextProps.user.id;
+
+      if (oldId !== newId) {
+        this.props.fetchFavoriteProjects(nextProps.user.favorite_projects);
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
