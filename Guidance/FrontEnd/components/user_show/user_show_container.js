@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
-import { fetchUser, updateUserOption } from '../../actions/user_actions';
-import { fetchFollowers, fetchFollowees } from '../../actions/user_actions';
+import {
+  fetchUser,
+  updateUserOption,
+  fetchFollowers,
+  fetchFollowees
+} from '../../actions/user_actions';
+
 import {
   fetchProjects,
   fetchFavoriteProjects
