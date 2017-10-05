@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 
 import UserFollow from './user_follow';
 
+import { fetchFollowers, fetchFollowees } from '../../actions/user_actions';
+
 const mapStateToProps = (state, ownProps) => {
   const { user } = ownProps;
 
@@ -26,8 +28,16 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     followerUsers,
-    followeeUsers
+    followeeUsers,
+    Element: ownProps.Element
   };
 };
 
-export default connect(mapStateToProps, null)(UserFollow);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchFollowers: id => dispatch(fetchFollowers(id)),
+    fetchFollowees: id => dispatch(fetchFollowees(id))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserFollow);
