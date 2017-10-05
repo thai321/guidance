@@ -4,8 +4,6 @@ import { withRouter } from 'react-router-dom';
 import ProjectForm from './project_form';
 
 import {
-  createProject,
-  updateProject,
   fetchProject,
   createProjectOption,
   updateProjectOption
@@ -42,14 +40,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  let action =
-    ownProps.match.path === '/projects/new'
-      ? createProjectOption
-      : updateProject;
-
   return {
     fetchProject: id => dispatch(fetchProject(id)),
-    action: project => dispatch(action(project)),
     createProjectOption: formData => dispatch(createProjectOption(formData)),
     updateProjectOption: (formData, id) =>
       dispatch(updateProjectOption(formData, id))

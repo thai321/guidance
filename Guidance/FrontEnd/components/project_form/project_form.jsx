@@ -3,12 +3,6 @@ import { Link } from 'react-router-dom';
 
 import ReactQuill from 'react-quill';
 
-import {
-  createProjectOption,
-  updateProject,
-  updateProjectOption
-} from '../../util/project_api_util';
-
 class ProjectForm extends React.Component {
   constructor(props) {
     super(props);
@@ -82,7 +76,6 @@ class ProjectForm extends React.Component {
     if (this.props.formType === 'new') {
       this.setState({ loading: true });
       this.props.createProjectOption(formData).then(action => {
-        // debugger;
         this.props.history.push(`/projects/${action.project.id}`);
       }, this.setState({ loading: false }));
     } else {
