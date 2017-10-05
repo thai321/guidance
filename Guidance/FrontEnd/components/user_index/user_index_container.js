@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchUser, fetchUsers } from '../../actions/user_actions';
-
-import { fetchProject, fetchProjects } from '../../actions/project_actions';
+import { fetchUsers } from '../../actions/user_actions';
 
 import UserIndex from './user_index';
 
@@ -21,8 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUsers: () => dispatch(fetchUsers()),
-    fetchUser: id => dispatch(fetchUser(id))
+    fetchUsers: () => dispatch(fetchUsers())
   };
 };
 
