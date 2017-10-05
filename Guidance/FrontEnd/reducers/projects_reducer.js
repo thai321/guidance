@@ -40,14 +40,12 @@ const ProjectsReducer = (state = _defaultState, action) => {
       newState = Object.assign({}, state);
 
       const projectId = action.project.id;
-      // if (newState.allIds.includes(action.project.id)) {
       const i = newState.allIds.indexOf(action.project.id);
       newState.allIds = newState.allIds
         .slice(0, i)
         .concat(newState.allIds.slice(i + 1));
 
       delete newState[projectId];
-      // }
       return newState;
 
     case RECEIVE_FAVORITE:
