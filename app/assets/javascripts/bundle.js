@@ -71921,8 +71921,6 @@ var _reactRedux = __webpack_require__(10);
 
 var _user_actions = __webpack_require__(32);
 
-var _project_actions = __webpack_require__(18);
-
 var _user_index = __webpack_require__(486);
 
 var _user_index2 = _interopRequireDefault(_user_index);
@@ -71946,9 +71944,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchUsers: function fetchUsers() {
       return dispatch((0, _user_actions.fetchUsers)());
-    },
-    fetchUser: function fetchUser(id) {
-      return dispatch((0, _user_actions.fetchUser)(id));
     }
   };
 };
