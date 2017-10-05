@@ -117,5 +117,4 @@ class User < ApplicationRecord
     self.image.url.downcase!
   end
 
-
 end

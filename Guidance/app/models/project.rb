@@ -67,8 +67,6 @@ class Project < ApplicationRecord
     regex = /^.*(youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#\&\?]*).*/
     if (self.video_url && self.video_url.match(regex))
       self.video_url = 'https://www.youtube.com/embed/' + self.video_url.match(regex)[2]
-    # else
-    #   self.video_url = 'https://youtu.be/8aGhZQkoFbQ'
     end
   end
 
