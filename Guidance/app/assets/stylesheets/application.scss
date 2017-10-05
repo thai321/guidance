@@ -17,9 +17,8 @@
 @import 'font-awesome';
 
 @import 'base/loading';
-// @import 'base/reset';
-//
-// // Components
+
+// Components
 @import 'components/navbar';
 @import 'components/session_form';
 @import 'components/project_index';
@@ -58,8 +57,6 @@ input {
   margin-bottom: 80px;
   display: flex;
   justify-content: center;
-  // flex-direction: column;
-  // width: 1000px;
   width: 1140px;
 }
 

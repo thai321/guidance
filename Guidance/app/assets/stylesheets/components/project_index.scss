@@ -1,7 +1,6 @@
 .project-index {
   display: flex;
   list-style: none;
-  // background-color: gray;
   width: 97%;
   margin: 0 auto;
 }
@@ -9,8 +8,6 @@
 .thumbnail {
   width: 99%;
   max-height: 99%;
-
-  // overflow: hidden;
 }
 
 .thumbnail img {
@@ -61,7 +58,6 @@
 .image-border {
   border-radius: 5px;
   border: 1px solid #e9ecef;
-  // padding: 10px;
 }
 
 .project-index-item-tag {
