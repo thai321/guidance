@@ -1,6 +1,4 @@
 .main-index {
-  // width: 99%;
-  // margin-left: 10px;
   display: flex;
   justify-content: center;
   height: 400px;
@@ -22,9 +20,7 @@
 }
 
 .index-img {
-  // flex: 1;
   display: block;
-  // background-color: red;
   width: 70%;
   overflow: hidden;
 }
@@ -34,17 +30,12 @@
   min-width: 100%;
   min-height: 100%;
   position: relative;
-  // left: -5px;
-  // right: 20px;
   top: -50px;
-  // background-position: right 20px bottom 10px;
 }
 
 .session-form {
-  // flex: 1;
   display: flex;
   flex-direction: column;
-  // background-color: gray;
   justify-content: center;
   width: 30%;
   margin-left: 10px;
