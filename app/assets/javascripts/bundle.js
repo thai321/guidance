@@ -16519,9 +16519,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchProjects: function fetchProjects() {
       return dispatch((0, _project_actions.fetchProjects)());
-    },
-    fetchProject: function fetchProject(id) {
-      return dispatch((0, _project_actions.fetchProjects)(id));
     }
   };
 };
