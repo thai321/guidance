@@ -64025,9 +64025,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     createComment: function createComment(id) {
       return dispatch((0, _comment_actions.createComment)(id));
-    },
-    updateComment: function updateComment(comment) {
-      return dispatch((0, _comment_actions.updateComment)(comment));
     }
   };
 };
