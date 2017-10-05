@@ -59,9 +59,7 @@ class StepForm extends React.Component {
       this.props.history
         .push(`/projects/${projectId}`)
         .then(this.setState({ loading: false }));
-      // .then(this.setState({ loading: true }))
     });
-    // this.setState({ loading: false });
   }
 
   render() {
