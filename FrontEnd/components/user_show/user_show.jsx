@@ -7,7 +7,7 @@ import { uniqueId } from '../../util/id_generator';
 import ProjectIndexItem from '../project_index/project_index_item';
 import FavoriteShowContainer from '../favorite_show/favorite_show_container';
 
-import UserIndexItem from '../user_index/user_index_item';
+import UserFollowContainer from './user_follow_container';
 
 class UserShow extends React.Component {
   constructor(props) {
@@ -180,17 +180,6 @@ class UserShow extends React.Component {
     }
   }
 
-  displayFollowUsers(users, type) {
-    return users.map((user, idx) => {
-      return (
-        <UserIndexItem
-          key={user.id + user.username + idx + uniqueId()}
-          user={user}
-        />
-      );
-    });
-  }
-
   render() {
     if (!this.props.user) {
       return <div className="loader" />;
@@ -199,8 +188,8 @@ class UserShow extends React.Component {
         user,
         projectsByUser,
         unPublishedProjects,
-        followeeUsers,
-        followerUsers
+        followees,
+        followers
       } = this.props;
 
       const publishText =
@@ -280,23 +269,23 @@ class UserShow extends React.Component {
               </div>
 
               <div className="user-show-follow-buttons">
-                {followeeUsers.length > 0 ? (
+                {followees.length > 0 ? (
                   <button
                     className="btn btn-outline-primary"
                     onClick={this.handleScroll('following')}
                   >
-                    {`${followeeUsers.length} Following`}
+                    {`${followees.length} Following`}
                   </button>
                 ) : (
                   ''
                 )}
 
-                {followerUsers.length > 0 ? (
+                {followers.length > 0 ? (
                   <button
                     className="btn btn-outline-success"
                     onClick={this.handleScroll('follower')}
                   >
-                    {`${followerUsers.length} Followers`}
+                    {`${followers.length} Followers`}
                   </button>
                 ) : (
                   ''
@@ -337,31 +326,7 @@ class UserShow extends React.Component {
 
           <FavoriteShowContainer user={user} />
 
-          <div className="user-follow-index">
-            {followeeUsers.length === 0 ? (
-              ''
-            ) : (
-              <div className="user-follow-following">
-                <Element name="following" />
-                <h2>{followeeUsers.length} Following</h2>
-                <div className="row">
-                  {this.displayFollowUsers(followeeUsers, 'follower')}
-                </div>
-              </div>
-            )}
-
-            {followerUsers.length === 0 ? (
-              ''
-            ) : (
-              <div className="user-follow-follower">
-                <Element name="follower" />
-                <h2>{followerUsers.length} Followers</h2>
-                <div className="row">
-                  {this.displayFollowUsers(followerUsers, 'followers')}
-                </div>
-              </div>
-            )}
-          </div>
+          <UserFollowContainer user={user} Element={Element} />
         </div>
       );
     }

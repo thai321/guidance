@@ -51,26 +51,12 @@ const mapStateToProps = (state, ownProps) => {
     }
   }
 
-  const followerUsers = [];
-  const followeeUsers = [];
+  let followers = [];
+  let followees = [];
 
   if (user) {
-    const followers = user.followers;
-    const followees = user.followees;
-
-    followers.forEach(id => {
-      const usr = state.entities.users[id];
-      if (usr) {
-        followerUsers.push(usr);
-      }
-    });
-
-    followees.forEach(id => {
-      const usr = state.entities.users[id];
-      if (usr) {
-        followeeUsers.push(usr);
-      }
-    });
+    followers = user.followers;
+    followees = user.followees;
   }
 
   return {
@@ -78,8 +64,8 @@ const mapStateToProps = (state, ownProps) => {
     currentUser,
     unPublishedProjects,
     projectsByUser,
-    followerUsers,
-    followeeUsers
+    followers,
+    followees
   };
 };
 
