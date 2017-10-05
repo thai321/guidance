@@ -3,11 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import CommentForm from './comment_form';
 
-import {
-  createComment,
-  updateComment,
-  fetchComments
-} from '../../actions/comment_actions';
+import { createComment, fetchComments } from '../../actions/comment_actions';
 
 const mapStateToProps = (state, ownProps) => {
   const { currentUser } = state.session;
@@ -25,8 +21,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   fetchComments: projectId => dispatch(fetchComments(projectId)),
-  createComment: id => dispatch(createComment(id)),
-  updateComment: comment => dispatch(updateComment(comment))
+  createComment: id => dispatch(createComment(id))
 });
 
 export default withRouter(
