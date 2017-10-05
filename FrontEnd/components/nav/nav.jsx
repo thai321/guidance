@@ -23,28 +23,6 @@ class Nav extends React.Component {
     }
   }
 
-  displaySearch() {
-    const { pathname } = this.props.location;
-    const text = pathname === '/' ? "Let's Make ..." : 'Find a teacher';
-
-    console.log(pathname);
-    if (pathname === '/' || pathname === '/users') {
-      return (
-        <div className="col-md-6">
-          <form className="navbar-form" role="search">
-            <div className="input-group">
-              <input
-                type="text"
-                className="form-control"
-                placeholder={`\uf002 ${text}`}
-              />
-            </div>
-          </form>
-        </div>
-      );
-    }
-  }
-
   render() {
     const { currentUser, location } = this.props;
     const text = "Let's Make ...";

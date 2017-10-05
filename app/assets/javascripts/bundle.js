@@ -45277,34 +45277,6 @@ var Nav = function (_React$Component) {
       }
     }
   }, {
-    key: 'displaySearch',
-    value: function displaySearch() {
-      var pathname = this.props.location.pathname;
-
-      var text = pathname === '/' ? "Let's Make ..." : 'Find a teacher';
-
-      console.log(pathname);
-      if (pathname === '/' || pathname === '/users') {
-        return _react2.default.createElement(
-          'div',
-          { className: 'col-md-6' },
-          _react2.default.createElement(
-            'form',
-            { className: 'navbar-form', role: 'search' },
-            _react2.default.createElement(
-              'div',
-              { className: 'input-group' },
-              _react2.default.createElement('input', {
-                type: 'text',
-                className: 'form-control',
-                placeholder: '\uF002 ' + text
-              })
-            )
-          )
-        );
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
