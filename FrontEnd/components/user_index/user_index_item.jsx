@@ -2,10 +2,6 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 class UserIndexItem extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       id,

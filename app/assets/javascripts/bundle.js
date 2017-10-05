@@ -28914,10 +28914,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UserIndexItem = function (_React$Component) {
   _inherits(UserIndexItem, _React$Component);
 
-  function UserIndexItem(props) {
+  function UserIndexItem() {
     _classCallCheck(this, UserIndexItem);
 
-    return _possibleConstructorReturn(this, (UserIndexItem.__proto__ || Object.getPrototypeOf(UserIndexItem)).call(this, props));
+    return _possibleConstructorReturn(this, (UserIndexItem.__proto__ || Object.getPrototypeOf(UserIndexItem)).apply(this, arguments));
   }
 
   _createClass(UserIndexItem, [{
