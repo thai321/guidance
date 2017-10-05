@@ -41084,12 +41084,10 @@ var ProjectsReducer = function ProjectsReducer() {
       newState = Object.assign({}, state);
 
       var projectId = action.project.id;
-      // if (newState.allIds.includes(action.project.id)) {
       var i = newState.allIds.indexOf(action.project.id);
       newState.allIds = newState.allIds.slice(0, i).concat(newState.allIds.slice(i + 1));
 
       delete newState[projectId];
-      // }
       return newState;
 
     case _favorite_actions.RECEIVE_FAVORITE:
@@ -45148,10 +45146,6 @@ var Auth = function Auth(_ref) {
       path = _ref.path,
       loggedIn = _ref.loggedIn;
 
-  // const Auth = props => {
-  // props = Object(path: '/login', match: Object, location: Object,
-  // history: Object, component: function, loggedIn: false)
-  // debugger;
   return _react2.default.createElement(_reactRouterDom.Route, {
     path: path,
     render: function render(props) {
