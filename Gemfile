@@ -29,7 +29,7 @@ gem 'aws-sdk', '< 3.0'
 gem 'newrelic_rpm'
 gem 'listen', '>= 3.0.5', '< 3.2'
 gem 'pry-rails'
-
+gem 'rails_12factor'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
