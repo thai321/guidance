@@ -2163,9 +2163,9 @@ var createProjectOption = exports.createProjectOption = function createProjectOp
   };
 };
 
-var updateProjectOption = exports.updateProjectOption = function updateProjectOption(formData, id, callback) {
+var updateProjectOption = exports.updateProjectOption = function updateProjectOption(formData, id) {
   return function (dispatch) {
-    return ProjectApiUtil.updateProjectForm(formData, id, callback).then(function (proj) {
+    return ProjectApiUtil.updateProjectForm(formData, id).then(function (proj) {
       return dispatch(receiveProject(proj));
     }).fail(function (errors) {
       return dispatch(receiveErrors(errors.responseJSON));
@@ -71228,7 +71228,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
   var errors = state.errors.session;
 
-  if (project.tags.length === 0) {
+  if (project && project.tags.length === 0) {
     project.tags = ['Other'];
   }
 
@@ -71330,7 +71330,7 @@ var ProjectForm = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      this.setState(nextProps.project);
+      if (nextProps.project) this.setState(nextProps.project);
       var projectId = this.props.match.params.projectId;
 
       var nextId = nextProps.match.params.projectId;
@@ -71382,14 +71382,19 @@ var ProjectForm = function (_React$Component) {
         this.setState({ loading: true });
         this.props.createProjectOption(formData).then(function (action) {
           _this3.props.history.push('/projects/' + action.project.id);
-        }, this.setState({ loading: false }));
+        }, function () {
+          _this3.setState({ loading: false });
+          return;
+        });
       } else {
         var projectId = this.props.match.params.projectId;
 
-        this.props.updateProjectOption(formData, projectId).then(function (action) {
-          return _this3.setState({ loading: true });
+        this.setState({ loading: true });
+        this.props.updateProjectOption(formData, projectId).then(function (action) {}, function () {
+          return _this3.setState({ loading: false });
         }).then(function () {
-          return _this3.props.history.push('/projects/' + projectId).then(_this3.setState({ loading: false }));
+          _this3.setState({ loading: false });
+          _this3.props.history.push('/projects/' + projectId);
         });
       }
     }
@@ -71807,9 +71812,12 @@ var StepForm = function (_React$Component) {
       e.preventDefault();
       var projectId = this.props.match.params.projectId;
 
+      this.setState({ loading: true });
       this.props.action(this.state).then(function (action) {
         _this4.setState({ loading: true });
-        _this4.props.history.push('/projects/' + projectId).then(_this4.setState({ loading: false }));
+        _this4.props.history.push('/projects/' + projectId);
+      }, function () {
+        return _this4.setState({ loading: true });
       });
     }
   }, {
