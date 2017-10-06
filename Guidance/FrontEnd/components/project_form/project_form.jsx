@@ -30,7 +30,7 @@ class ProjectForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState(nextProps.project);
+    if (nextProps.project) this.setState(nextProps.project);
     const { projectId } = this.props.match.params;
     const nextId = nextProps.match.params.projectId;
 
@@ -75,19 +75,25 @@ class ProjectForm extends React.Component {
 
     if (this.props.formType === 'new') {
       this.setState({ loading: true });
-      this.props.createProjectOption(formData).then(action => {
-        this.props.history.push(`/projects/${action.project.id}`);
-      }, this.setState({ loading: false }));
+      this.props.createProjectOption(formData).then(
+        action => {
+          this.props.history.push(`/projects/${action.project.id}`);
+        },
+        () => {
+          this.setState({ loading: false });
+          return;
+        }
+      );
     } else {
       const { projectId } = this.props.match.params;
+      this.setState({ loading: true });
       this.props
         .updateProjectOption(formData, projectId)
-        .then(action => this.setState({ loading: true }))
-        .then(() =>
-          this.props.history
-            .push(`/projects/${projectId}`)
-            .then(this.setState({ loading: false }))
-        );
+        .then(action => {}, () => this.setState({ loading: false }))
+        .then(() => {
+          this.setState({ loading: false });
+          this.props.history.push(`/projects/${projectId}`);
+        });
     }
   }
 

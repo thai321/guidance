@@ -62,8 +62,8 @@ export const createProjectOption = (formData, callback) => dispatch =>
     .then(proj => dispatch(receiveProject(proj)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 
-export const updateProjectOption = (formData, id, callback) => dispatch =>
-  ProjectApiUtil.updateProjectForm(formData, id, callback)
+export const updateProjectOption = (formData, id) => dispatch =>
+  ProjectApiUtil.updateProjectForm(formData, id)
     .then(proj => dispatch(receiveProject(proj)))
     .fail(errors => dispatch(receiveErrors(errors.responseJSON)));
 

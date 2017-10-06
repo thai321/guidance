@@ -27,7 +27,7 @@ const mapStateToProps = (state, ownProps) => {
 
   const errors = state.errors.session;
 
-  if (project.tags.length === 0) {
+  if (project && project.tags.length === 0) {
     project.tags = ['Other'];
   }
 
