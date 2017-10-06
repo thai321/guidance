@@ -54,12 +54,14 @@ class StepForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { projectId } = this.props.match.params;
-    this.props.action(this.state).then(action => {
-      this.setState({ loading: true });
-      this.props.history
-        .push(`/projects/${projectId}`)
-        .then(this.setState({ loading: false }));
-    });
+    this.setState({ loading: true });
+    this.props.action(this.state).then(
+      action => {
+        this.setState({ loading: true });
+        this.props.history.push(`/projects/${projectId}`);
+      },
+      () => this.setState({ loading: true })
+    );
   }
 
   render() {
