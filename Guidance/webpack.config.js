@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
@@ -22,5 +23,5 @@ module.exports = {
       }
     ]
   },
-  devtool: 'source-maps'
+  devtool: 'source-maps',
 };
