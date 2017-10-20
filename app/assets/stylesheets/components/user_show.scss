@@ -1,0 +1,70 @@
+.user-index {
+  display: flex;
+}
+
+.user-show-img {
+  width: 60px;
+}
+
+.user-index-info {
+  width: 20rem;
+}
+
+.card-user-title {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-text-user-show {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  border-top: 2px solid;
+
+  span {
+    font-size: 20px;
+  }
+}
+
+.user-show-projects {
+  display: flex;
+  list-style: none;
+  width: 97%;
+  margin: 0 auto;
+}
+
+.submit-btn {
+  margin-left: 100px;
+}
+
+.user-show-page-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+.user-show-page-buttons {
+  display: flex;
+  flex: 1;
+
+  justify-content: center;
+  align-items: center;
+
+  button {
+    margin-top: 5px;
+  }
+
+  .user-show-page-buttons-projects {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+  }
+
+  .user-show-follow-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+}
