@@ -1,7 +1,7 @@
-## Features of a great production readme:
+## Features of a great production README:
 - **[Guidance](https://guidance-app.herokuapp.com/#/)**, a [Instructables](https://www.instructables.com/) clone, is a social media application that allows users to explore, share their work, learn and make anything by following the steps of guidance
 
-- [Guidance App live](https://guidance-app.herokuapp.com/#/signup)
+- [Guidance App live](https://guidance-app.herokuapp.com/#/)
 
 ### Technologies Used
 - Ruby on Rails v5.1.4
@@ -42,10 +42,6 @@
 
 #### Search
 - User can search for any guides and other users by keyword
-
-#### Taggings
-- User can add tag to their guides
-- Each project has tags on it
 
 
 ----------
@@ -140,10 +136,8 @@
 #### Guides Sort By
 - Currently, a user's guides can only be shown in the order of when a note was last updated at. I plan to allow users the capability of sorting their guides by date created, date update uploaded, and guide title. With this filtering capability, users will given more control of how they prefer their notes to be organized and will greatly increase their user experience.
 
-
 #### Taggings
 - User can add tag to their guides
-
 
 #### classes
 - Guides can be classified into different group like classes (Math, Computer Science, Music, ...)
