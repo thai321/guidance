@@ -1,0 +1,68 @@
+.main-index {
+  display: flex;
+  justify-content: center;
+  height: 400px;
+  width: 1272px;
+  min-width: 20%;
+}
+
+.session-buttons {
+  display: flex;
+  justify-content: space-between;
+
+  button:last-child {
+    margin-left: 40px;
+  }
+}
+
+.session-buttons button:hover {
+  cursor: pointer;
+}
+
+.index-img {
+  display: block;
+  width: 70%;
+  overflow: hidden;
+}
+
+.index-img img {
+  display: block;
+  min-width: 100%;
+  min-height: 100%;
+  position: relative;
+  top: -50px;
+}
+
+.session-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+  margin-left: 10px;
+
+  border: 2px solid black;
+}
+
+.text-session {
+  text-align: center;
+}
+
+.session-form-login-button {
+  display: flex;
+  justify-content: space-around;
+
+  a {
+    margin-right: 15px;
+  }
+}
+
+.session-font-input {
+  font-size: 20px;
+  font-family: 'Lora', serif;
+}
+
+.session-text-header {
+  font-family: 'Hind', sans-serif;
+
+  font-size: 34px;
+}
