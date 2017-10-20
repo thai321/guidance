@@ -1,7 +1,7 @@
 ## Features of a great production readme:
 - **[Guidance](https://guidance-app.herokuapp.com/#/)**, a [Instructables](https://www.instructables.com/) clone, is a social media application that allows users to explore, share their work, learn and make anything by following the steps of guidance
 
-- [Guidance App live](https://guidance-app.herokuapp.com/#/)
+- [Guidance App live](https://guidance-apps.herokuapp.com/#/signup)
 
 ### Technologies Used
 - Ruby on Rails v5.1.4
