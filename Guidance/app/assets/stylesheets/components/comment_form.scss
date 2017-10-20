@@ -1,0 +1,22 @@
+.comment-quill {
+  height: 250px;
+  background-color: white;
+  padding-bottom: 66px;
+}
+
+.comment-form-actual {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+
+  input {
+    margin-top: 30px;
+  }
+
+  img {
+    width: 30%;
+    height: 30%;
+  }
+}

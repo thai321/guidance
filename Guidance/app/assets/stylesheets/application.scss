@@ -1,0 +1,78 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+@import 'bootstrap';
+@import 'font-awesome';
+
+@import 'base/loading';
+
+// Components
+@import 'components/navbar';
+@import 'components/session_form';
+@import 'components/project_index';
+@import 'components/project_show';
+@import 'components/project_form';
+@import 'components/user_show';
+@import 'components/user_index_item';
+@import 'components/step_form';
+@import 'components/step_item';
+@import 'components/comment_show';
+@import 'components/comment_form';
+@import 'components/user_follow';
+@import 'components/project_tag';
+
+body {
+  background-color: white;
+  font-size: 12px;
+  line-height: normal;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+textarea,
+input {
+  padding: 10px;
+  font-family: FontAwesome, 'Open Sans', Verdana, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+.main-app {
+  margin-top: 45px;
+  margin-bottom: 80px;
+  display: flex;
+  justify-content: center;
+  width: 1140px;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  background-color: #eee;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.none {
+  display: none;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Lora');
+@import url('https://fonts.googleapis.com/css?family=Hind|Quattrocento+Sans|Zilla+Slab|Faustina|Open+Sans|Saira|Lato|Noto+Serif|Bree+Serif|EB+Garamond');
