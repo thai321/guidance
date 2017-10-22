@@ -4,6 +4,7 @@
 - [Guidance App live](https://guidance-app.herokuapp.com/#/)
 
 - Demo:
+
 ![Demo](docs/demo.gif)
 
 
