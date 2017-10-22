@@ -3,6 +3,9 @@
 
 - [Guidance App live](https://guidance-app.herokuapp.com/#/)
 
+- Demo:
+![Demo](docs/demo.gif)
+
 ### Technologies Used
 - Ruby on Rails v5.1.4
 - PostgreSQL
