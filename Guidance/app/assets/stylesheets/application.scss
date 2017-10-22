@@ -32,6 +32,7 @@
 @import 'components/comment_form';
 @import 'components/user_follow';
 @import 'components/project_tag';
+@import 'components/footer';
 
 body {
   background-color: white;
@@ -64,6 +65,7 @@ input {
   display: flex;
   justify-content: center;
   background-color: #eee;
+  padding-bottom: 5%;
 }
 
 button:hover {
