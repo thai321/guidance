@@ -91,7 +91,7 @@ class ProjectIndexItem extends React.Component {
 
             <h6>by {author}</h6>
           </div>
-          <p>
+          <p className="project-visited">
             <Link to={`/projects/${id}`} className="btn btn-info btn-block">
               Project Information
             </Link>

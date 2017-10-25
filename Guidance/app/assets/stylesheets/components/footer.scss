@@ -8,4 +8,18 @@
   li {
     margin-left: 10px;
   }
+
+  .nav-item a:hover,
+  .nav-item a:visited,
+  .nav-item a:active {
+    color: inherit;
+  }
 }
+
+// a,
+// a:visited,
+// a:hover,
+// a:active {
+// {
+//   color: inherit;
+// }
