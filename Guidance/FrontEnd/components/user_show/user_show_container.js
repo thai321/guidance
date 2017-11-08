@@ -4,7 +4,8 @@ import {
   fetchUser,
   updateUserOption,
   fetchFollowers,
-  fetchFollowees
+  fetchFollowees,
+  updateUser
 } from '../../actions/user_actions';
 
 import {
@@ -74,6 +75,7 @@ const mapDispatchToProps = dispatch => {
     fetchUser: id => dispatch(fetchUser(id)),
     updateUserOption: (formData, id) =>
       dispatch(updateUserOption(formData, id)),
+    updateUser: data => dispatch(updateUser(data)),
     fetchProjects: (userId, filter) => dispatch(fetchProjects(userId, filter)),
     fetchFavoriteProjects: projectIds =>
       dispatch(fetchFavoriteProjects(projectIds)),

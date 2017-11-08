@@ -14,7 +14,7 @@ class UserShow extends React.Component {
     super(props);
 
     this.state = Object.assign(
-      { loading: false, edit: false },
+      { loading: false, edit: false, biography: '' },
       this.props.currentUser
     );
 
@@ -23,8 +23,10 @@ class UserShow extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
     this.toggleFollow = this.toggleFollow.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.displayUserBio = this.displayUserBio.bind(this);
+    this.handleBioChange = this.handleBioChange.bind(this);
+    this.handleSubmitBio = this.handleSubmitBio.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +41,7 @@ class UserShow extends React.Component {
     this.props.fetchUser(this.props.match.params.userId).then(action => {
       const hash = { userId: action.user.id, filter };
       this.setState(action.user);
+      this.setState({ biography: action.user.biography });
       this.props.fetchProjects(action.user.id, filter).then(() => {
         this.props.fetchFavoriteProjects(action.user.favorite_projects);
         this.props.fetchFollowers(this.props.user.id);
@@ -102,8 +105,26 @@ class UserShow extends React.Component {
     }
   }
 
-  handleChange(value) {
+  handleChange(e, value) {
+    e.preventDefault();
     this.setState({ edit: value });
+  }
+
+  handleBioChange(e) {
+    this.setState({ biography: e.target.value });
+  }
+
+  handleSubmitBio(e) {
+    e.preventDefault();
+    const { currentUser } = this.props;
+    const { biography } = this.state;
+    this.setState({ loading: true });
+
+    this.props.updateUser({ id: currentUser.id, biography }).then(() => {
+      window.location
+        .reload()
+        .then(this.setState({ loading: false, edit: false }));
+    });
   }
 
   handleScroll(myElement) {
@@ -194,35 +215,30 @@ class UserShow extends React.Component {
     if (currentUser && currentUser.id === user.id && this.state.edit) {
       return (
         <form className="user-form-group">
-          <textarea className="form-control" rows="5" />
+          <textarea
+            className="form-control"
+            rows="5"
+            onChange={this.handleBioChange}
+            value={this.state.biography}
+          />
 
           <input
             className="btn btn-primary btn-user-submit-bio"
             type="submit"
             value="Save"
             disabled={this.state.loading}
-            onClick={this.handleSubmit}
+            onClick={this.handleSubmitBio}
           />
         </form>
       );
     } else {
       return (
         <div className="user-show-bio">
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </p>
+          <p>{this.state.biography}</p>
           {currentUser && currentUser.id === user.id ? (
             <button
               className="btn btn-warning"
-              onClick={() => this.handleChange(true)}
+              onClick={e => this.handleChange(e, true)}
             >
               Edit
             </button>
