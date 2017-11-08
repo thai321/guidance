@@ -235,16 +235,6 @@ class UserShow extends React.Component {
       return (
         <div className="user-show-bio">
           <p>{this.state.biography}</p>
-          {currentUser && currentUser.id === user.id ? (
-            <button
-              className="btn btn-warning"
-              onClick={e => this.handleChange(e, true)}
-            >
-              Edit
-            </button>
-          ) : (
-            ''
-          )}
         </div>
       );
     }
@@ -259,7 +249,8 @@ class UserShow extends React.Component {
         projectsByUser,
         unPublishedProjects,
         followees,
-        followers
+        followers,
+        currentUser
       } = this.props;
 
       const publishText =
@@ -273,6 +264,8 @@ class UserShow extends React.Component {
           ? `${unPublishedProjects.length} Un-Published Projects`
           : '';
       const hideUnPublish = UnpublishText === '' ? 'none' : '';
+      const hideBioEdit =
+        currentUser && currentUser.id === user.id ? '' : 'none';
 
       const displayUpload = () => {
         const { currentUser } = this.props;
@@ -314,7 +307,13 @@ class UserShow extends React.Component {
         <div className="container-fluid">
           <div className="user-show-page-header">
             <div className="user-show-page-info">
-              <h1>Biography</h1>
+              <h1>
+                Biography
+                <i
+                  className={`fa fa-pencil bigicon ${hideBioEdit} edit-bio-icon`}
+                  onClick={e => this.handleChange(e, true)}
+                />
+              </h1>
               {this.displayUserBio()}
 
               <div className="user-show-buttons-container">

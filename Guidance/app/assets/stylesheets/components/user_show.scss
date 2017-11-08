@@ -85,12 +85,12 @@
 .btn-user-submit-bio {
   width: 15%;
   margin: 10px auto;
+  cursor: pointer;
 }
 
 .user-show-bio {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
-  height: 50%;
   width: 98%;
   display: flex;
   flex-direction: column;
@@ -101,4 +101,8 @@
     width: 15%;
     cursor: pointer;
   }
+}
+
+.edit-bio-icon {
+  cursor: pointer;
 }
