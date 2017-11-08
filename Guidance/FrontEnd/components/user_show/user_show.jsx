@@ -13,13 +13,18 @@ class UserShow extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = Object.assign({ loading: false }, this.props.currentUser);
+    this.state = Object.assign(
+      { loading: false, edit: false },
+      this.props.currentUser
+    );
 
     Element = Scroll.Element;
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateFile = this.updateFile.bind(this);
     this.toggleFollow = this.toggleFollow.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    this.displayUserBio = this.displayUserBio.bind(this);
   }
 
   componentDidMount() {
@@ -95,6 +100,10 @@ class UserShow extends React.Component {
     if (file) {
       fileReader.readAsDataURL(file);
     }
+  }
+
+  handleChange(value) {
+    this.setState({ edit: value });
   }
 
   handleScroll(myElement) {
@@ -180,6 +189,51 @@ class UserShow extends React.Component {
     }
   }
 
+  displayUserBio() {
+    const { currentUser, user } = this.props;
+    if (currentUser && currentUser.id === user.id && this.state.edit) {
+      return (
+        <form className="user-form-group">
+          <textarea className="form-control" rows="5" />
+
+          <input
+            className="btn btn-primary btn-user-submit-bio"
+            type="submit"
+            value="Save"
+            disabled={this.state.loading}
+            onClick={this.handleSubmit}
+          />
+        </form>
+      );
+    } else {
+      return (
+        <div className="user-show-bio">
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text
+            ever since the 1500s, when an unknown printer took a galley of type
+            and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+          </p>
+          {currentUser && currentUser.id === user.id ? (
+            <button
+              className="btn btn-warning"
+              onClick={() => this.handleChange(true)}
+            >
+              Edit
+            </button>
+          ) : (
+            ''
+          )}
+        </div>
+      );
+    }
+  }
+
   render() {
     if (!this.props.user) {
       return <div className="loader" />;
@@ -243,53 +297,58 @@ class UserShow extends React.Component {
       return (
         <div className="container-fluid">
           <div className="user-show-page-header">
-            <div className="user-show-page-buttons">
-              <div className="user-show-page-buttons-projects">
-                <button
-                  className={`${hidePublish} btn btn-success`}
-                  onClick={this.handleScroll('published')}
-                >{`${projectsByUser.length} published projects`}</button>
-                <button
-                  className={`${hideUnPublish} btn btn-primary`}
-                  onClick={this.handleScroll('unPublished')}
-                >
-                  {`${unPublishedProjects.length} Un-Published Projects`}
-                </button>
+            <div className="user-show-page-info">
+              <h1>Biography</h1>
+              {this.displayUserBio()}
 
-                {user.favorite_projects.length > 0 ? (
+              <div className="user-show-buttons-container">
+                <div className="user-show-page-buttons-projects">
                   <button
-                    className="btn btn-success"
-                    onClick={this.handleScroll('favorite')}
+                    className={`${hidePublish} btn btn-success`}
+                    onClick={this.handleScroll('published')}
+                  >{`${projectsByUser.length} published projects`}</button>
+                  <button
+                    className={`${hideUnPublish} btn btn-primary`}
+                    onClick={this.handleScroll('unPublished')}
                   >
-                    {`${user.favorite_projects.length} Favorite Projects`}
+                    {`${unPublishedProjects.length} Un-Published Projects`}
                   </button>
-                ) : (
-                  ''
-                )}
-              </div>
 
-              <div className="user-show-follow-buttons">
-                {followees.length > 0 ? (
-                  <button
-                    className="btn btn-outline-primary"
-                    onClick={this.handleScroll('following')}
-                  >
-                    {`${followees.length} Following`}
-                  </button>
-                ) : (
-                  ''
-                )}
+                  {user.favorite_projects.length > 0 ? (
+                    <button
+                      className="btn btn-success"
+                      onClick={this.handleScroll('favorite')}
+                    >
+                      {`${user.favorite_projects.length} Favorite Projects`}
+                    </button>
+                  ) : (
+                    ''
+                  )}
+                </div>
 
-                {followers.length > 0 ? (
-                  <button
-                    className="btn btn-outline-success"
-                    onClick={this.handleScroll('follower')}
-                  >
-                    {`${followers.length} Followers`}
-                  </button>
-                ) : (
-                  ''
-                )}
+                <div className="user-show-follow-buttons">
+                  {followees.length > 0 ? (
+                    <button
+                      className="btn btn-outline-primary"
+                      onClick={this.handleScroll('following')}
+                    >
+                      {`${followees.length} Following`}
+                    </button>
+                  ) : (
+                    ''
+                  )}
+
+                  {followers.length > 0 ? (
+                    <button
+                      className="btn btn-outline-success"
+                      onClick={this.handleScroll('follower')}
+                    >
+                      {`${followers.length} Followers`}
+                    </button>
+                  ) : (
+                    ''
+                  )}
+                </div>
               </div>
             </div>
 

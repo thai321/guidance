@@ -46,11 +46,12 @@
   justify-content: flex-end;
 }
 
-.user-show-page-buttons {
+.user-show-page-info {
   display: flex;
+  flex-direction: column;
   flex: 1;
 
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 
   button {
@@ -66,5 +67,35 @@
   .user-show-follow-buttons {
     display: flex;
     flex-direction: column;
+  }
+}
+
+.user-show-buttons-container {
+  display: flex;
+}
+
+.user-form-group {
+  width: 98%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-user-submit-bio {
+  width: 15%;
+  margin: 10px auto;
+}
+
+.user-show-bio {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  height: 50%;
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    width: 15%;
   }
 }
