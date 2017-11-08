@@ -39,6 +39,9 @@ class ProjectIndex extends React.Component {
     return (
       <div className="project-index">
         <div className="container">
+          <h3 className="intro">
+            Guidance specializes in user-created do-it-yourself projects.
+          </h3>
           <div className="projects-searchBar">
             <div className="col-md-6">
               <input
