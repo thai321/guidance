@@ -39,6 +39,9 @@ class UserIndex extends React.Component {
       return <div className="loader" />;
     }
 
+    const numOfUsers = this.findUser();
+    const hide = numOfUsers.length > 0 ? 'none' : '';
+
     return (
       <div className="user-index-page">
         <div className="container">
@@ -54,11 +57,13 @@ class UserIndex extends React.Component {
             </div>
           </div>
           <div className="row text-center text-lg-left">
-            {this.findUser().map((user, idx) => {
+            {numOfUsers.map((user, idx) => {
               return (
                 <UserIndexItem key={user.id + idx + uniqueId()} user={user} />
               );
             })}
+
+            <h2 className={`not-found ${hide}`}>No result found</h2>
           </div>
         </div>
       </div>

@@ -36,6 +36,9 @@ class ProjectIndex extends React.Component {
   }
 
   render() {
+    const numOfProjects = this.findProject();
+    const hide = numOfProjects.length > 0 ? 'none' : '';
+
     return (
       <div className="project-index">
         <div className="container">
@@ -55,7 +58,7 @@ class ProjectIndex extends React.Component {
           </div>
 
           <div className="row text-center text-lg-left">
-            {this.findProject().map((project, idx) => {
+            {numOfProjects.map((project, idx) => {
               return (
                 <ProjectIndexItem
                   key={project.id + project.title + idx + uniqueId()}
@@ -64,6 +67,7 @@ class ProjectIndex extends React.Component {
                 />
               );
             })}
+            <h2 className={`not-found ${hide}`}>No result found</h2>
           </div>
         </div>
       </div>
