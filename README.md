@@ -135,8 +135,6 @@
   - People who follow them.
 - User can see other users dashboard, not his/her un-published guides.
 
-![g5](docs/g5.png)
-
 
 ------
 
